@@ -1,0 +1,25 @@
+{
+  "articles": [
+    {
+      "path": "about.html",
+      "title": "About this blog",
+      "description": "Welcome to my blog. I am mainly an R person so expect mostly R material! `r emo::ji(\"heart\")`\n",
+      "author": [
+        {
+          "name": "Vebash Naidoo",
+          "url": "https://twitter.com/Sciencificity"
+        }
+      ],
+      "contents": "\r\nWho am I?\r\n\r\nLike most people who will read this blog, I am a nerd, and a proud R nerd at that 😂.\r\nI am an R-Lady and proud member of AfricaR. 🌐\r\nI’m a mum, and hence that last picture of me visiting some far out galaxy (’cos that’s what you do when you have young kids, go on many adventures in far out places).\r\n\r\n\r\n\r\n",
+      "last_modified": "2020-12-12T23:53:05+02:00"
+    },
+    {
+      "path": "index.html",
+      "title": "'Curiouser and curiouser!'",
+      "author": [],
+      "contents": "\r\n\r\n\r\n\r\n",
+      "last_modified": "2020-12-12T23:53:06+02:00"
+    }
+  ],
+  "collections": ["posts/posts.json"]
+}

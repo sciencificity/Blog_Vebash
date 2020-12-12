@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" version="1.0">
+  <url>
+    <loc>https://sciencificity.blog.netlify.app/about.html</loc>
+    <lastmod>2020-12-12T23:40:16+02:00</lastmod>
+  </url>
+  <url>
+    <loc>https://sciencificity.blog.netlify.app/</loc>
+    <lastmod>2020-12-12T21:52:59+02:00</lastmod>
+  </url>
+  <url>
+    <loc>https://sciencificity.blog.netlify.app/posts/2020-12-12-using-the-tidyverse-with-databases/</loc>
+    <lastmod>2020-12-13T00:05:09+02:00</lastmod>
+  </url>
+</urlset>

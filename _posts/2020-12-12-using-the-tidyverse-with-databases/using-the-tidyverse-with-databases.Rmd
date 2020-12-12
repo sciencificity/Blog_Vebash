@@ -1,0 +1,28 @@
+---
+title: "Using the tidyverse with Databases"
+description: |
+  You don't need to be a SQL expert to work with Databases through R
+author:
+  - name: Vebash Naidoo 
+    url: https://twitter.com/Sciencificity
+    affiliation: R-Ladies Johannesburg
+    affiliation_url: https://twitter.com/RLadiesJozi
+date: 2020-12-12
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r share-again, echo=FALSE}
+xaringanExtra::use_share_again()
+```
+
+```{r embed-xaringan, echo=FALSE, fig.cap="[Slides](slides/index.html)"}
+xaringanExtra::embed_xaringan(url = "slides/index.html", ratio = "16:9")
+```
+

@@ -1,0 +1,29 @@
+---
+title: "About this blog"
+description: |
+  Welcome to my blog. I am mainly an R person so expect mostly R material! `r emo::ji("heart")`
+author:
+  - name: Vebash Naidoo 
+    url: https://twitter.com/Sciencificity
+    affiliation: R-Ladies Johannesburg
+    affiliation_url: https://twitter.com/RLadiesJozi
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+### Who am I?
+
+<img style = "max-width: 100%; 
+              max-height = 100%; 
+              display:block; 
+              margin:auto" 
+              src="whoami.jpg" 
+              width = 600px/>
+
+Like most people who will read this blog, I am a nerd, and a proud R nerd at that `r emo::ji("joy")`.
+
+I am an R-Lady and proud member of AfricaR. `r emo::ji("international")`
+
+I'm a mum, and hence that last picture of me visiting some far out galaxy ('cos that's what you do when you have young kids, go on many adventures in far out places). 

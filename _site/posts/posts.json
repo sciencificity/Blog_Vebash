@@ -1,0 +1,19 @@
+[
+  {
+    "path": "posts/2020-12-12-using-the-tidyverse-with-databases/",
+    "title": "Using the tidyverse with Databases",
+    "description": "You don't need to be a SQL expert to work with Databases through R",
+    "author": [
+      {
+        "name": "Vebash Naidoo",
+        "url": "https://twitter.com/Sciencificity"
+      }
+    ],
+    "date": "2020-12-12",
+    "categories": [],
+    "contents": "\r\n\r\n\r\n\r\n\r\npreserve7f4dacaf1fe21206\r\n\r\n\r\n\r\n\r\n",
+    "preview": {},
+    "last_modified": "2020-12-13T00:05:09+02:00",
+    "input_file": "using-the-tidyverse-with-databases.utf8.md"
+  }
+]
