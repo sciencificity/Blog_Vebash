@@ -4,7 +4,7 @@ description: |
   Sciencificity's Blog
 output_dir: "_site"
 theme: vebash_theme.css
-base_url: https://sciencificity.blog.netlify.app
+base_url: https://sciencificity-blog.netlify.app
 navbar:
   right:
     - text: "Home"
