@@ -15,10 +15,10 @@
     },
     {
       "path": "index.html",
-      "title": "'Curiouser and curiouser!'",
+      "title": "'Curiouser and curiouser!' `r emo::ji('spy')`",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2020-12-12T23:53:06+02:00"
+      "last_modified": "2020-12-15T00:48:06+02:00"
     }
   ],
   "collections": ["posts/posts.json"]
