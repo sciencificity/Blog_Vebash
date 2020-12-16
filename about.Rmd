@@ -26,4 +26,6 @@ Like most people who will read this blog, I am a nerd, and a proud R nerd at tha
 
 I am an R-Lady and proud member of AfricaR. `r emo::ji("international")`
 
+I am a certified RStudio [Tidyverse instructor](https://bit.ly/my-rstudio-cert-profile).
+
 I'm a mum, and hence that last picture of me visiting some far out galaxy ('cos that's what you do when you have young kids, go on many adventures in far out places). 
