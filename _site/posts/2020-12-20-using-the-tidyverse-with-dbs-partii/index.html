@@ -1,0 +1,2935 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ad0000; } /* Alert */
+code span.an { color: #5e5e5e; } /* Annotation */
+code span.at { color: #20794d; } /* Attribute */
+code span.bn { color: #ad0000; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007ba5; } /* ControlFlow */
+code span.ch { color: #20794d; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #5e5e5e; } /* Comment */
+code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+code span.dt { color: #ad0000; } /* DataType */
+code span.dv { color: #ad0000; } /* DecVal */
+code span.er { color: #ad0000; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #ad0000; } /* Float */
+code span.fu { color: #4758ab; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #5e5e5e; } /* Information */
+code span.kw { color: #007ba5; } /* Keyword */
+code span.op { color: #5e5e5e; } /* Operator */
+code span.ot { color: #007ba5; } /* Other */
+code span.pp { color: #ad0000; } /* Preprocessor */
+code span.sc { color: #20794d; } /* SpecialChar */
+code span.ss { color: #20794d; } /* SpecialString */
+code span.st { color: #20794d; } /* String */
+code span.va { color: #111111; } /* Variable */
+code span.vs { color: #20794d; } /* VerbatimString */
+code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
+  <!--radix_placeholder_meta_tags-->
+<title>Sciencificity's Blog: Using the tidyverse with Databases - Part II</title>
+
+<meta property="description" itemprop="description" content="I was serious, you don&#39;t need to be a SQL expert to work with Databases through R"/>
+
+<link rel="canonical" href="https://sciencificity-blog.netlify.app/posts/2020-12-20-using-the-tidyverse-with-dbs-partii/"/>
+
+<!--  https://schema.org/Article -->
+<meta property="article:published" itemprop="datePublished" content="2020-12-20"/>
+<meta property="article:created" itemprop="dateCreated" content="2020-12-20"/>
+<meta name="article:author" content="Vebash Naidoo"/>
+
+<!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+<meta property="og:title" content="Sciencificity&#39;s Blog: Using the tidyverse with Databases - Part II"/>
+<meta property="og:type" content="article"/>
+<meta property="og:description" content="I was serious, you don&#39;t need to be a SQL expert to work with Databases through R"/>
+<meta property="og:url" content="https://sciencificity-blog.netlify.app/posts/2020-12-20-using-the-tidyverse-with-dbs-partii/"/>
+<meta property="og:image" content="https://sciencificity-blog.netlify.app/posts/2020-12-20-using-the-tidyverse-with-dbs-partii/Paper.R_Programming.4.png"/>
+<meta property="og:image:width" content="2048"/>
+<meta property="og:image:height" content="1536"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:site_name" content="Sciencificity&#39;s Blog"/>
+
+<!--  https://dev.twitter.com/cards/types/summary -->
+<meta property="twitter:card" content="summary_large_image"/>
+<meta property="twitter:title" content="Sciencificity&#39;s Blog: Using the tidyverse with Databases - Part II"/>
+<meta property="twitter:description" content="I was serious, you don&#39;t need to be a SQL expert to work with Databases through R"/>
+<meta property="twitter:url" content="https://sciencificity-blog.netlify.app/posts/2020-12-20-using-the-tidyverse-with-dbs-partii/"/>
+<meta property="twitter:image" content="https://sciencificity-blog.netlify.app/posts/2020-12-20-using-the-tidyverse-with-dbs-partii/Paper.R_Programming.4.png"/>
+<meta property="twitter:image:width" content="2048"/>
+<meta property="twitter:image:height" content="1536"/>
+
+<!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->
+<meta name="citation_title" content="Sciencificity&#39;s Blog: Using the tidyverse with Databases - Part II"/>
+<meta name="citation_fulltext_html_url" content="https://sciencificity-blog.netlify.app/posts/2020-12-20-using-the-tidyverse-with-dbs-partii/"/>
+<meta name="citation_online_date" content="2020/12/20"/>
+<meta name="citation_publication_date" content="2020/12/20"/>
+<meta name="citation_author" content="Vebash Naidoo"/>
+<meta name="citation_author_institution" content="R-Ladies Johannesburg"/>
+<!--/radix_placeholder_meta_tags-->
+  <!--radix_placeholder_rmarkdown_metadata-->
+
+<script type="text/json" id="radix-rmarkdown-metadata">
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","categories","preview","citation_url","canonical_url"]}},"value":[{"type":"character","attributes":{},"value":["Using the tidyverse with Databases - Part II"]},{"type":"character","attributes":{},"value":["I was serious, you don't need to be a SQL expert to work with Databases through R"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Vebash Naidoo"]},{"type":"character","attributes":{},"value":["https://twitter.com/Sciencificity"]},{"type":"character","attributes":{},"value":["R-Ladies Johannesburg"]},{"type":"character","attributes":{},"value":["https://twitter.com/RLadiesJozi"]}]}]},{"type":"character","attributes":{},"value":["12-20-2020"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","toc_depth","self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[3]},{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["SQL","databases","tidyverse","dbplyr"]},{"type":"character","attributes":{},"value":["Paper.R_Programming.4.png"]},{"type":"character","attributes":{},"value":["https://sciencificity-blog.netlify.app/posts/2020-12-20-using-the-tidyverse-with-dbs-partii/"]},{"type":"character","attributes":{},"value":["https://sciencificity-blog.netlify.app/posts/2020-12-20-using-the-tidyverse-with-dbs-partii/"]}]}
+</script>
+<!--/radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["data/great_brit_bakeoff.db","Paper.R_journal.33.png","Paper.R_journal.33_.png","Paper.R_Programming.4.png","Paper.R_Programming.5.png","using-the-tidyverse-with-dbs-partii_files/anchor-4.2.2/anchor.min.js","using-the-tidyverse-with-dbs-partii_files/bowser-1.9.3/bowser.min.js","using-the-tidyverse-with-dbs-partii_files/crosstalk-1.1.0.1/css/crosstalk.css","using-the-tidyverse-with-dbs-partii_files/crosstalk-1.1.0.1/js/crosstalk.js","using-the-tidyverse-with-dbs-partii_files/crosstalk-1.1.0.1/js/crosstalk.js.map","using-the-tidyverse-with-dbs-partii_files/crosstalk-1.1.0.1/js/crosstalk.min.js","using-the-tidyverse-with-dbs-partii_files/crosstalk-1.1.0.1/js/crosstalk.min.js.map","using-the-tidyverse-with-dbs-partii_files/datatables-binding-0.16/datatables.js","using-the-tidyverse-with-dbs-partii_files/datatables-css-0.0.0/datatables-crosstalk.css","using-the-tidyverse-with-dbs-partii_files/distill-2.2.21/template.v2.js","using-the-tidyverse-with-dbs-partii_files/dt-core-1.10.20/css/jquery.dataTables.extra.css","using-the-tidyverse-with-dbs-partii_files/dt-core-1.10.20/css/jquery.dataTables.min.css","using-the-tidyverse-with-dbs-partii_files/dt-core-1.10.20/js/jquery.dataTables.min.js","using-the-tidyverse-with-dbs-partii_files/figure-html5/unnamed-chunk-12-1.png","using-the-tidyverse-with-dbs-partii_files/htmlwidgets-1.5.1/htmlwidgets.js","using-the-tidyverse-with-dbs-partii_files/jquery-1.11.3/jquery.min.js","using-the-tidyverse-with-dbs-partii_files/jquery-1.12.4/jquery.min.js","using-the-tidyverse-with-dbs-partii_files/jquery-1.12.4/LICENSE.txt","using-the-tidyverse-with-dbs-partii_files/webcomponents-2.0.0/webcomponents.js"]}
+  </script>
+  <!--radix_placeholder_navigation_in_header-->
+<meta name="distill:offset" content="../.."/>
+
+<script type="application/javascript">
+
+  window.headroom_prevent_pin = false;
+
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+
+    // initialize headroom for banner
+    var header = $('header').get(0);
+    var headerHeight = header.offsetHeight;
+    var headroom = new Headroom(header, {
+      tolerance: 5,
+      onPin : function() {
+        if (window.headroom_prevent_pin) {
+          window.headroom_prevent_pin = false;
+          headroom.unpin();
+        }
+      }
+    });
+    headroom.init();
+    if(window.location.hash)
+      headroom.unpin();
+    $(header).addClass('headroom--transition');
+
+    // offset scroll location for banner on hash change
+    // (see: https://github.com/WickyNilliams/headroom.js/issues/38)
+    window.addEventListener("hashchange", function(event) {
+      window.scrollTo(0, window.pageYOffset - (headerHeight + 25));
+    });
+
+    // responsive menu
+    $('.distill-site-header').each(function(i, val) {
+      var topnav = $(this);
+      var toggle = topnav.find('.nav-toggle');
+      toggle.on('click', function() {
+        topnav.toggleClass('responsive');
+      });
+    });
+
+    // nav dropdowns
+    $('.nav-dropbtn').click(function(e) {
+      $(this).next('.nav-dropdown-content').toggleClass('nav-dropdown-active');
+      $(this).parent().siblings('.nav-dropdown')
+         .children('.nav-dropdown-content').removeClass('nav-dropdown-active');
+    });
+    $("body").click(function(e){
+      $('.nav-dropdown-content').removeClass('nav-dropdown-active');
+    });
+    $(".nav-dropdown").click(function(e){
+      e.stopPropagation();
+    });
+  });
+</script>
+
+<style type="text/css">
+
+/* Theme (user-documented overrideables for nav appearance) */
+
+.distill-site-nav {
+  color: rgba(255, 255, 255, 0.8);
+  background-color: #0F2E3D;
+  font-size: 15px;
+  font-weight: 300;
+}
+
+.distill-site-nav a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.distill-site-nav a:hover {
+  color: white;
+}
+
+@media print {
+  .distill-site-nav {
+    display: none;
+  }
+}
+
+.distill-site-header {
+
+}
+
+.distill-site-footer {
+
+}
+
+
+/* Site Header */
+
+.distill-site-header {
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 3;
+}
+
+.distill-site-header .nav-left {
+  display: inline-block;
+  margin-left: 8px;
+}
+
+@media screen and (max-width: 768px) {
+  .distill-site-header .nav-left {
+    margin-left: 0;
+  }
+}
+
+
+.distill-site-header .nav-right {
+  float: right;
+  margin-right: 8px;
+}
+
+.distill-site-header a,
+.distill-site-header .title {
+  display: inline-block;
+  text-align: center;
+  padding: 14px 10px 14px 10px;
+}
+
+.distill-site-header .title {
+  font-size: 18px;
+  min-width: 150px;
+}
+
+.distill-site-header .logo {
+  padding: 0;
+}
+
+.distill-site-header .logo img {
+  display: none;
+  max-height: 20px;
+  width: auto;
+  margin-bottom: -4px;
+}
+
+.distill-site-header .nav-image img {
+  max-height: 18px;
+  width: auto;
+  display: inline-block;
+  margin-bottom: -3px;
+}
+
+
+
+@media screen and (min-width: 1000px) {
+  .distill-site-header .logo img {
+    display: inline-block;
+  }
+  .distill-site-header .nav-left {
+    margin-left: 20px;
+  }
+  .distill-site-header .nav-right {
+    margin-right: 20px;
+  }
+  .distill-site-header .title {
+    padding-left: 12px;
+  }
+}
+
+
+.distill-site-header .nav-toggle {
+  display: none;
+}
+
+.nav-dropdown {
+  display: inline-block;
+  position: relative;
+}
+
+.nav-dropdown .nav-dropbtn {
+  border: none;
+  outline: none;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 16px 10px;
+  background-color: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  margin: 0;
+  margin-top: 1px;
+  z-index: 2;
+}
+
+.nav-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 200px;
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 4px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+  z-index: 1;
+  margin-top: 2px;
+  white-space: nowrap;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.nav-dropdown-content hr {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.nav-dropdown-active {
+  display: block;
+}
+
+.nav-dropdown-content a, .nav-dropdown-content .nav-dropdown-header {
+  color: black;
+  padding: 6px 24px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.nav-dropdown-content .nav-dropdown-header {
+  display: block;
+  padding: 5px 24px;
+  padding-bottom: 0;
+  text-transform: uppercase;
+  font-size: 14px;
+  color: #999999;
+  white-space: nowrap;
+}
+
+.nav-dropdown:hover .nav-dropbtn {
+  color: white;
+}
+
+.nav-dropdown-content a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.nav-right .nav-dropdown-content {
+  margin-left: -45%;
+  right: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .distill-site-header a, .distill-site-header .nav-dropdown  {display: none;}
+  .distill-site-header a.nav-toggle {
+    float: right;
+    display: block;
+  }
+  .distill-site-header .title {
+    margin-left: 0;
+  }
+  .distill-site-header .nav-right {
+    margin-right: 0;
+  }
+  .distill-site-header {
+    overflow: hidden;
+  }
+  .nav-right .nav-dropdown-content {
+    margin-left: 0;
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  .distill-site-header.responsive {position: relative; min-height: 500px; }
+  .distill-site-header.responsive a.nav-toggle {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .distill-site-header.responsive a,
+  .distill-site-header.responsive .nav-dropdown {
+    display: block;
+    text-align: left;
+  }
+  .distill-site-header.responsive .nav-left,
+  .distill-site-header.responsive .nav-right {
+    width: 100%;
+  }
+  .distill-site-header.responsive .nav-dropdown {float: none;}
+  .distill-site-header.responsive .nav-dropdown-content {position: relative;}
+  .distill-site-header.responsive .nav-dropdown .nav-dropbtn {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+}
+
+/* Site Footer */
+
+.distill-site-footer {
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  z-index: 3;
+  margin-top: 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  text-align: center;
+}
+
+/* Headroom */
+
+d-title {
+  padding-top: 6rem;
+}
+
+@media print {
+  d-title {
+    padding-top: 4rem;
+  }
+}
+
+.headroom {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.headroom--transition {
+  transition: all .4s ease-in-out;
+}
+
+.headroom--unpinned {
+  top: -100px;
+}
+
+.headroom--pinned {
+  top: 0;
+}
+
+</style>
+
+<link href="../../site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
+<link href="../../site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
+<script src="../../site_libs/headroom-0.9.4/headroom.min.js"></script>
+<script src="../../site_libs/autocomplete-0.37.1/autocomplete.min.js"></script>
+<script src="../../site_libs/fuse-6.4.1/fuse.min.js"></script>
+
+<script type="application/javascript">
+
+function getMeta(metaName) {
+  var metas = document.getElementsByTagName('meta');
+  for (let i = 0; i < metas.length; i++) {
+    if (metas[i].getAttribute('name') === metaName) {
+      return metas[i].getAttribute('content');
+    }
+  }
+  return '';
+}
+
+function offsetURL(url) {
+  var offset = getMeta('distill:offset');
+  return offset ? offset + '/' + url : url;
+}
+
+function createFuseIndex() {
+
+  // create fuse index
+  var options = {
+    keys: [
+      { name: 'title', weight: 20 },
+      { name: 'categories', weight: 15 },
+      { name: 'description', weight: 10 },
+      { name: 'contents', weight: 5 },
+    ],
+    ignoreLocation: true,
+    threshold: 0
+  };
+  var fuse = new window.Fuse([], options);
+
+  // fetch the main search.json
+  return fetch(offsetURL('search.json'))
+    .then(function(response) {
+      if (response.status == 200) {
+        return response.json().then(function(json) {
+          // index main articles
+          json.articles.forEach(function(article) {
+            fuse.add(article);
+          });
+          // download collections and index their articles
+          return Promise.all(json.collections.map(function(collection) {
+            return fetch(offsetURL(collection)).then(function(response) {
+              if (response.status === 200) {
+                return response.json().then(function(articles) {
+                  articles.forEach(function(article) {
+                    fuse.add(article);
+                  });
+                })
+              } else {
+                return Promise.reject(
+                  new Error('Unexpected status from search index request: ' +
+                            response.status)
+                );
+              }
+            });
+          })).then(function() {
+            return fuse;
+          });
+        });
+
+      } else {
+        return Promise.reject(
+          new Error('Unexpected status from search index request: ' +
+                      response.status)
+        );
+      }
+    });
+}
+
+window.document.addEventListener("DOMContentLoaded", function (event) {
+
+  // get search element (bail if we don't have one)
+  var searchEl = window.document.getElementById('distill-search');
+  if (!searchEl)
+    return;
+
+  createFuseIndex()
+    .then(function(fuse) {
+
+      // make search box visible
+      searchEl.classList.remove('hidden');
+
+      // initialize autocomplete
+      var options = {
+        autoselect: true,
+        hint: false,
+        minLength: 2,
+      };
+      window.autocomplete(searchEl, options, [{
+        source: function(query, callback) {
+          const searchOptions = {
+            isCaseSensitive: false,
+            shouldSort: true,
+            minMatchCharLength: 2,
+            limit: 10,
+          };
+          var results = fuse.search(query, searchOptions);
+          callback(results
+            .map(function(result) { return result.item; })
+            .filter(function(item) { return !!item.description; })
+          );
+        },
+        templates: {
+          suggestion: function(suggestion) {
+            var html = `
+              <div class="search-item">
+                <h3>${suggestion.title}</h3>
+                <div class="search-item-description">
+                  ${suggestion.description}
+                </div>
+                <div class="search-item-preview">
+                  <img src="${suggestion.preview ? offsetURL(suggestion.preview) : ''}"</img>
+                </div>
+              </div>
+            `;
+            return html;
+          }
+        }
+      }]).on('autocomplete:selected', function(event, suggestion) {
+        window.location.href = offsetURL(suggestion.path);
+      });
+      // remove inline display style on autocompleter (we want to
+      // manage responsive display via css)
+      $('.algolia-autocomplete').css("display", "");
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+
+});
+
+</script>
+
+<style type="text/css">
+
+/* Algolioa Autocomplete */
+
+.algolia-autocomplete {
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: sub;
+  background-color: white;
+  color: black;
+  padding: 6px;
+  padding-top: 8px;
+  padding-bottom: 0;
+  border-radius: 6px;
+  border: 1px #0F2E3D solid;
+  width: 180px;
+}
+
+
+@media screen and (max-width: 768px) {
+  .distill-site-nav .algolia-autocomplete {
+    display: none;
+    visibility: hidden;
+  }
+  .distill-site-nav.responsive .algolia-autocomplete {
+    display: inline-block;
+    visibility: visible;
+  }
+  .distill-site-nav.responsive .algolia-autocomplete .aa-dropdown-menu {
+    margin-left: 0;
+    width: 400px;
+    max-height: 400px;
+  }
+}
+
+.algolia-autocomplete .aa-input, .algolia-autocomplete .aa-hint {
+  width: 90%;
+  outline: none;
+  border: none;
+}
+
+.algolia-autocomplete .aa-hint {
+  color: #999;
+}
+.algolia-autocomplete .aa-dropdown-menu {
+  width: 550px;
+  max-height: 70vh;
+  overflow-x: visible;
+  overflow-y: scroll;
+  padding: 5px;
+  margin-top: 3px;
+  margin-left: -150px;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid #999;
+  border-top: none;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
+  cursor: pointer;
+  padding: 5px 4px;
+  border-bottom: 1px solid #eee;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion:last-of-type {
+  border-bottom: none;
+  margin-bottom: 2px;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item {
+  overflow: hidden;
+  font-size: 0.8em;
+  line-height: 1.4em;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item h3 {
+  margin-block-start: 0;
+  margin-block-end: 5px;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-description {
+  display: inline-block;
+  overflow: hidden;
+  height: 2.8em;
+  width: 80%;
+  margin-right: 4%;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview {
+  display: inline-block;
+  width: 15%;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img {
+  height: 3em;
+  width: auto;
+  display: none;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img[src] {
+  display: initial;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
+  background-color: #eee;
+}
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion em {
+  font-weight: bold;
+  font-style: normal;
+}
+
+</style>
+
+
+<!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+
+<style type="text/css">
+
+body {
+  background-color: white;
+}
+
+.pandoc-table {
+  width: 100%;
+}
+
+.pandoc-table>caption {
+  margin-bottom: 10px;
+}
+
+.pandoc-table th:not([align]) {
+  text-align: left;
+}
+
+.pagedtable-footer {
+  font-size: 15px;
+}
+
+d-byline .byline {
+  grid-template-columns: 2fr 2fr;
+}
+
+d-byline .byline h3 {
+  margin-block-start: 1.5em;
+}
+
+d-byline .byline .authors-affiliations h3 {
+  margin-block-start: 0.5em;
+}
+
+.authors-affiliations .orcid-id {
+  width: 16px;
+  height:16px;
+  margin-left: 4px;
+  margin-right: 4px;
+  vertical-align: middle;
+  padding-bottom: 2px;
+}
+
+d-title .dt-tags {
+  margin-top: 1em;
+  grid-column: text;
+}
+
+.dt-tags .dt-tag {
+  text-decoration: none;
+  display: inline-block;
+  color: rgba(0,0,0,0.6);
+  padding: 0em 0.4em;
+  margin-right: 0.5em;
+  margin-bottom: 0.4em;
+  font-size: 70%;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 3px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+d-article table.gt_table td,
+d-article table.gt_table th {
+  border-bottom: none;
+}
+
+.html-widget {
+  margin-bottom: 2.0em;
+}
+
+.l-screen-inset {
+  padding-right: 16px;
+}
+
+.l-screen .caption {
+  margin-left: 10px;
+}
+
+.shaded {
+  background: rgb(247, 247, 247);
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.shaded .html-widget {
+  margin-bottom: 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.shaded .shaded-content {
+  background: white;
+}
+
+.text-output {
+  margin-top: 0;
+  line-height: 1.5em;
+}
+
+.hidden {
+  display: none !important;
+}
+
+d-article {
+  padding-top: 2.5rem;
+  padding-bottom: 30px;
+}
+
+d-appendix {
+  padding-top: 30px;
+}
+
+d-article>p>img {
+  width: 100%;
+}
+
+d-article h2 {
+  margin: 1rem 0 1.5rem 0;
+}
+
+d-article h3 {
+  margin-top: 1.5rem;
+}
+
+d-article iframe {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 2.0em;
+  width: 100%;
+}
+
+/* Tweak code blocks */
+
+d-article div.sourceCode code,
+d-article pre code {
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+}
+
+d-article pre,
+d-article div.sourceCode,
+d-article div.sourceCode pre {
+  overflow: auto;
+}
+
+d-article div.sourceCode {
+  background-color: white;
+}
+
+d-article div.sourceCode pre {
+  padding-left: 10px;
+  font-size: 12px;
+  border-left: 2px solid rgba(0,0,0,0.1);
+}
+
+d-article pre {
+  font-size: 12px;
+  color: black;
+  background: none;
+  margin-top: 0;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+d-article pre a {
+  border-bottom: none;
+}
+
+d-article pre a:hover {
+  border-bottom: none;
+  text-decoration: underline;
+}
+
+@media(min-width: 768px) {
+
+d-article pre,
+d-article div.sourceCode,
+d-article div.sourceCode pre {
+  overflow: visible !important;
+}
+
+d-article div.sourceCode pre {
+  padding-left: 18px;
+  font-size: 14px;
+}
+
+d-article pre {
+  font-size: 14px;
+}
+
+}
+
+figure img.external {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+  padding: 18px;
+  box-sizing: border-box;
+}
+
+/* CSS for d-contents */
+
+.d-contents {
+  grid-column: text;
+  color: rgba(0,0,0,0.8);
+  font-size: 0.9em;
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+  padding-bottom: 0.5em;
+  margin-bottom: 1em;
+  padding-left: 0.25em;
+  justify-self: start;
+}
+
+@media(min-width: 1000px) {
+  .d-contents.d-contents-float {
+    height: 0;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    justify-self: center;
+    padding-right: 3em;
+    padding-left: 2em;
+  }
+}
+
+.d-contents nav h3 {
+  font-size: 18px;
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+
+.d-contents li {
+  list-style-type: none
+}
+
+.d-contents nav > ul {
+  padding-left: 0;
+}
+
+.d-contents ul {
+  padding-left: 1em
+}
+
+.d-contents nav ul li {
+  margin-top: 0.6em;
+  margin-bottom: 0.2em;
+}
+
+.d-contents nav a {
+  font-size: 13px;
+  border-bottom: none;
+  text-decoration: none
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.d-contents nav a:hover {
+  text-decoration: underline solid rgba(0, 0, 0, 0.6)
+}
+
+.d-contents nav > ul > li > a {
+  font-weight: 600;
+}
+
+.d-contents nav > ul > li > ul {
+  font-weight: inherit;
+}
+
+.d-contents nav > ul > li > ul > li {
+  margin-top: 0.2em;
+}
+
+
+.d-contents nav ul {
+  margin-top: 0;
+  margin-bottom: 0.25em;
+}
+
+.d-article-with-toc h2:nth-child(2) {
+  margin-top: 0;
+}
+
+
+/* Figure */
+
+.figure {
+  position: relative;
+  margin-bottom: 2.5em;
+  margin-top: 1.5em;
+}
+
+.figure img {
+  width: 100%;
+}
+
+.figure .caption {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 12px;
+  line-height: 1.5em;
+}
+
+.figure img.external {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+  padding: 18px;
+  box-sizing: border-box;
+}
+
+.figure .caption a {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.figure .caption b,
+.figure .caption strong, {
+  font-weight: 600;
+  color: rgba(0, 0, 0, 1.0);
+}
+
+/* Citations */
+
+d-article .citation {
+  color: inherit;
+  cursor: inherit;
+}
+
+div.hanging-indent{
+  margin-left: 1em; text-indent: -1em;
+}
+
+
+/* Tweak 1000px media break to show more text */
+
+@media(min-width: 1000px) {
+  .base-grid,
+  distill-header,
+  d-title,
+  d-abstract,
+  d-article,
+  d-appendix,
+  distill-appendix,
+  d-byline,
+  d-footnote-list,
+  d-citation-list,
+  distill-footer {
+    grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+    grid-column-gap: 16px;
+  }
+
+  .grid {
+    grid-column-gap: 16px;
+  }
+
+  d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+  }
+  figure .caption, .figure .caption, figure figcaption {
+    font-size: 13px;
+  }
+}
+
+@media(min-width: 1180px) {
+  .base-grid,
+  distill-header,
+  d-title,
+  d-abstract,
+  d-article,
+  d-appendix,
+  distill-appendix,
+  d-byline,
+  d-footnote-list,
+  d-citation-list,
+  distill-footer {
+    grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+    grid-column-gap: 32px;
+  }
+
+  .grid {
+    grid-column-gap: 32px;
+  }
+}
+
+
+/* Get the citation styles for the appendix (not auto-injected on render since
+   we do our own rendering of the citation appendix) */
+
+d-appendix .citation-appendix,
+.d-appendix .citation-appendix {
+  font-size: 11px;
+  line-height: 15px;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  padding-left: 18px;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: rgba(0, 0, 0, 0.02);
+  padding: 10px 18px;
+  border-radius: 3px;
+  color: rgba(150, 150, 150, 1);
+  overflow: hidden;
+  margin-top: -12px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Include appendix styles here so they can be overridden */
+
+d-appendix {
+  contain: layout style;
+  font-size: 0.8em;
+  line-height: 1.7em;
+  margin-top: 60px;
+  margin-bottom: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  color: rgba(0,0,0,0.5);
+  padding-top: 60px;
+  padding-bottom: 48px;
+}
+
+d-appendix h3 {
+  grid-column: page-start / text-start;
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: 1em;
+  margin-bottom: 0;
+  color: rgba(0,0,0,0.65);
+}
+
+d-appendix h3 + * {
+  margin-top: 1em;
+}
+
+d-appendix ol {
+  padding: 0 0 0 15px;
+}
+
+@media (min-width: 768px) {
+  d-appendix ol {
+    padding: 0 0 0 30px;
+    margin-left: -30px;
+  }
+}
+
+d-appendix li {
+  margin-bottom: 1em;
+}
+
+d-appendix a {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+d-appendix > * {
+  grid-column: text;
+}
+
+d-appendix > d-footnote-list,
+d-appendix > d-citation-list,
+d-appendix > distill-appendix {
+  grid-column: screen;
+}
+
+/* Include footnote styles here so they can be overridden */
+
+d-footnote-list {
+  contain: layout style;
+}
+
+d-footnote-list > * {
+  grid-column: text;
+}
+
+d-footnote-list a.footnote-backlink {
+  color: rgba(0,0,0,0.3);
+  padding-left: 0.5em;
+}
+
+
+
+/* Anchor.js */
+
+.anchorjs-link {
+  /*transition: all .25s linear; */
+  text-decoration: none;
+  border-bottom: none;
+}
+*:hover > .anchorjs-link {
+  margin-left: -1.125em !important;
+  text-decoration: none;
+  border-bottom: none;
+}
+
+/* Social footer */
+
+.social_footer {
+  margin-top: 30px;
+  margin-bottom: 0;
+  color: rgba(0,0,0,0.67);
+}
+
+.disqus-comments {
+  margin-right: 30px;
+}
+
+.disqus-comment-count {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+
+#disqus_thread {
+  margin-top: 30px;
+}
+
+.article-sharing a {
+  border-bottom: none;
+  margin-right: 8px;
+}
+
+.article-sharing a:hover {
+  border-bottom: none;
+}
+
+.sidebar-section.subscribe {
+  font-size: 12px;
+  line-height: 1.6em;
+}
+
+.subscribe p {
+  margin-bottom: 0.5em;
+}
+
+
+.article-footer .subscribe {
+  font-size: 15px;
+  margin-top: 45px;
+}
+
+
+.sidebar-section.custom {
+  font-size: 12px;
+  line-height: 1.6em;
+}
+
+.custom p {
+  margin-bottom: 0.5em;
+}
+
+/* Styles for listing layout (hide title) */
+.layout-listing d-title, .layout-listing .d-title {
+  display: none;
+}
+
+/* Styles for posts lists (not auto-injected) */
+
+
+.posts-with-sidebar {
+  padding-left: 45px;
+  padding-right: 45px;
+}
+
+.posts-list .description h2,
+.posts-list .description p {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+.posts-list .description h2 {
+  font-weight: 700;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.posts-list h2.post-tag {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding-bottom: 12px;
+}
+.posts-list {
+  margin-top: 60px;
+  margin-bottom: 24px;
+}
+
+.posts-list .post-preview {
+  text-decoration: none;
+  overflow: hidden;
+  display: block;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 24px 0;
+}
+
+.post-preview-last {
+  border-bottom: none !important;
+}
+
+.posts-list .posts-list-caption {
+  grid-column: screen;
+  font-weight: 400;
+}
+
+.posts-list .post-preview h2 {
+  margin: 0 0 6px 0;
+  line-height: 1.2em;
+  font-style: normal;
+  font-size: 24px;
+}
+
+.posts-list .post-preview p {
+  margin: 0 0 12px 0;
+  line-height: 1.4em;
+  font-size: 16px;
+}
+
+.posts-list .post-preview .thumbnail {
+  box-sizing: border-box;
+  margin-bottom: 24px;
+  position: relative;
+  max-width: 500px;
+}
+.posts-list .post-preview img {
+  width: 100%;
+  display: block;
+}
+
+.posts-list .metadata {
+  font-size: 12px;
+  line-height: 1.4em;
+  margin-bottom: 18px;
+}
+
+.posts-list .metadata > * {
+  display: inline-block;
+}
+
+.posts-list .metadata .publishedDate {
+  margin-right: 2em;
+}
+
+.posts-list .metadata .dt-authors {
+  display: block;
+  margin-top: 0.3em;
+  margin-right: 2em;
+}
+
+.posts-list .dt-tags {
+  display: block;
+  line-height: 1em;
+}
+
+.posts-list .dt-tags .dt-tag {
+  display: inline-block;
+  color: rgba(0,0,0,0.6);
+  padding: 0.3em 0.4em;
+  margin-right: 0.2em;
+  margin-bottom: 0.4em;
+  font-size: 60%;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 3px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.posts-list img {
+  opacity: 1;
+}
+
+.posts-list img[data-src] {
+  opacity: 0;
+}
+
+.posts-more {
+  clear: both;
+}
+
+
+.posts-sidebar {
+  font-size: 16px;
+}
+
+.posts-sidebar h3 {
+  font-size: 16px;
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.sidebar-section {
+  margin-bottom: 30px;
+}
+
+.categories ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.categories li {
+  color: rgba(0, 0, 0, 0.8);
+  margin-bottom: 0;
+}
+
+.categories li>a {
+  border-bottom: none;
+}
+
+.categories li>a:hover {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.categories .active {
+  font-weight: 600;
+}
+
+.categories .category-count {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+
+@media(min-width: 768px) {
+  .posts-list .post-preview h2 {
+    font-size: 26px;
+  }
+  .posts-list .post-preview .thumbnail {
+    float: right;
+    width: 30%;
+    margin-bottom: 0;
+  }
+  .posts-list .post-preview .description {
+    float: left;
+    width: 45%;
+  }
+  .posts-list .post-preview .metadata {
+    float: left;
+    width: 20%;
+    margin-top: 8px;
+  }
+  .posts-list .post-preview p {
+    margin: 0 0 12px 0;
+    line-height: 1.5em;
+    font-size: 16px;
+  }
+  .posts-with-sidebar .posts-list {
+    float: left;
+    width: 75%;
+  }
+  .posts-with-sidebar .posts-sidebar {
+    float: right;
+    width: 20%;
+    margin-top: 60px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+}
+
+
+/* Improve display for browsers without grid (IE/Edge <= 15) */
+
+.downlevel {
+  line-height: 1.6em;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  margin: 0;
+}
+
+.downlevel .d-title {
+  padding-top: 6rem;
+  padding-bottom: 1.5rem;
+}
+
+.downlevel .d-title h1 {
+  font-size: 50px;
+  font-weight: 700;
+  line-height: 1.1em;
+  margin: 0 0 0.5rem;
+}
+
+.downlevel .d-title p {
+  font-weight: 300;
+  font-size: 1.2rem;
+  line-height: 1.55em;
+  margin-top: 0;
+}
+
+.downlevel .d-byline {
+  padding-top: 0.8em;
+  padding-bottom: 0.8em;
+  font-size: 0.8rem;
+  line-height: 1.8em;
+}
+
+.downlevel .section-separator {
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.downlevel .d-article {
+  font-size: 1.06rem;
+  line-height: 1.7em;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+}
+
+
+.downlevel .d-appendix {
+  padding-left: 0;
+  padding-right: 0;
+  max-width: none;
+  font-size: 0.8em;
+  line-height: 1.7em;
+  margin-bottom: 0;
+  color: rgba(0,0,0,0.5);
+  padding-top: 40px;
+  padding-bottom: 48px;
+}
+
+.downlevel .footnotes ol {
+  padding-left: 13px;
+}
+
+.downlevel .base-grid,
+.downlevel .distill-header,
+.downlevel .d-title,
+.downlevel .d-abstract,
+.downlevel .d-article,
+.downlevel .d-appendix,
+.downlevel .distill-appendix,
+.downlevel .d-byline,
+.downlevel .d-footnote-list,
+.downlevel .d-citation-list,
+.downlevel .distill-footer,
+.downlevel .appendix-bottom,
+.downlevel .posts-container {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+@media(min-width: 768px) {
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+  padding-left: 150px;
+  padding-right: 150px;
+  max-width: 900px;
+}
+}
+
+.downlevel pre code {
+  display: block;
+  border-left: 2px solid rgba(0, 0, 0, .1);
+  padding: 0 0 0 20px;
+  font-size: 14px;
+}
+
+.downlevel code, .downlevel pre {
+  color: black;
+  background: none;
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+.downlevel .posts-list .post-preview {
+  color: inherit;
+}
+
+
+
+</style>
+
+<script type="application/javascript">
+
+function is_downlevel_browser() {
+  if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                 window.navigator.userAgent)) {
+    return true;
+  } else {
+    return window.load_distill_framework === undefined;
+  }
+}
+
+// show body when load is complete
+function on_load_complete() {
+
+  // add anchors
+  if (window.anchors) {
+    window.anchors.options.placement = 'left';
+    window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
+  }
+
+
+  // set body to visible
+  document.body.style.visibility = 'visible';
+
+  // force redraw for leaflet widgets
+  if (window.HTMLWidgets) {
+    var maps = window.HTMLWidgets.findAll(".leaflet");
+    $.each(maps, function(i, el) {
+      var map = this.getMap();
+      map.invalidateSize();
+      map.eachLayer(function(layer) {
+        if (layer instanceof L.TileLayer)
+          layer.redraw();
+      });
+    });
+  }
+
+  // trigger 'shown' so htmlwidgets resize
+  $('d-article').trigger('shown');
+}
+
+function init_distill() {
+
+  init_common();
+
+  // create front matter
+  var front_matter = $('<d-front-matter></d-front-matter>');
+  $('#distill-front-matter').wrap(front_matter);
+
+  // create d-title
+  $('.d-title').changeElementType('d-title');
+
+  // create d-byline
+  var byline = $('<d-byline></d-byline>');
+  $('.d-byline').replaceWith(byline);
+
+  // create d-article
+  var article = $('<d-article></d-article>');
+  $('.d-article').wrap(article).children().unwrap();
+
+  // move posts container into article
+  $('.posts-container').appendTo($('d-article'));
+
+  // create d-appendix
+  $('.d-appendix').changeElementType('d-appendix');
+
+  // flag indicating that we have appendix items
+  var appendix = $('.appendix-bottom').children('h3').length > 0;
+
+  // replace footnotes with <d-footnote>
+  $('.footnote-ref').each(function(i, val) {
+    appendix = true;
+    var href = $(this).attr('href');
+    var id = href.replace('#', '');
+    var fn = $('#' + id);
+    var fn_p = $('#' + id + '>p');
+    fn_p.find('.footnote-back').remove();
+    var text = fn_p.html();
+    var dtfn = $('<d-footnote></d-footnote>');
+    dtfn.html(text);
+    $(this).replaceWith(dtfn);
+  });
+  // remove footnotes
+  $('.footnotes').remove();
+
+  // move refs into #references-listing
+  $('#references-listing').replaceWith($('#refs'));
+
+  $('h1.appendix, h2.appendix').each(function(i, val) {
+    $(this).changeElementType('h3');
+  });
+  $('h3.appendix').each(function(i, val) {
+    var id = $(this).attr('id');
+    $('.d-contents a[href="#' + id + '"]').parent().remove();
+    appendix = true;
+    $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+  });
+
+  // show d-appendix if we have appendix content
+  $("d-appendix").css('display', appendix ? 'grid' : 'none');
+
+  // localize layout chunks to just output
+  $('.layout-chunk').each(function(i, val) {
+
+    // capture layout
+    var layout = $(this).attr('data-layout');
+
+    // apply layout to markdown level block elements
+    var elements = $(this).children().not('div.sourceCode, pre, script');
+    elements.each(function(i, el) {
+      var layout_div = $('<div class="' + layout + '"></div>');
+      if (layout_div.hasClass('shaded')) {
+        var shaded_content = $('<div class="shaded-content"></div>');
+        $(this).wrap(shaded_content);
+        $(this).parent().wrap(layout_div);
+      } else {
+        $(this).wrap(layout_div);
+      }
+    });
+
+
+    // unwrap the layout-chunk div
+    $(this).children().unwrap();
+  });
+
+  // remove code block used to force  highlighting css
+  $('.distill-force-highlighting-css').parent().remove();
+
+  // remove empty line numbers inserted by pandoc when using a
+  // custom syntax highlighting theme
+  $('code.sourceCode a:empty').remove();
+
+  // load distill framework
+  load_distill_framework();
+
+  // wait for window.distillRunlevel == 4 to do post processing
+  function distill_post_process() {
+
+    if (!window.distillRunlevel || window.distillRunlevel < 4)
+      return;
+
+    // hide author/affiliations entirely if we have no authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+    if (!have_authors)
+      $('d-byline').addClass('hidden');
+
+    // article with toc class
+    $('.d-contents').parent().addClass('d-article-with-toc');
+
+    // strip links that point to #
+    $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+
+    // add orcid ids
+    $('.authors-affiliations').find('.author').each(function(i, el) {
+      var orcid_id = front_matter.authors[i].orcidID;
+      if (orcid_id) {
+        var a = $('<a></a>');
+        a.attr('href', 'https://orcid.org/' + orcid_id);
+        var img = $('<img></img>');
+        img.addClass('orcid-id');
+        img.attr('alt', 'ORCID ID');
+        img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
+        a.append(img);
+        $(this).append(a);
+      }
+    });
+
+    // hide elements of author/affiliations grid that have no value
+    function hide_byline_column(caption) {
+      $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+    }
+
+    // affiliations
+    var have_affiliations = false;
+    for (var i = 0; i<front_matter.authors.length; ++i) {
+      var author = front_matter.authors[i];
+      if (author.affiliation !== "&nbsp;") {
+        have_affiliations = true;
+        break;
+      }
+    }
+    if (!have_affiliations)
+      $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+
+    // published date
+    if (!front_matter.publishedDate)
+      hide_byline_column("Published");
+
+    // document object identifier
+    var doi = $('d-byline').find('h3:contains("DOI")');
+    var doi_p = doi.next().empty();
+    if (!front_matter.doi) {
+      // if we have a citation and valid citationText then link to that
+      if ($('#citation').length > 0 && front_matter.citationText) {
+        doi.html('Citation');
+        $('<a href="#citation"></a>')
+          .text(front_matter.citationText)
+          .appendTo(doi_p);
+      } else {
+        hide_byline_column("DOI");
+      }
+    } else {
+      $('<a></a>')
+         .attr('href', "https://doi.org/" + front_matter.doi)
+         .html(front_matter.doi)
+         .appendTo(doi_p);
+    }
+
+     // change plural form of authors/affiliations
+    if (front_matter.authors.length === 1) {
+      var grid = $('.authors-affiliations');
+      grid.children('h3:contains("Authors")').text('Author');
+      grid.children('h3:contains("Affiliations")').text('Affiliation');
+    }
+
+    // remove d-appendix and d-footnote-list local styles
+    $('d-appendix > style:first-child').remove();
+    $('d-footnote-list > style:first-child').remove();
+
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+
+    // clear polling timer
+    clearInterval(tid);
+
+    // show body now that everything is ready
+    on_load_complete();
+  }
+
+  var tid = setInterval(distill_post_process, 50);
+  distill_post_process();
+
+}
+
+function init_downlevel() {
+
+  init_common();
+
+   // insert hr after d-title
+  $('.d-title').after($('<hr class="section-separator"/>'));
+
+  // check if we have authors
+  var front_matter = JSON.parse($("#distill-front-matter").html());
+  var have_authors = front_matter.authors && front_matter.authors.length > 0;
+
+  // manage byline/border
+  if (!have_authors)
+    $('.d-byline').remove();
+  $('.d-byline').after($('<hr class="section-separator"/>'));
+  $('.d-byline a').remove();
+
+  // remove toc
+  $('.d-contents').remove();
+
+  // move appendix elements
+  $('h1.appendix, h2.appendix').each(function(i, val) {
+    $(this).changeElementType('h3');
+  });
+  $('h3.appendix').each(function(i, val) {
+    $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+  });
+
+
+  // inject headers into references and footnotes
+  var refs_header = $('<h3></h3>');
+  refs_header.text('References');
+  $('#refs').prepend(refs_header);
+
+  var footnotes_header = $('<h3></h3');
+  footnotes_header.text('Footnotes');
+  $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+
+  // move appendix-bottom entries to the bottom
+  $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+  $('.appendix-bottom').remove();
+
+  // remove appendix if it's empty
+  if ($('.d-appendix').children().length === 0)
+    $('.d-appendix').remove();
+
+  // prepend separator above appendix
+  $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+
+  // trim code
+  $('pre>code').each(function(i, val) {
+    $(this).html($.trim($(this).html()));
+  });
+
+  // move posts-container right before article
+  $('.posts-container').insertBefore($('.d-article'));
+
+  $('body').addClass('downlevel');
+
+  on_load_complete();
+}
+
+
+function init_common() {
+
+  // jquery plugin to change element types
+  (function($) {
+    $.fn.changeElementType = function(newType) {
+      var attrs = {};
+
+      $.each(this[0].attributes, function(idx, attr) {
+        attrs[attr.nodeName] = attr.nodeValue;
+      });
+
+      this.replaceWith(function() {
+        return $("<" + newType + "/>", attrs).append($(this).contents());
+      });
+    };
+  })(jQuery);
+
+  // prevent underline for linked images
+  $('a > img').parent().css({'border-bottom' : 'none'});
+
+  // mark non-body figures created by knitr chunks as 100% width
+  $('.layout-chunk').each(function(i, val) {
+    var figures = $(this).find('img, .html-widget');
+    if ($(this).attr('data-layout') !== "l-body") {
+      figures.css('width', '100%');
+    } else {
+      figures.css('max-width', '100%');
+      figures.filter("[width]").each(function(i, val) {
+        var fig = $(this);
+        fig.css('width', fig.attr('width') + 'px');
+      });
+
+    }
+  });
+
+  // auto-append index.html to post-preview links in file: protocol
+  // and in rstudio ide preview
+  $('.post-preview').each(function(i, val) {
+    if (window.location.protocol === "file:")
+      $(this).attr('href', $(this).attr('href') + "index.html");
+  });
+
+  // get rid of index.html references in header
+  if (window.location.protocol !== "file:") {
+    $('.distill-site-header a[href]').each(function(i,val) {
+      $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+    });
+  }
+
+  // add class to pandoc style tables
+  $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+  $('.kable-table').children('table').addClass('pandoc-table');
+
+  // add figcaption style to table captions
+  $('caption').parent('table').addClass("figcaption");
+
+  // initialize posts list
+  if (window.init_posts_list)
+    window.init_posts_list();
+
+  // implmement disqus comment link
+  $('.disqus-comment-count').click(function() {
+    window.headroom_prevent_pin = true;
+    $('#disqus_thread').toggleClass('hidden');
+    if (!$('#disqus_thread').hasClass('hidden')) {
+      var offset = $(this).offset();
+      $(window).resize();
+      $('html, body').animate({
+        scrollTop: offset.top - 35
+      });
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  if (is_downlevel_browser())
+    init_downlevel();
+  else
+    window.addEventListener('WebComponentsReady', init_distill);
+});
+
+</script>
+
+<style type="text/css">
+/* base variables */
+
+/* Edit the CSS properties in this file to create a custom
+   Distill theme. Only edit values in the right column
+   for each row; values shown are the CSS defaults.
+   To return any property to the default,
+   you may set its value to: unset
+   All rows must end with a semi-colon.                      */
+
+/* Optional: embed custom fonts here with `@import`          */
+/* This must remain at the top of this file.                 */
+
+
+
+html {
+  /*-- Main font sizes --*/
+  --title-size:      50px;
+  --body-size:       1.06rem;
+  --code-size:       14px;
+  --aside-size:      12px;
+  --fig-cap-size:    13px;
+  /*-- Main font colors --*/
+  --title-color:     #000000;
+  --header-color:    rgba(0, 0, 0, 0.8);
+  --body-color:      rgba(0, 0, 0, 0.8);
+  --aside-color:     rgba(0, 0, 0, 0.6);
+  --fig-cap-color:   rgba(0, 0, 0, 0.6);
+  /*-- Specify custom fonts ~~~ must be imported above   --*/
+  --heading-font:    sans-serif;
+  --mono-font:       monospace;
+  --body-font:       sans-serif;
+  --navbar-font:     sans-serif;  /* websites + blogs only */
+}
+
+/*-- ARTICLE METADATA --*/
+d-byline {
+  --heading-size:    0.6rem;
+  --heading-color:   rgba(0, 0, 0, 0.5);
+  --body-size:       0.8rem;
+  --body-color:      rgba(0, 0, 0, 0.8);
+}
+
+/*-- ARTICLE TABLE OF CONTENTS --*/
+.d-contents {
+  --heading-size:    18px;
+  --contents-size:   13px;
+}
+
+/*-- ARTICLE APPENDIX --*/
+d-appendix {
+  --heading-size:    15px;
+  --heading-color:   rgba(0, 0, 0, 0.65);
+  --text-size:       0.8em;
+  --text-color:      rgba(0, 0, 0, 0.5);
+}
+
+/*-- WEBSITE HEADER + FOOTER --*/
+/* These properties only apply to Distill sites and blogs  */
+
+.distill-site-header {
+  --title-size:       18px;
+  --text-color:       rgba(255, 255, 255, 0.8);
+  --text-size:        15px;
+  --hover-color:      white;
+  --bkgd-color:       #0F2E3D;
+}
+
+.distill-site-footer {
+  --text-color:       rgba(255, 255, 255, 0.8);
+  --text-size:        15px;
+  --hover-color:      white;
+  --bkgd-color:       #0F2E3D;
+}
+
+/*-- Additional custom styles --*/
+/* Add any additional CSS rules below                      */
+</style>
+<style type="text/css">
+/* base variables */
+
+/* Edit the CSS properties in this file to create a custom
+   Distill theme. Only edit values in the right column
+   for each row; values shown are the CSS defaults.
+   To return any property to the default,
+   you may set its value to: unset
+   All rows must end with a semi-colon.                      */
+
+/* Optional: embed custom fonts here with `@import`          */
+/* This must remain at the top of this file.                 */
+
+@import url('https://fonts.googleapis.com/css?family=DM+Mono&display=swap');
+
+@import url('https://fonts.googleapis.com/css?family=Caladea:300,400,500,900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,400;0,600;1,400&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Rosario:ital,wght@0,400;0,600;1,400&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Neue+Helvetica&display=swap');
+
+html {
+  /*-- Main font sizes --*/
+  --title-size:      50px;
+  --body-size:       1.25rem;
+  --code-size:       14px;
+  --aside-size:      12px;
+  --fig-cap-size:    13px;
+  /*-- Main font colors --*/
+  --title-color:     #ff5c61;
+  --header-color:    rgba(0, 0, 0, 0.8);
+  --body-color:      rgba(0, 0, 0, 0.8);
+  --aside-color:     rgba(0, 0, 0, 0.6);
+  --fig-cap-color:   rgba(0, 0, 0, 0.6);
+  /*-- Specify custom fonts ~~~ must be imported above   --*/
+  --heading-font:    'Caladea', serif;
+  --mono-font:       'DM Mono', monospace;
+  --body-font:       'Jost', sans-serif;
+  --navbar-font:     'Neue Helvetica', sans-serif;  /* websites + blogs only */
+}
+
+/*-- ARTICLE METADATA --*/
+d-byline {
+  --heading-size:    0.8rem;
+  --heading-color:   rgba(0, 0, 0, 0.5);
+  --body-size:       1.0rem;
+  --body-color:      rgba(0, 0, 0, 0.8);
+}
+
+/*-- ARTICLE TABLE OF CONTENTS --*/
+.d-contents {
+  --heading-size:    18px;
+  --contents-size:   13px;
+}
+
+/*-- ARTICLE APPENDIX --*/
+d-appendix {
+  --heading-size:    15px;
+  --heading-color:   rgba(0, 0, 0, 0.65);
+  --text-size:       0.8em;
+  --text-color:      rgba(0, 0, 0, 0.5);
+}
+
+/*-- WEBSITE HEADER + FOOTER --*/
+/* These properties only apply to Distill sites and blogs  */
+
+.distill-site-header {
+  --title-size:       18px;
+  --text-color:       rgba(255, 255, 255, 0.8);
+  --text-size:        15px;
+  --hover-color:      white;
+  --bkgd-color:       #0F2E3D;
+}
+
+.distill-site-footer {
+  --text-color:       rgba(255, 255, 255, 0.8);
+  --text-size:        15px;
+  --hover-color:      white;
+  --bkgd-color:       #0F2E3D;
+}
+
+.distill-site-nav a {
+  
+  font-family: 'Neue Helvetica', sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  color: #a9caea !important;
+  text-decoration: none;
+}
+
+.distill-site-nav a:hover {
+  color: #ff6700;
+}
+
+.distill-site-nav a:current {
+  background-color: #ff5c61;
+  color: white !important;
+}
+
+      
+.nav-dropdown-content a {
+  font-family: 'Neue Helvetica', sans-serif;
+  font-weight: 500;
+  color: #847c77;
+}
+
+.distill-site-header {
+  font-family: 'Neue Helvetica', sans-serif;
+  font-weight: 500;
+  background-color: #ede7e3;
+}
+
+
+@media print {
+  .distill-site-nav {
+    display: none;
+  }
+}
+
+
+
+/*-- Additional custom styles --*/
+/* Add any additional CSS rules below                      */
+
+/
+
+/**
+ * Remove default margin.
+ */
+body {
+  background-color: #f7f5f2;
+  margin: 0; }
+
+.link,
+a {
+  color: #187BA2;
+  text-decoration: none;
+  -webkit-transition: color, 200ms;
+  -moz-transition: color, 200ms;
+  transition: color, 200ms; }
+  .link:visited,
+  a:visited {
+    color: #187BA2; }
+  .link.light,
+  a.light {
+    color: #a9caea; }
+    .link.light:visited,
+    a.light:visited {
+      color: #77abc9; }
+    .link.light:hover,
+    a.light:hover {
+      color: #eeeff4; }
+    .link.light:active,
+    a.light:active {
+      color: #77abc9; }
+  .link.link-white,
+  a.link-white {
+    color: white; }
+    .link.link-white:visited,
+    .link.link-white:hover,
+    .link.link-white:active,
+    a.link-white:visited,
+    a.link-white:hover,
+    a.link-white:active {
+      color: white; }
+  .link:hover,
+  a:hover {
+    color: #4e4a47;
+    text-decoration: underline; }
+  .link:active,
+  a:active {
+    color: #187BA2; }
+
+/* Links
+   ========================================================================== */
+/**
+ * Remove the gray background color from active links in IE 10.
+ */
+a {
+  background-color: transparent; }
+
+/**
+ * Improve readability of focused elements when they are also in an
+ * active/hover state.
+ */
+a:active,
+a:hover {
+  outline: 0; }</style>
+<style type="text/css">
+/* base style */
+
+/* FONT FAMILIES */
+
+:root {
+  --heading-default: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono-default: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  --body-default: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+body,
+.posts-list .post-preview p,
+.posts-list .description p {
+  font-family: var(--body-font), var(--body-default);
+}
+
+h1, h2, h3, h4, h5, h6,
+.posts-list .post-preview h2,
+.posts-list .description h2 {
+  font-family: var(--heading-font), var(--heading-default);
+}
+
+d-article div.sourceCode code,
+d-article pre code {
+	font-family: var(--mono-font), var(--mono-default);
+}
+
+
+/*-- TITLE --*/
+d-title h1,
+.posts-list > h1 {
+  color: var(--title-color, black);
+}
+
+d-title h1 {
+  font-size: var(--title-size, 50px);
+}
+
+/*-- HEADERS --*/
+d-article h1,
+d-article h2,
+d-article h3,
+d-article h4,
+d-article h5,
+d-article h6 {
+  color: var(--header-color, rgba(0, 0, 0, 0.8));
+}
+
+/*-- BODY --*/
+/* only text inside of <p> tags */
+d-article > p {
+  color: var(--body-color, rgba(0, 0, 0, 0.8));
+  font-size: var(--body-size, 1.06rem);
+}
+
+/*-- CODE --*/
+d-article div.sourceCode code,
+d-article pre code {
+	font-size: var(--code-size, 14px);
+}
+
+/*-- ASIDE --*/
+d-article aside {
+	font-size: var(--aside-size, 12px);
+	color: var(--aside-color, rgba(0, 0, 0, 0.6));
+}
+
+/*-- FIGURE CAPTIONS --*/
+figure .caption,
+figure figcaption,
+.figure .caption {
+	font-size: var(--fig-cap-size, 13px);
+	color: var(--fig-cap-color, rgba(0, 0, 0, 0.6));
+}
+
+/*-- METADATA --*/
+d-byline h3 {
+	font-size: var(--heading-size, 0.6rem);
+	color: var(--heading-color, rgba(0, 0, 0, 0.5));
+}
+
+d-byline {
+	font-size: var(--body-size, 0.8rem);
+	color: var(--body-color, rgba(0, 0, 0, 0.8));
+}
+
+d-byline a,
+d-article d-byline a {
+	color: var(--body-color, rgba(0, 0, 0, 0.8));
+}
+
+/*-- TABLE OF CONTENTS --*/
+.d-contents nav h3 {
+	font-size: var(--heading-size, 18px);
+}
+
+.d-contents nav a {
+	font-size: var(--contents-size, 13px);
+}
+
+/*-- APPENDIX --*/
+d-appendix h3 {
+  font-size: var(--heading-size, 15px);
+	color: var(--heading-color, rgba(0, 0, 0, 0.65));
+}
+
+d-appendix {
+  font-size: var(--text-size, 0.8em);
+	color: var(--text-color, rgba(0, 0, 0, 0.5));
+}
+
+d-appendix d-footnote-list a.footnote-backlink {
+	color: var(--text-color, rgba(0, 0, 0, 0.5));
+}
+
+/*-- WEBSITE HEADER + FOOTER --*/
+.distill-site-header .title {
+	font-size: var(--title-size, 18px);
+	font-family: var(--navbar-font), var(--heading-default);
+}
+
+.distill-site-header a,
+.nav-dropdown .nav-dropbtn {
+  font-family: var(--navbar-font), var(--heading-default);
+}
+
+.distill-site-header a:hover {
+	color: var(--hover-color, white);
+}
+
+.distill-site-header {
+	font-size: var(--text-size, 15px);
+	color: var(--text-color, rgba(255, 255, 255, 0.8));
+	background-color: var(--bkgd-color, #0F2E3D);
+}
+
+.distill-site-footer {
+	font-size: var(--text-size, 15px);
+	color: var(--text-color, rgba(255, 255, 255, 0.8));
+	background-color: var(--bkgd-color, #0F2E3D);
+}
+
+.distill-site-footer a:hover {
+	color: var(--hover-color, white);
+}</style>
+<!--/radix_placeholder_distill-->
+  <script src="../../site_libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+  <script src="../../site_libs/jquery-1.12.4/jquery.min.js"></script>
+  <link href="../../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+  <script src="../../site_libs/datatables-binding-0.16/datatables.js"></script>
+  <link href="../../site_libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+  <link href="../../site_libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+  <script src="../../site_libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+  <link href="../../site_libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+  <script src="../../site_libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+  <script src="../../site_libs/anchor-4.2.2/anchor.min.js"></script>
+  <script src="../../site_libs/bowser-1.9.3/bowser.min.js"></script>
+  <script src="../../site_libs/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="../../site_libs/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+<!--/radix_placeholder_site_in_header-->
+
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"Using the tidyverse with Databases - Part II","description":"I was serious, you don't need to be a SQL expert to work with Databases through R","authors":[{"author":"Vebash Naidoo","authorURL":"https://twitter.com/Sciencificity","affiliation":"R-Ladies Johannesburg","affiliationURL":"https://twitter.com/RLadiesJozi","orcidID":""}],"publishedDate":"2020-12-20T00:00:00.000+02:00","citationText":"Naidoo, 2020"}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<header class="header header--fixed" role="banner">
+<nav class="distill-site-nav distill-site-header">
+<div class="nav-left">
+<a href="../../index.html" class="title">Sciencificity's Blog</a>
+<input id="distill-search" class="nav-search hidden" type="text" placeholder="Search..."/>
+</div>
+<div class="nav-right">
+<a href="../../index.html">Home</a>
+<a href="../../about.html">About</a>
+<a href="https://twitter.com/Sciencificity">
+<i class="fa fa-twitter" aria-hidden="true"></i>
+</a>
+<a href="https://github.com/Sciencificity">
+<i class="fa fa-github" aria-hidden="true"></i>
+</a>
+<a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
+</div>
+</nav>
+</header>
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>Using the tidyverse with Databases - Part II</h1>
+<!--radix_placeholder_categories-->
+<div class="dt-tags">
+  <a href="../../index.html#category:SQL" class="dt-tag">SQL</a>
+  <a href="../../index.html#category:databases" class="dt-tag">databases</a>
+  <a href="../../index.html#category:tidyverse" class="dt-tag">tidyverse</a>
+  <a href="../../index.html#category:dbplyr" class="dt-tag">dbplyr</a>
+</div>
+<!--/radix_placeholder_categories-->
+<p><p>I was serious, you don’t need to be a SQL expert to work with Databases through R</p></p>
+</div>
+
+<div class="d-byline">
+  Vebash Naidoo <a href="https://twitter.com/Sciencificity" class="uri">https://twitter.com/Sciencificity</a> (R-Ladies Johannesburg)<a href="https://twitter.com/RLadiesJozi" class="uri">https://twitter.com/RLadiesJozi</a>
+  
+<br/>12-20-2020
+</div>
+
+<div class="d-article">
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#part-i">Part I</a></li>
+<li><a href="#what-are-we-tackling-in-part-ii">What are we tackling in Part II?</a></li>
+<li><a href="#connect-and-remind-ourselves-what-were-working-with">Connect, and remind ourselves what we’re working with</a><ul>
+<li><a href="#make-a-connection">Make a connection</a></li>
+<li><a href="#lets-get-familiar-with-our-data">Let’s get familiar with our data</a><ul>
+<li><a href="#results">results</a></li>
+<li><a href="#baker_results">baker_results</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#what-are-we-interested-in">What are we interested in?</a><ul>
+<li><a href="#joining-data">Joining data</a><ul>
+<li><a href="#remember-the-tblcon-tbl_name-always">Remember the <code>tbl(con, "tbl_name")</code> always</a></li>
+</ul></li>
+<li><a href="#collect">Collect</a><ul>
+<li><a href="#what-does-the-query-look-like">What does the query look like?</a></li>
+<li><a href="#bring-it-into-r">Bring it into R</a></li>
+<li><a href="#visualise-data">Visualise Data</a></li>
+</ul></li>
+<li><a href="#done-remember-to-disconnect">Done? Remember to disconnect!</a></li>
+</ul></li>
+<li><a href="#still-to-come">Still to come</a><ul>
+<li><a href="#acknowledgements">Acknowledgements</a></li>
+</ul></li>
+</ul>
+</nav>
+</div>
+<p><img src = Paper.R_journal.33_.png width = 600px></p>
+<div class="layout-chunk" data-layout="l-body">
+<style type="text/css">
+.main-container {
+    max-width: 600px !important;
+}
+
+pre {
+  max-height: 800px !important;
+  max-width: 600px !important;
+  overflow-y: auto !important;
+  overflow-x: scroll !important;
+}
+
+pre[class] {
+  max-height: 100px;
+}
+</style>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<h1 id="part-i">Part I</h1>
+<p>In <a href="https://sciencificity-blog.netlify.app/posts/2020-12-12-using-the-tidyverse-with-databases/">Part I</a> we made a connection to a SQLite DB.</p>
+<h1 id="what-are-we-tackling-in-part-ii">What are we tackling in Part II?</h1>
+<ul>
+<li>We’ll do more advanced <code>dplyr</code> 📦 workflows.</li>
+<li>We’ll <strong>collect</strong> the data from the query.</li>
+</ul>
+<aside>
+<code>collect</code>ing data is when we bring the data into R. If you recall in the Part I post, all computation was happening on the DB itself, and not pulled into R.
+</aside>
+<p>The <a href="https://github.com/sciencificity/intro-to-dbs-r">project on GitHub</a>, has the example SQLite database, the slides, and some code files.</p>
+<h1 id="connect-and-remind-ourselves-what-were-working-with">Connect, and remind ourselves what we’re working with</h1>
+<h2 id="make-a-connection">Make a connection</h2>
+<p>As always, our <strong>first</strong> step is to <span style="color: #008080;background-color:#e4a199"><strong>connect to the database</strong></span>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://r-dbi.github.io/DBI'>DBI</a></span><span class='op'>)</span> <span class='co'># main DB interface</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span> 
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dbplyr.tidyverse.org/'>dbplyr</a></span><span class='op'>)</span> <span class='co'># dplyr back-end for DBs</span>
+
+<span class='va'>con</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dbi.r-dbi.org/reference/dbConnect.html'>dbConnect</a></span><span class='op'>(</span>drv <span class='op'>=</span> <span class='fu'>RSQLite</span><span class='fu'>::</span><span class='fu'><a href='https://rsqlite.r-dbi.org/reference/SQLite.html'>SQLite</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='co'># give me a SQLite connection</span>
+        dbname <span class='op'>=</span> <span class='st'>"data/great_brit_bakeoff.db"</span><span class='op'>)</span> <span class='co'># To what? The DB named great_brit_bakeoff.db</span>
+
+<span class='fu'><a href='https://dbi.r-dbi.org/reference/dbListTables.html'>dbListTables</a></span><span class='op'>(</span><span class='va'>con</span><span class='op'>)</span> <span class='co'># List me the tables at the connection</span>
+</code></pre>
+</div>
+<pre><code> [1] &quot;baker_results&quot;     &quot;bakers&quot;            &quot;bakes&quot;            
+ [4] &quot;challenge_results&quot; &quot;challenges&quot;        &quot;episode_results&quot;  
+ [7] &quot;episodes&quot;          &quot;ratings&quot;           &quot;ratings_seasons&quot;  
+[10] &quot;results&quot;           &quot;seasons&quot;           &quot;series&quot;           </code></pre>
+</div>
+<h2 id="lets-get-familiar-with-our-data">Let’s get familiar with our data</h2>
+<p>In the dataset we have:</p>
+<ul>
+<li><span style="color: #5196b4;background-color:#f4e4e7">results<a href="https://bakeoff.netlify.app/reference/results.html"></a></span> which tells us <a href="https://bakeoff.netlify.app/reference/results.html">how each baker did</a> in the episode - <code>IN</code>, <code>OUT</code>, <code>WINNER</code> etc.</li>
+<li><span style="color: #5196b4;background-color:#f4e4e7">baker_results<a href="https://bakeoff.netlify.app/reference/baker_results.html"></a></span> which tells us <a href="https://bakeoff.netlify.app/reference/baker_results.html">a bit more</a> about the baker’s performance over the entire series - how many times did they win <code>STAR BAKER</code>, how many times they placed in the top 3 etc.</li>
+</ul>
+<p>Let’s get an idea of what is in each table.</p>
+<h3 id="results">results</h3>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='fu'><a href='https://dplyr.tidyverse.org/reference/tbl.html'>tbl</a></span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"results"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># Reach into my connection, and "talk" to results table</span>
+  <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span> <span class='op'>%&gt;%</span>          <span class='co'># get me a subset of the data</span>
+  <span class='co'># sometimes if there are many columns, some columns are hidden, </span>
+  <span class='co'># this option prints all columns for us</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='cn'>Inf</span><span class='op'>)</span>    
+</code></pre>
+</div>
+<pre><code># Source:   lazy query [?? x 4]
+# Database: sqlite 3.33.0
+#   [C:\Personal\Blog_Vebash\_posts\2020-12-20-using-the-tidyverse-with-dbs-partii\data\great_brit_bakeoff.db]
+   series episode baker   result
+    &lt;int&gt;   &lt;int&gt; &lt;chr&gt;   &lt;chr&gt; 
+ 1      1       1 Annetha IN    
+ 2      1       2 Annetha OUT   
+ 3      1       3 Annetha &lt;NA&gt;  
+ 4      1       4 Annetha &lt;NA&gt;  
+ 5      1       5 Annetha &lt;NA&gt;  
+ 6      1       6 Annetha &lt;NA&gt;  
+ 7      1       1 David   IN    
+ 8      1       2 David   IN    
+ 9      1       3 David   IN    
+10      1       4 David   OUT   </code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='fu'><a href='https://dplyr.tidyverse.org/reference/tbl.html'>tbl</a></span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"results"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>result</span>, sort <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='co'># what categories of "result" are there?</span>
+</code></pre>
+</div>
+<pre><code># Source:     lazy query [?? x 2]
+# Database:   sqlite 3.33.0
+#   [C:\Personal\Blog_Vebash\_posts\2020-12-20-using-the-tidyverse-with-dbs-partii\data\great_brit_bakeoff.db]
+# Ordered by: desc(n)
+  result         n
+  &lt;chr&gt;      &lt;int&gt;
+1 IN           452
+2 &lt;NA&gt;         376
+3 OUT           79
+4 STAR BAKER    70
+5 RUNNER-UP     18
+6 WINNER         9
+7 [a]            1
+8 WD             1</code></pre>
+</div>
+<h3 id="baker_results">baker_results</h3>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='fu'><a href='https://dplyr.tidyverse.org/reference/tbl.html'>tbl</a></span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"baker_results"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># Reach in and "talk" to baker_results</span>
+  <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>                  <span class='co'># get a glimpse of data</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/compute.html'>collect</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>               <span class='co'># bring that glimpsed data into R </span>
+  <span class='fu'>DT</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DT/man/datatable.html'>datatable</a></span><span class='op'>(</span>options <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>scrollX <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># force DT horizontal scrollbar</span>
+</code></pre>
+</div>
+<div id="htmlwidget-e122b462489e743655d8" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e122b462489e743655d8">{"x":{"filter":"none","data":[["1","2","3","4","5","6"],[1,1,1,1,1,1],["Annetha Mills","David Chambers","Edward \"Edd\" Kimber","Jasminder Randhawa","Jonathan Shepherd","Lea Harris"],["Annetha","David","Edd","Jasminder","Jonathan","Lea"],[30,31,24,45,25,51],["Single mother","Entrepreneur","Debt collector for Yorkshire Bank","Assistant Credit Control Manager","Research Analyst","Retired"],["Essex","Milton Keynes","Bradford","Birmingham","St Albans","Midlothian, Scotland"],["Mills","Chambers","Kimber","Randhawa","Shepherd","Harris"],["Annetha","David","Edward","Jasminder","Jonathan","Lea"],[0,0,0,0,0,0],[0,0,2,0,1,0],[1,1,4,2,1,0],[1,3,1,2,2,1],[2,3,1,2,1,10],[7,8,6,5,9,10],[4.5,4.5,2,3,6,10],[0,0,1,0,0,0],[0,0,0,0,0,0],[2,4,6,5,3,1],[14838,14838,14838,14838,14838,14838],[14845,14859,14873,14866,14852,14838],[null,null,null,null,null,null],[null,null,null,null,null,null],[33.3333333333333,66.6666666666667,100,83.3333333333333,50,16.6666666666667],[50,25,66.6666666666667,40,33.3333333333333,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>series<\/th>\n      <th>baker_full<\/th>\n      <th>baker<\/th>\n      <th>age<\/th>\n      <th>occupation<\/th>\n      <th>hometown<\/th>\n      <th>baker_last<\/th>\n      <th>baker_first<\/th>\n      <th>star_baker<\/th>\n      <th>technical_winner<\/th>\n      <th>technical_top3<\/th>\n      <th>technical_bottom<\/th>\n      <th>technical_highest<\/th>\n      <th>technical_lowest<\/th>\n      <th>technical_median<\/th>\n      <th>series_winner<\/th>\n      <th>series_runner_up<\/th>\n      <th>total_episodes_appeared<\/th>\n      <th>first_date_appeared<\/th>\n      <th>last_date_appeared<\/th>\n      <th>first_date_us<\/th>\n      <th>last_date_us<\/th>\n      <th>percent_episodes_appeared<\/th>\n      <th>percent_technical_top3<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,4,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+<p>Notice the use of the <span style="color: #008080;background-color:#e4a199"><code>collect()</code></span> function in the code above. I wanted us to be able to get a full glimpse of the data in a nice table, and hence I brought the first few rows of data into R by using the <span style="color: #008080;background-color:#e4a199"><code>collect()</code></span> function. This allowed me to then use <code>datatable</code> to display the results a bit better, than the <code>print(width = Inf)</code> alternative.</p>
+<h1 id="what-are-we-interested-in">What are we interested in?</h1>
+<p>Let’s say we want to see how the <strong><code>WINNER</code></strong> and <strong><code>RUNNER-UP</code>(s)</strong> did in the series they appeared in.</p>
+<p>To do that we need to get all the <span style="color: #5196b4;background-color:#f4e4e7">baker_results</span> for the <code>WINNER</code> and <code>RUNNER-UP</code>.</p>
+<h2 id="joining-data">Joining data</h2>
+<p>When doing joins we want to find the common columns across the two tables that we can <code>join</code> on.</p>
+<ul>
+<li>In <span style="color: #5196b4;background-color:#f4e4e7">results<a href="https://bakeoff.netlify.app/reference/results.html"></a></span> we have <code>series</code> and <code>baker</code>.</li>
+<li>In <span style="color: #5196b4;background-color:#f4e4e7">baker_results<a href="https://bakeoff.netlify.app/reference/baker_results.html"></a></span> we have <code>series</code> and <code>baker</code>.</li>
+<li>❓ 🤔 Why didn’t I also choose the <code>episode</code> column of <span style="color: #5196b4;background-color:#f4e4e7">results</span> as a join column? <br> ✅ Yes, that column is not in <code>baker_results</code>, since <code>baker_results</code> contains data about how the baker did overall in the series they appeared, that is, one row per baker. <br>The <code>results</code> data however, contains info per baker, per episode, for the series they appeared in - i.e. if they flopped (were <code>OUT</code> 😉), in the second episode of a series that contained 10 episodes, their name would appear 10 times in the <code>results</code> table, but their “result” value will be <code>NA</code> from episode 3 onwards.</li>
+</ul>
+<h3 id="remember-the-tblcon-tbl_name-always">Remember the <code>tbl(con, "tbl_name")</code> always</h3>
+<p>I’d like to bring to your attention the use of <code>tbl(con, "table_1")</code> and <code>tbl(con, "table_2")</code> in the <strong>join</strong> function.</p>
+<p>We must always keep this in mind, because <span style="color: #5196b4;background-color:#f4e4e7">baker_results</span> and <span style="color: #5196b4;background-color:#f4e4e7">results</span> don’t exist in R yet. We’re talking to those tables in our relational database management system (RDBMS), so we <strong>always</strong> have to do so through our <strong>connection</strong>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>42</span><span class='op'>)</span>
+<span class='fu'><a href='https://dplyr.tidyverse.org/reference/tbl.html'>tbl</a></span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"baker_results"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># use connection to "talk" to baker_results</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>inner_join</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/tbl.html'>tbl</a></span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"results"</span><span class='op'>)</span>, <span class='co'># use connection to "talk" to results and join both tables </span>
+        by <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'baker'</span> <span class='op'>=</span> <span class='st'>'baker'</span>,
+               <span class='st'>'series'</span> <span class='op'>=</span> <span class='st'>'series'</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># join criteria </span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/compute.html'>collect</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># get it into R</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/sample_n.html'>sample_n</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># take a random sample</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='cn'>Inf</span><span class='op'>)</span> <span class='co'># print all columns</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 3 x 26
+  series baker_full     baker     age occupation                 
+   &lt;dbl&gt; &lt;chr&gt;          &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;                      
+1      6 Ian Cumming    Ian        41 Travel photographer        
+2      4 Frances Quinn  Frances    31 Children&#39;s Clothes Designer
+3      2 Yasmin Limbert Yasmin     43 Childminder                
+  hometown                          baker_last baker_first star_baker
+  &lt;chr&gt;                             &lt;chr&gt;      &lt;chr&gt;            &lt;int&gt;
+1 Great Wilbraham, Cambridgeshire   Cumming    Ian                  3
+2 Market Harborough, Leicestershire Quinn      Frances              1
+3 West Kirby, The Wirral            Limbert    Yasmin               1
+  technical_winner technical_top3 technical_bottom technical_highest
+             &lt;int&gt;          &lt;int&gt;            &lt;int&gt;             &lt;dbl&gt;
+1                1              6                4                 1
+2                1              7                3                 1
+3                0              2                4                 2
+  technical_lowest technical_median series_winner series_runner_up
+             &lt;dbl&gt;            &lt;dbl&gt;         &lt;int&gt;            &lt;int&gt;
+1                8                3             0                1
+2                8                3             1                0
+3                6                5             0                0
+  total_episodes_appeared first_date_appeared last_date_appeared
+                    &lt;dbl&gt;               &lt;dbl&gt;              &lt;dbl&gt;
+1                      10               16652              16715
+2                      10               15937              16000
+3                       6               15202              15237
+  first_date_us last_date_us percent_episodes_appeared
+          &lt;dbl&gt;        &lt;dbl&gt;                     &lt;dbl&gt;
+1         16983        17025                       100
+2         16432        16495                       100
+3            NA           NA                        75
+  percent_technical_top3 episode result
+                   &lt;dbl&gt;   &lt;int&gt; &lt;chr&gt; 
+1                   60         5 IN    
+2                   70         5 IN    
+3                   33.3       5 IN    </code></pre>
+</div>
+<p>Notice that all columns of <span style="color: #5196b4;background-color:#f4e4e7">baker_results</span> appear first and then we have the “extra” columns from <span style="color: #5196b4;background-color:#f4e4e7">results</span> i.e. <code>episode</code> and <code>result</code>.</p>
+<h4 id="common-mistake">Common mistake</h4>
+<p>I included the above to show that each time we “talk” to a table we must do so through our connection, because I often make the mistake of not including the <code>tbl(con, "name_of_tbl_i_am_joining")</code> in the <strong>join</strong> function. I, more times than I care to admit 🤦, <strong>incorrectly</strong> write:</p>
+<pre>
+  tbl(con, "table1") %>% # correct -> "talk" through connection
+     left_join(table2,   # incorrect -> forgot to use the connection
+          by = c("tbl1_name1" = "tbl2_name1"))
+</pre>
+<p>I would like to help you, not repeat my mistake 😕, so heads up <span style="color: #FFE4E1;background-color:#FD5800">AVOID THE FOLLOWING</span> 🚏:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='fu'><a href='https://dplyr.tidyverse.org/reference/tbl.html'>tbl</a></span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"baker_results"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># use connection to "talk" to baker_results</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>inner_join</a></span><span class='op'>(</span><span class='va'>results</span>,  <span class='co'># OOPS! I forgot the tbl(con, "results")</span>
+        by <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'baker'</span> <span class='op'>=</span> <span class='st'>'baker'</span>,
+               <span class='st'>'series'</span> <span class='op'>=</span> <span class='st'>'series'</span><span class='op'>)</span><span class='op'>)</span>  
+</code></pre>
+</div>
+<pre><code>Error in tbl_vars_dispatch(x): object &#39;results&#39; not found</code></pre>
+</div>
+<h2 id="collect">Collect</h2>
+<p>Ok, let us now do our entire pipeline, and only bring the data into R when we’ve got what we’re looking for.</p>
+<p>We need to:</p>
+<ul>
+<li>Join the tables</li>
+<li>Filter the data for <code>WINNER</code> and <code>RUNNER-UP</code> in the <strong>result</strong> column.</li>
+<li>Select only the columns we’re interested in.</li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='op'>(</span><span class='va'>final_query</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/tbl.html'>tbl</a></span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"baker_results"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># use connection to "talk" to baker_results</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>inner_join</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/tbl.html'>tbl</a></span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"results"</span><span class='op'>)</span>, <span class='co'># use connection to "talk" to results and join both tables </span>
+        by <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'baker'</span> <span class='op'>=</span> <span class='st'>'baker'</span>,
+               <span class='st'>'series'</span> <span class='op'>=</span> <span class='st'>'series'</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># join criteria </span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>result</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"WINNER"</span>, <span class='st'>"RUNNER-UP"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># filter rows we're interested in</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>series</span>, <span class='va'>baker</span><span class='op'>:</span><span class='va'>percent_technical_top3</span>,
+         <span class='va'>result</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># Source:   lazy query [?? x 24]
+# Database: sqlite 3.33.0
+#   [C:\Personal\Blog_Vebash\_posts\2020-12-20-using-the-tidyverse-with-dbs-partii\data\great_brit_bakeoff.db]
+   series baker   age occupation hometown baker_last baker_first
+    &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;      
+ 1      1 Edd      24 Debt coll~ Bradford Kimber     Edward     
+ 2      1 Mira~    37 Food buye~ Midhurs~ Browne     Miranda    
+ 3      1 Ruth     31 Retail ma~ Poynton~ Clemens    Ruth       
+ 4      2 Holly    31 Advertisi~ Leicest~ Bell       Holly      
+ 5      2 Joan~    41 Housewife  Ongar, ~ Wheatley   Joanne     
+ 6      2 Mary~    45 Housewife  Kidderm~ Boermans   Mary-Anne  
+ 7      3 Bren~    63 Recruitme~ Sutton ~ Lynch      Brendan    
+ 8      3 James    21 Medical s~ Hillswi~ Morton     James      
+ 9      3 John     23 Law stude~ Wigan    Whaite     John       
+10      4 Fran~    31 Children&#39;~ Market ~ Quinn      Frances    
+# ... with more rows, and 17 more variables: star_baker &lt;int&gt;,
+#   technical_winner &lt;int&gt;, technical_top3 &lt;int&gt;,
+#   technical_bottom &lt;int&gt;, technical_highest &lt;dbl&gt;,
+#   technical_lowest &lt;dbl&gt;, technical_median &lt;dbl&gt;,
+#   series_winner &lt;int&gt;, series_runner_up &lt;int&gt;,
+#   total_episodes_appeared &lt;dbl&gt;, first_date_appeared &lt;dbl&gt;,
+#   last_date_appeared &lt;dbl&gt;, first_date_us &lt;dbl&gt;,
+#   last_date_us &lt;dbl&gt;, percent_episodes_appeared &lt;dbl&gt;,
+#   percent_technical_top3 &lt;dbl&gt;, result &lt;chr&gt;</code></pre>
+</div>
+<p>The above code just sets up the query that will be executed should we run (Ctrl + Enter) <code>final_query</code> in R (hence the <strong>lazy query [?? x 24]</strong> in the output). No data is collected (i.e. present in your local R environment) as yet.</p>
+<h3 id="what-does-the-query-look-like">What does the query look like?</h3>
+<div class="layout-chunk" data-layout="l-body">
+<style type="text/css">
+.scroll-100 {
+  white-space:pre !important;
+  max-width: 100px;
+  overflow-x: scroll;
+  background-color: inherit;
+}
+code.r{
+  font-size: 10px;
+}
+</style>
+</div>
+<p></p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='va'>final_query</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/explain.html'>show_query</a></span><span class='op'>(</span><span class='op'>)</span> 
+</code></pre>
+</div>
+<pre class="scroll-100"><code>&lt;SQL&gt;
+SELECT `series`, `baker`, `age`, `occupation`, `hometown`, `baker_last`, `baker_first`, `star_baker`, `technical_winner`, `technical_top3`, `technical_bottom`, `technical_highest`, `technical_lowest`, `technical_median`, `series_winner`, `series_runner_up`, `total_episodes_appeared`, `first_date_appeared`, `last_date_appeared`, `first_date_us`, `last_date_us`, `percent_episodes_appeared`, `percent_technical_top3`, `result`
+FROM (SELECT `LHS`.`series` AS `series`, `baker_full`, `LHS`.`baker` AS `baker`, `age`, `occupation`, `hometown`, `baker_last`, `baker_first`, `star_baker`, `technical_winner`, `technical_top3`, `technical_bottom`, `technical_highest`, `technical_lowest`, `technical_median`, `series_winner`, `series_runner_up`, `total_episodes_appeared`, `first_date_appeared`, `last_date_appeared`, `first_date_us`, `last_date_us`, `percent_episodes_appeared`, `percent_technical_top3`, `episode`, `result`
+FROM `baker_results` AS `LHS`
+INNER JOIN `results` AS `RHS`
+ON (`LHS`.`baker` = `RHS`.`baker` AND `LHS`.`series` = `RHS`.`series`)
+)
+WHERE (`result` IN (&#39;WINNER&#39;, &#39;RUNNER-UP&#39;))</code></pre>
+</div>
+<p></p>
+
+<h3 id="bring-it-into-r">Bring it into R</h3>
+<p>Now finally, we are ready to bring our filtered and joined data into R by using <code>collect()</code>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='op'>(</span><span class='va'>top_performers</span> <span class='op'>&lt;-</span> <span class='va'>final_query</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/compute.html'>collect</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 24 x 24
+   series baker   age occupation hometown baker_last baker_first
+    &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;      
+ 1      1 Edd      24 Debt coll~ Bradford Kimber     Edward     
+ 2      1 Mira~    37 Food buye~ Midhurs~ Browne     Miranda    
+ 3      1 Ruth     31 Retail ma~ Poynton~ Clemens    Ruth       
+ 4      2 Holly    31 Advertisi~ Leicest~ Bell       Holly      
+ 5      2 Joan~    41 Housewife  Ongar, ~ Wheatley   Joanne     
+ 6      2 Mary~    45 Housewife  Kidderm~ Boermans   Mary-Anne  
+ 7      3 Bren~    63 Recruitme~ Sutton ~ Lynch      Brendan    
+ 8      3 James    21 Medical s~ Hillswi~ Morton     James      
+ 9      3 John     23 Law stude~ Wigan    Whaite     John       
+10      4 Fran~    31 Children&#39;~ Market ~ Quinn      Frances    
+# ... with 14 more rows, and 17 more variables: star_baker &lt;int&gt;,
+#   technical_winner &lt;int&gt;, technical_top3 &lt;int&gt;,
+#   technical_bottom &lt;int&gt;, technical_highest &lt;dbl&gt;,
+#   technical_lowest &lt;dbl&gt;, technical_median &lt;dbl&gt;,
+#   series_winner &lt;int&gt;, series_runner_up &lt;int&gt;,
+#   total_episodes_appeared &lt;dbl&gt;, first_date_appeared &lt;dbl&gt;,
+#   last_date_appeared &lt;dbl&gt;, first_date_us &lt;dbl&gt;,
+#   last_date_us &lt;dbl&gt;, percent_episodes_appeared &lt;dbl&gt;,
+#   percent_technical_top3 &lt;dbl&gt;, result &lt;chr&gt;</code></pre>
+</div>
+<p>How about that? Notice the <strong>A tibble: 24 x 24</strong>! R now, has the data in it’s local environment, and can definitively tell us it knows there are 24 observations (no more <em>lazy query</em>) 😄.</p>
+<h3 id="visualise-data">Visualise Data</h3>
+<p>Now that we have finalised what data we wanted from our RDBMS, executed our query, and collected the data into our R environment we can do further processing, create plots for reports etc.</p>
+<p>I am interested in understanding how did the winner and runner-up(s) of series 6 do across the season in terms of technical challenges etc.?</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+
+<span class='va'>top_performers</span> <span class='op'>%&gt;%</span> 
+  <span class='co'># filter for season we're interested in</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>series</span> <span class='op'>==</span> <span class='fl'>6</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='co'># format baker nicely so we see winner, then runner-up(s)</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>baker_name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'>str_glue</span><span class='op'>(</span><span class='st'>"{result} - {baker}"</span><span class='op'>)</span><span class='op'>)</span>,
+         baker_name <span class='op'>=</span> <span class='fu'>fct_rev</span><span class='op'>(</span><span class='va'>baker_name</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='co'># let's convert all the tech info cols to be a metric name, </span>
+  <span class='co'># and put the value in the value column </span>
+  <span class='co'># (by default values_to = "value" in pivot_longer())</span>
+  <span class='fu'>pivot_longer</span><span class='op'>(</span>cols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>star_baker</span><span class='op'>:</span><span class='va'>technical_median</span><span class='op'>)</span>,
+               names_to <span class='op'>=</span> <span class='st'>"metric"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>metric <span class='op'>=</span> <span class='fu'>fct_reorder</span><span class='op'>(</span><span class='va'>metric</span>, <span class='va'>value</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>value</span>, y <span class='op'>=</span> <span class='va'>metric</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_col</span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"#727d97"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>facet_wrap</span><span class='op'>(</span><span class='op'>~</span> <span class='va'>baker_name</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>labs</span><span class='op'>(</span>title <span class='op'>=</span> <span class='fu'>str_glue</span><span class='op'>(</span><span class='st'>"Metrics for Season "</span>,
+    <span class='st'>"{top_performers %&gt;%  filter(series == 6) %&gt;%
+    select(series) %&gt;% distinct()}'s Winner and Runner-Up(s)"</span><span class='op'>)</span>,
+    y <span class='op'>=</span> <span class='st'>""</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>theme_light</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>theme</span><span class='op'>(</span>panel.spacing <span class='op'>=</span> <span class='fu'>unit</span><span class='op'>(</span><span class='fl'>1</span>, <span class='st'>"lines"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>theme</span><span class='op'>(</span>strip.background <span class='op'>=</span><span class='fu'>element_rect</span><span class='op'>(</span>fill<span class='op'>=</span><span class='st'>"#f4e4e7"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'>theme</span><span class='op'>(</span>strip.text <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"#5196b4"</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="using-the-tidyverse-with-dbs-partii_files/figure-html5/unnamed-chunk-12-1.png" width="624" /></p>
+</div>
+<p>Given that <em>Nadiya</em> was a technical winner more times than the other contestants, and that her <code>technical_lowest</code> was better (higher number is better) it looks like she had a good run throughout the series, and was a deserved winner.</p>
+<h2 id="done-remember-to-disconnect">Done? Remember to disconnect!</h2>
+<p>Good housekeeping means always remembering to disconnect once you’re done.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='fu'><a href='https://dbi.r-dbi.org/reference/dbDisconnect.html'>dbDisconnect</a></span><span class='op'>(</span><span class='va'>con</span><span class='op'>)</span> <span class='co'># closes our DB connection</span>
+</code></pre>
+</div>
+</div>
+<h1 id="still-to-come">Still to come</h1>
+<ul>
+<li>Setting up an external DB in PostgreSQL / MySQL.</li>
+<li>Connecting to said DB, and running SQL workloads on it.</li>
+</ul>
+<h2 id="acknowledgements">Acknowledgements</h2>
+<ul>
+<li><code>The Great British Bake Off</code> data from <a href="https://bakeoff.netlify.app/reference/index.html">Dr. Alison Hill</a>.</li>
+<li><a href="https://rstudio.com/speakers/edgar-ruiz/">Edgar Ruiz’s</a> database work, and teachings.</li>
+</ul>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<!--radix_placeholder_article_footer-->
+<div class="article-footer">
+  <p class="social_footer">
+    <span class="article-sharing">
+      Share: &nbsp;
+      <a href="https://twitter.com/share?text=Using%20the%20tidyverse%20with%20Databases%20-%20Part%20II&amp;url=https%3A%2F%2Fsciencificity-blog.netlify.app%2Fposts%2F2020-12-20-using-the-tidyverse-with-dbs-partii%2F">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </span>
+  </p>
+</div>
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom">
+  <h3 id="citation">Citation</h3>
+  <p>For attribution, please cite this work as</p>
+  <pre class="citation-appendix short">Naidoo (2020, Dec. 20). Sciencificity's Blog: Using the tidyverse with Databases - Part II. Retrieved from https://sciencificity-blog.netlify.app/posts/2020-12-20-using-the-tidyverse-with-dbs-partii/</pre>
+  <p>BibTeX citation</p>
+  <pre class="citation-appendix long">@misc{naidoo2020using,
+  author = {Naidoo, Vebash},
+  title = {Sciencificity's Blog: Using the tidyverse with Databases - Part II},
+  url = {https://sciencificity-blog.netlify.app/posts/2020-12-20-using-the-tidyverse-with-dbs-partii/},
+  year = {2020}
+}</pre>
+</div>
+<!--/radix_placeholder_appendices-->
+<!--radix_placeholder_navigation_after_body-->
+<!--/radix_placeholder_navigation_after_body-->
+
+</body>
+
+</html>

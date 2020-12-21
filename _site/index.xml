@@ -7,7 +7,20 @@
     <description>Sciencificity's Blog
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Sat, 12 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 20 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Using the tidyverse with Databases - Part II</title>
+      <dc:creator>Vebash Naidoo</dc:creator>
+      <link>https://sciencificity-blog.netlify.app/posts/2020-12-20-using-the-tidyverse-with-dbs-partii</link>
+      <description>I was serious, you don't need to be a SQL expert to work with Databases through R</description>
+      <category>SQL</category>
+      <category>databases</category>
+      <category>tidyverse</category>
+      <category>dbplyr</category>
+      <guid>https://sciencificity-blog.netlify.app/posts/2020-12-20-using-the-tidyverse-with-dbs-partii</guid>
+      <pubDate>Sun, 20 Dec 2020 00:00:00 +0000</pubDate>
+      <media:content url="https://sciencificity-blog.netlify.app/posts/2020-12-20-using-the-tidyverse-with-dbs-partii/Paper.R_Programming.4.png" medium="image" type="image/png" width="2048" height="1536"/>
+    </item>
     <item>
       <title>Using the tidyverse with Databases - Part I</title>
       <dc:creator>Vebash Naidoo</dc:creator>

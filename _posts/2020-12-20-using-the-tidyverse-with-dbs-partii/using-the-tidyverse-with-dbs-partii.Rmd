@@ -1,0 +1,309 @@
+---
+title: "Using the tidyverse with Databases - Part II"
+description: |
+  I was serious, you don't need to be a SQL expert to work with Databases through R
+author:
+  - name: Vebash Naidoo
+    url: https://twitter.com/Sciencificity
+    affiliation: R-Ladies Johannesburg
+    affiliation_url: https://twitter.com/RLadiesJozi
+date: 12-20-2020
+output:
+  distill::distill_article:
+    toc: true
+    toc_depth: 3
+    self_contained: false
+categories:
+  - SQL
+  - databases
+  - tidyverse
+  - dbplyr
+preview: Paper.R_Programming.4.png
+---
+
+<img src = Paper.R_journal.33_.png width = 600px>
+
+```{css, echo=FALSE}
+.main-container {
+    max-width: 600px !important;
+}
+
+pre {
+  max-height: 800px !important;
+  max-width: 600px !important;
+  overflow-y: auto !important;
+  overflow-x: scroll !important;
+}
+
+pre[class] {
+  max-height: 100px;
+}
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      warning = FALSE,
+                      message = FALSE)
+library(flair)
+```
+
+```{r allow-code-amend-size, echo=FALSE}
+def.chunk.hook  <- knitr::knit_hooks$get("chunk")
+knitr::knit_hooks$set(chunk = function(x, options) {
+  x <- def.chunk.hook(x, options)
+  ifelse(options$size != "normalsize", paste0("\n \\", options$size,"\n\n", x, "\n\n \\normalsize"), x)
+})
+```
+
+```{r, include=FALSE}
+options(width = 160)
+local({
+  hook_output <- knitr::knit_hooks$get('output')
+  knitr::knit_hooks$set(output = function(x, options) {
+    if (!is.null(options$max.height)) options$attr.output <- c(
+      options$attr.output,
+      sprintf('style="max-height: %s;"', options$max.height)
+    )
+    hook_output(x, options)
+  })
+})
+```
+
+
+# Part I
+
+In [Part I](https://sciencificity-blog.netlify.app/posts/2020-12-12-using-the-tidyverse-with-databases/) we made a connection to a SQLite DB.
+
+# What are we tackling in Part II?
+
+- We'll do more advanced `dplyr` `r emo::ji("package")` workflows.
+- We'll **collect** the data from the query.
+
+<aside>
+`collect`ing data is when we bring the data into R. If you recall in the Part I post, all computation was happening on the DB itself, and not pulled into R.
+</aside>
+
+The [project on GitHub](https://github.com/sciencificity/intro-to-dbs-r), has the example SQLite database, the slides, and some code files.
+
+
+# Connect, and remind ourselves what we're working with
+
+## Make a connection
+
+As always, our __first__ step is to <span style="color: #008080;background-color:#e4a199"><strong>connect to the database</strong></span>.
+
+```{r}
+library(DBI) # main DB interface
+library(dplyr) 
+library(dbplyr) # dplyr back-end for DBs
+
+con <- dbConnect(drv = RSQLite::SQLite(), # give me a SQLite connection
+        dbname = "data/great_brit_bakeoff.db") # To what? The DB named great_brit_bakeoff.db
+
+dbListTables(con) # List me the tables at the connection
+```
+
+## Let's get familiar with our data
+
+In the dataset we have:
+
+- <span style="color: #5196b4;background-color:#f4e4e7">results<a href="https://bakeoff.netlify.app/reference/results.html"></a></span> which tells us [how each baker did](https://bakeoff.netlify.app/reference/results.html) in the episode - `IN`, `OUT`, `WINNER` etc.
+- <span style="color: #5196b4;background-color:#f4e4e7">baker_results<a href="https://bakeoff.netlify.app/reference/baker_results.html"></a></span> which tells us [a bit more](https://bakeoff.netlify.app/reference/baker_results.html) about the baker's performance over the entire series - how many times did they win `STAR BAKER`, how many times they placed in the top 3 etc.
+
+Let's get an idea of what is in each table. 
+
+### results
+
+```{r res}
+tbl(con, "results") %>% # Reach into my connection, and "talk" to results table
+  head(10) %>%          # get me a subset of the data
+  # sometimes if there are many columns, some columns are hidden, 
+  # this option prints all columns for us
+  print(width = Inf)    
+```
+
+```{r}
+tbl(con, "results") %>% 
+  count(result, sort = TRUE) # what categories of "result" are there?
+```
+
+### baker_results
+
+```{r}
+tbl(con, "baker_results") %>% # Reach in and "talk" to baker_results
+  head() %>%                  # get a glimpse of data
+  collect() %>%               # bring that glimpsed data into R 
+  DT::datatable(options = list(scrollX = TRUE)) # force DT horizontal scrollbar
+```
+Notice the use of the <span style="color: #008080;background-color:#e4a199">`collect()`</span> function in the code above. I wanted us to be able to get a full glimpse of the data in a nice table, and hence I brought the first few rows of data into R by using the <span style="color: #008080;background-color:#e4a199">`collect()`</span> function. This allowed me to then use `datatable` to display the results a bit better, than the `print(width = Inf)` alternative.
+
+# What are we interested in?
+
+Let's say we want to see how the __`WINNER`__ and __`RUNNER-UP`(s)__ did in the series they appeared in.
+
+To do that we need to get all the <span style="color: #5196b4;background-color:#f4e4e7">baker_results</span> for the `WINNER` and `RUNNER-UP`.
+
+## Joining data
+
+When doing joins we want to find the common columns across the two tables that we can `join` on.
+
+- In <span style="color: #5196b4;background-color:#f4e4e7">results<a href="https://bakeoff.netlify.app/reference/results.html"></a></span> we have `series` and `baker`.
+- In <span style="color: #5196b4;background-color:#f4e4e7">baker_results<a href="https://bakeoff.netlify.app/reference/baker_results.html"></a></span> we have `series` and `baker`.
+- `r emo::ji("question")` `r emo::ji("thinking")` Why didn't I also choose the `episode` column of <span style="color: #5196b4;background-color:#f4e4e7">results</span> as a join column? <br> `r emo::ji("check")` Yes, that column is not in `baker_results`, since `baker_results` contains data about how the baker did overall in the series they appeared, that is, one row per baker. <br>The `results` data however, contains info per baker, per episode, for the series they appeared in - i.e. if they flopped (were `OUT` `r emo::ji("wink")`), in the second episode of a series that contained 10 episodes, their name would appear 10 times in the `results` table, but their "result" value will be `NA` from episode 3 onwards.
+
+### Remember the `tbl(con, "tbl_name")` always
+
+I'd like to bring to your attention the use of `tbl(con, "table_1")` and `tbl(con, "table_2")` in the __join__ function. 
+
+We must always keep this in mind, because <span style="color: #5196b4;background-color:#f4e4e7">baker_results</span> and <span style="color: #5196b4;background-color:#f4e4e7">results</span> don't exist in R yet. We're talking to those tables in our relational database management system (RDBMS), so we __always__ have to do so through our __connection__.
+
+```{r}
+set.seed(42)
+tbl(con, "baker_results") %>% # use connection to "talk" to baker_results
+  inner_join(tbl(con, "results"), # use connection to "talk" to results and join both tables 
+        by = c('baker' = 'baker',
+               'series' = 'series')) %>% # join criteria 
+  collect() %>% # get it into R
+  sample_n(size = 3) %>% # take a random sample
+  print(width = Inf) # print all columns
+```
+
+Notice that all columns of <span style="color: #5196b4;background-color:#f4e4e7">baker_results</span> appear first and then we have the "extra" columns from <span style="color: #5196b4;background-color:#f4e4e7">results</span> i.e. `episode` and `result`.
+
+#### Common mistake
+
+I included the above to show that each time we "talk" to a table we must do so through our connection, because I often make the mistake of not including the `tbl(con, "name_of_tbl_i_am_joining")` in the __join__ function. I, more times than I care to admit `r emo::ji("exasperation")`, __incorrectly__ write:
+
+<pre>
+  tbl(con, "table1") %>% # correct -> "talk" through connection
+     left_join(table2,   # incorrect -> forgot to use the connection
+          by = c("tbl1_name1" = "tbl2_name1"))
+</pre>
+
+I would like to help you, not repeat my mistake `r emo::ji("confused")`, so heads up <span style="color: #FFE4E1;background-color:#FD5800">AVOID THE FOLLOWING</span> `r emo::ji("stop")`:
+
+```{r, error = TRUE}
+tbl(con, "baker_results") %>% # use connection to "talk" to baker_results
+  inner_join(results,  # OOPS! I forgot the tbl(con, "results")
+        by = c('baker' = 'baker',
+               'series' = 'series'))  
+```
+
+
+## Collect
+
+Ok, let us now do our entire pipeline, and only bring the data into R when we've got what we're looking for.
+
+We need to:
+
+- Join the tables
+- Filter the data for `WINNER` and `RUNNER-UP` in the __result__ column.
+- Select only the columns we're interested in.
+
+```{r}
+(final_query <- tbl(con, "baker_results") %>% # use connection to "talk" to baker_results
+  inner_join(tbl(con, "results"), # use connection to "talk" to results and join both tables 
+        by = c('baker' = 'baker',
+               'series' = 'series')) %>% # join criteria 
+  filter(result %in% c("WINNER", "RUNNER-UP")) %>% # filter rows we're interested in
+  select(series, baker:percent_technical_top3,
+         result))
+```
+
+The above code just sets up the query that will be executed should we run (Ctrl + Enter) `final_query` in R (hence the __lazy query [?? x 24]__ in the output). No data is collected (i.e. present in your local R environment) as yet.
+
+### What does the query look like?
+
+```{css, echo=FALSE}
+.scroll-100 {
+  white-space:pre !important;
+  max-width: 100px;
+  overflow-x: scroll;
+  background-color: inherit;
+}
+code.r{
+  font-size: 10px;
+}
+```
+
+
+```{r, size = "tiny", class.output="scroll-100"}
+final_query %>% 
+  show_query() 
+```
+
+\normalsize
+
+
+### Bring it into R
+
+Now finally, we are ready to bring our filtered and joined data into R by using `collect()`.
+
+```{r}
+(top_performers <- final_query %>% 
+  collect())
+```
+
+How about that? Notice the __A tibble: 24 x 24__! R now, has the data in it's local environment, and can definitively tell us it knows there are 24 observations (no more _lazy query_) `r emo::ji("smile")`.
+
+### Visualise Data
+
+Now that we have finalised what data we wanted from our RDBMS, executed our query, and collected the data into our R environment we can do further processing, create plots for reports etc.
+
+I am interested in understanding how did the winner and runner-up(s) of series 6 do across the season in terms of technical challenges etc.?
+
+```{r}
+library(tidyverse)
+
+top_performers %>% 
+  # filter for season we're interested in
+  filter(series == 6) %>%
+  # format baker nicely so we see winner, then runner-up(s)
+  mutate(baker_name = factor(str_glue("{result} - {baker}")),
+         baker_name = fct_rev(baker_name)) %>% 
+  # let's convert all the tech info cols to be a metric name, 
+  # and put the value in the value column 
+  # (by default values_to = "value" in pivot_longer())
+  pivot_longer(cols = c(star_baker:technical_median),
+               names_to = "metric") %>% 
+  mutate(metric = fct_reorder(metric, value)) %>% 
+  ggplot(aes(x = value, y = metric)) +
+  geom_col(fill = "#727d97") +
+  facet_wrap(~ baker_name) +
+  labs(title = str_glue("Metrics for Season ",
+    "{top_performers %>%  filter(series == 6) %>%
+    select(series) %>% distinct()}'s Winner and Runner-Up(s)"),
+    y = "") +
+  theme_light() +
+  theme(panel.spacing = unit(1, "lines")) +
+  theme(strip.background =element_rect(fill="#f4e4e7"))+
+  theme(strip.text = element_text(colour = "#5196b4"))
+```
+
+Given that _Nadiya_ was a technical winner more times than the other contestants, and that her `technical_lowest` was better (higher number is better) it looks like she had a good run throughout the series, and was a deserved winner.
+
+## Done? Remember to disconnect!
+
+Good housekeeping means always remembering to disconnect once you're done.
+
+```{r}
+dbDisconnect(con) # closes our DB connection
+```
+
+# Still to come
+
+- Setting up an external DB in PostgreSQL / MySQL.
+- Connecting to said DB, and running SQL workloads on it.
+
+## Acknowledgements
+
+- `The Great British Bake Off` data from [Dr. Alison Hill](https://bakeoff.netlify.app/reference/index.html).
+- [Edgar Ruiz's](https://rstudio.com/speakers/edgar-ruiz/) database work, and teachings.
+
+
+
+
+
+
+
+
