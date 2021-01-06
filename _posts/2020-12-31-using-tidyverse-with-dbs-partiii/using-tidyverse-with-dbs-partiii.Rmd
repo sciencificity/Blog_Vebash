@@ -1,0 +1,178 @@
+---
+title: "Using the tidyverse with Databases - Part III"
+description: |
+  Setting up, and connecting to a Star Wars MySQL DB
+author:
+  - name: Vebash Naidoo
+    url: https://twitter.com/Sciencificity
+    affiliation: R-Ladies Johannesburg
+    affiliation_url: https://twitter.com/RLadiesJozi
+date: 2020-12-31
+base_url: https://sciencificity-blog.netlify.app/
+output:
+  distill::distill_article:
+    toc: true
+    toc_depth: 3
+    self_contained: false
+categories:
+  - SQL
+  - databases
+  - tidyverse
+  - dbplyr
+  - MySQL
+  - MariaDB
+preview: jens-johnsson-OFpzBycm3u0-unsplash.jpg
+draft: true
+---
+
+```{css}
+blockquote {
+  background: #f9f9f9;
+  border-left: 10px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C""\201D""\2018""\2019";
+}
+blockquote:before {
+  color: #ccc;
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+# blockquote:after {
+#   color: #ccc;
+#   content:"\201D";
+#   font-size: 4em;
+#   line-height: 0.1em;
+#   margin-right: 0.25em;
+#   vertical-align: -0.4em;
+# }
+blockquote p {
+  display: inline;
+}
+```
+
+<figure class="quote">
+  <blockquote>
+    When gone am I, the last of the Jedi will you be. The Force runs strong in your family. Pass on what you have learned.
+  </blockquote>
+  <figcaption>
+    &mdash; Yoda  </figcaption>
+</figure>
+
+<img src = marija-zaric-RO9swiZgqeg-unsplash.jpg  width = 600px>
+
+<span>Photo by <a href="https://unsplash.com/@simplicity?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Marija Zaric</a> on <a href="https://unsplash.com/s/photos/star-wars?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE) 
+library(tidyverse)
+```
+
+## Recap
+
+### Part I
+
+In [Part I](https://sciencificity-blog.netlify.app/posts/2020-12-12-using-the-tidyverse-with-databases/) we made a connection to a SQLite DB.
+
+### Part II
+
+In [Part II](https://sciencificity-blog.netlify.app/posts/2020-12-20-using-the-tidyverse-with-dbs-partii/) we progressed a bit further, with more in-depth `{dplyr}` workflows, and we also brought the data into R after doing most of the heavy lifting (computation) on the DB itself.
+
+# What are we tackling in Part III?
+
+We're going to:
+
+* Do a quick run through of setting up a MySQL DB.
+* Connect to the DB using the `Connections` Pane in RStudio.
+* Connect using an ODBC Driver.
+* Leverage the MySQL DBMS to do the heavy lifting (computation) on the DB instead on in R, bringing the aggregated data into R only at the end for visualisation.
+
+The [project on GitHub](https://github.com/sciencificity/intro-to-dbs-r), has the code to setup the tables in the MySQL DB from R.
+
+# Setup a MySQL DB
+
+- We're going to set-up a local MySQL DB.
+- We're going to use `{dplyr}`'s `starwars` dataset. 
+- We'll supplement this with survey data from a [TidyTuesday](https://github.com/rfordatascience/tidytuesday/tree/master/data/2018/2018-05-14) dataset back in 2018, as well as some information on the franchise revenue also from [TidyTuesday](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-07-02).
+
+
+## Setup Process for local MySQL DB
+
+1. Go to the [MySQL page](https://dev.mysql.com/downloads/) to download the appropriate server for you. I am on a Windows machine so I used the __MySQL Installer for Windows__.
+1. Run through the setup.
+1. Follow the setup steps - I installed a "Full version".
+1. If you did not create your "root" user during the setup process (this happened to me), open the `MySQL Installer` from your machine's `Startup Menu`.
+
+    a. Click `Reconfigure` next to __MySQL Server__.
+    
+        <img src="install1.JPG" 
+       alt="Reconfigure MySQL Server in the Installer" 
+       width="520" height="400">
+     
+    a. Check `Show Advanced and Logging Options`.
+    a. Click __Next >__ to navigate the setup, which will include asking you to setup a password for `root`.
+    
+        <img src="install2.JPG" 
+       alt="Advanced Options allow you to set-up the root user" 
+       width="520" height="400">
+       
+1. I opened `MySQL Workbench` and setup a user named `admin`, after connecting to the local host. It is good practise to keep your `root` user aside for security reasons, therefore creating other profiles to access the DB is advised.
+1. I created a __"schema"__ by clicking on the little Database icon in `MySQL Workbench`
+
+    a. Link is "Create a new schema in the connected server". 
+    
+       <img src="install3.JPG" 
+       alt="Create schema in MySQL Workbench" 
+       width="600" height="480">
+     
+    a. Alternately in the `MySQL Command Line Client` run:
+    
+      
+      ```
+      CREATE DATABASE starwars CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+      ```
+      
+
+That's it for the MySQL DBMS itself, the rest of the work for setting up our DB will be done in R.
+
+## Writing to the MySQL DB from R
+
+In the {dplyr} `r emo::ji("package")` we have a dataset <span style="color: #9d5a61;background-color:#efb087"><b>starwars</b></span> which has information for the characters.
+
+```{r, eval = TRUE, echo = TRUE}
+# need to figure out what data is included
+# in a package? call data(package = "pkg_name")
+# gives you a nice list of included datasets
+data(package = "dplyr")
+``` 
+
+<img src="data_pkg.JPG" 
+alt="Show data included in a package" width = "300">
+       
+
+```{r, eval = TRUE, echo = TRUE}
+starwars
+```
+
+I broke this dataset apart to create different tables:
+
+- <span style="color: #00203FFF;background-color:#ADEFD1FF"><b>films</b></span>: contains information on the movies.
+- <span style="color: #00203FFF;background-color:#ADEFD1FF"><b>vehicles</b></span>: contains a listing on the vehicles in the movies.
+- <span style="color: #00203FFF;background-color:#ADEFD1FF"><b>starships</b></span>: contains a listing for the starships in the movies.
+- <span style="color: #00203FFF;background-color:#ADEFD1FF"><b>appearances</b></span>: which has a listing of each character against the film they appeared in.
+- <span style="color: #00203FFF;background-color:#ADEFD1FF"><b>vehicles_piloted</b></span>: has a listing of each character against the vehicle they drove.
+- <span style="color: #00203FFF;background-color:#ADEFD1FF"><b>starships_piloted</b></span>: has a listing of each character against the starship they piloted.
+- <span style="color: #00203FFF;background-color:#ADEFD1FF"><b>characters</b></span>: has information on each character for example their height, mass etc.
+- <span style="color: #00203FFF;background-color:#ADEFD1FF"><b>survey</b></span>: contains information from a survey run on the popularity of the Star Wars movies, characters etc.
+- <span style="color: #00203FFF;background-color:#ADEFD1FF"><b>survey_levels</b></span>: contains an id per character level rating e.g. _Very unfavorably_ was coded as `1`.
+- <span style="color: #00203FFF;background-color:#ADEFD1FF"><b>franchise</b></span>: contains the revenue of the franchise across different media - e.g. how much revenue comes from movies, merchandise etc.
+
+
+
+
+
+
+
