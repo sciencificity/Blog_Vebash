@@ -1,7 +1,7 @@
 ---
 title: "Using the tidyverse with Databases - Part III"
 description: |
-  Setting up, and connecting to a Star Wars MySQL DB
+  Setting up, and connecting to a Star Wars MySQL Database
 author:
   - name: Vebash Naidoo
     url: https://twitter.com/Sciencificity
@@ -22,8 +22,11 @@ categories:
   - MySQL
   - MariaDB
 preview: jens-johnsson-OFpzBycm3u0-unsplash.jpg
-draft: true
+draft: false
 ---
+
+<!-- Photo preview Credit-->
+<!-- <span>Photo by <a href="https://unsplash.com/@jens_johnsson?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Jens Johnsson</a> on <a href="https://unsplash.com/s/photos/star-wars?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span> -->
 
 ```{css}
 blockquote {
@@ -67,7 +70,7 @@ blockquote p {
 <span>Photo by <a href="https://unsplash.com/@simplicity?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Marija Zaric</a> on <a href="https://unsplash.com/s/photos/star-wars?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span>
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE) 
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE) 
 library(tidyverse)
 ```
 
@@ -75,31 +78,40 @@ library(tidyverse)
 
 ### Part I
 
-In [Part I](https://sciencificity-blog.netlify.app/posts/2020-12-12-using-the-tidyverse-with-databases/) we made a connection to a SQLite DB.
+In [Part I](https://sciencificity-blog.netlify.app/posts/2020-12-12-using-the-tidyverse-with-databases/) we made a connection to a SQLite Database (DB).
 
 ### Part II
 
-In [Part II](https://sciencificity-blog.netlify.app/posts/2020-12-20-using-the-tidyverse-with-dbs-partii/) we progressed a bit further, with more in-depth `{dplyr}` workflows, and we also brought the data into R after doing most of the heavy lifting (computation) on the DB itself.
+In [Part II](https://sciencificity-blog.netlify.app/posts/2020-12-20-using-the-tidyverse-with-dbs-partii/) we progressed a bit further, with more in-depth `{dplyr}` workflows, and we also brought the data into R after doing most of the computation on the database itself.
 
 # What are we tackling in Part III?
 
 We're going to:
 
-* Do a quick run through of setting up a MySQL DB.
-* Connect to the DB using the `Connections` Pane in RStudio.
-* Connect using an ODBC Driver.
-* Leverage the MySQL DBMS to do the heavy lifting (computation) on the DB instead on in R, bringing the aggregated data into R only at the end for visualisation.
+* Do a quick run through of setting up a MySQL database.
+* Connect to the database using the __`Connections`__ Pane in RStudio, 
+which is essentially a connection using an [ODBC Driver](https://www.progress.com/faqs/datadirect-odbc-faqs/what-is-an-odbc-driver).
+* Leverage the MySQL DBMS to do the computation of the query on the database, instead of in R, bringing the aggregated data into R when needed. We will `collect()` (i.e. bring data into R when we're using functions that need the full dataset, not the "lazy result").
+
+    - For visualisations using `ggplot`.
+    - Some functions only work on data in a *dataframe like structure*, and can't work with
+    the "lazy query" result. We will need to _collect()_ the data in this case to 
+    proceed with our data pipeline e.g. _pivot_longer()_ as we will see later.
+
+<aside>
+`collect`ing data is when we bring the data into R. If you recall in the Part II post we pulled data into R when we had our aggregated data computed via a query we ran in the DBMS itself.
+</aside>
 
 The [project on GitHub](https://github.com/sciencificity/intro-to-dbs-r), has the code to setup the tables in the MySQL DB from R.
 
 # Setup a MySQL DB
 
 - We're going to set-up a local MySQL DB.
-- We're going to use `{dplyr}`'s `starwars` dataset. 
+- We're going to use `{dplyr}`'s [`starwars`](https://dplyr.tidyverse.org/reference/starwars.html) dataset. 
 - We'll supplement this with survey data from a [TidyTuesday](https://github.com/rfordatascience/tidytuesday/tree/master/data/2018/2018-05-14) dataset back in 2018, as well as some information on the franchise revenue also from [TidyTuesday](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-07-02).
 
 
-## Setup Process for local MySQL DB
+## Create a local MySQL instance
 
 1. Go to the [MySQL page](https://dev.mysql.com/downloads/) to download the appropriate server for you. I am on a Windows machine so I used the __MySQL Installer for Windows__.
 1. Run through the setup.
@@ -112,8 +124,8 @@ The [project on GitHub](https://github.com/sciencificity/intro-to-dbs-r), has th
        alt="Reconfigure MySQL Server in the Installer" 
        width="520" height="400">
      
-    a. Check `Show Advanced and Logging Options`.
-    a. Click __Next >__ to navigate the setup, which will include asking you to setup a password for `root`.
+    a. Check _Show Advanced and Logging Options_.
+    a. Click __Next >__ to navigate the setup, which will ask you to setup a password for `root`.
     
         <img src="install2.JPG" 
        alt="Advanced Options allow you to set-up the root user" 
@@ -138,14 +150,15 @@ The [project on GitHub](https://github.com/sciencificity/intro-to-dbs-r), has th
 
 That's it for the MySQL DBMS itself, the rest of the work for setting up our DB will be done in R.
 
-## Writing to the MySQL DB from R
+## Our data
 
 In the {dplyr} `r emo::ji("package")` we have a dataset <span style="color: #9d5a61;background-color:#efb087"><b>starwars</b></span> which has information for the characters.
 
 ```{r, eval = TRUE, echo = TRUE}
 # need to figure out what data is included
-# in a package? call data(package = "pkg_name")
-# gives you a nice list of included datasets
+# in a package? 
+# Call data(package = "pkg_name")
+# which gives you a nice list of included datasets
 data(package = "dplyr")
 ``` 
 
@@ -153,26 +166,409 @@ data(package = "dplyr")
 alt="Show data included in a package" width = "300">
        
 
+Let's have a squizz at the [`starwars`](https://dplyr.tidyverse.org/reference/starwars.html) dataset.
+
 ```{r, eval = TRUE, echo = TRUE}
 starwars
 ```
 
-I broke this dataset apart to create different tables:
+I broke this dataset apart to create different tables containing subsets 
+of the information so we can practise on:
 
-- <span style="color: #00203FFF;background-color:#ADEFD1FF"><b>films</b></span>: contains information on the movies.
-- <span style="color: #00203FFF;background-color:#ADEFD1FF"><b>vehicles</b></span>: contains a listing on the vehicles in the movies.
-- <span style="color: #00203FFF;background-color:#ADEFD1FF"><b>starships</b></span>: contains a listing for the starships in the movies.
-- <span style="color: #00203FFF;background-color:#ADEFD1FF"><b>appearances</b></span>: which has a listing of each character against the film they appeared in.
-- <span style="color: #00203FFF;background-color:#ADEFD1FF"><b>vehicles_piloted</b></span>: has a listing of each character against the vehicle they drove.
-- <span style="color: #00203FFF;background-color:#ADEFD1FF"><b>starships_piloted</b></span>: has a listing of each character against the starship they piloted.
-- <span style="color: #00203FFF;background-color:#ADEFD1FF"><b>characters</b></span>: has information on each character for example their height, mass etc.
-- <span style="color: #00203FFF;background-color:#ADEFD1FF"><b>survey</b></span>: contains information from a survey run on the popularity of the Star Wars movies, characters etc.
-- <span style="color: #00203FFF;background-color:#ADEFD1FF"><b>survey_levels</b></span>: contains an id per character level rating e.g. _Very unfavorably_ was coded as `1`.
-- <span style="color: #00203FFF;background-color:#ADEFD1FF"><b>franchise</b></span>: contains the revenue of the franchise across different media - e.g. how much revenue comes from movies, merchandise etc.
+- <span style="color: #00203FFF;background-color:#ADEFD1FF">films</span>: contains information on the movies.
+- <span style="color: #00203FFF;background-color:#ADEFD1FF">vehicles</span>: contains a listing on the vehicles in the movies.
+- <span style="color: #00203FFF;background-color:#ADEFD1FF">starships</span>: contains a listing for the starships in the movies.
+- <span style="color: #00203FFF;background-color:#ADEFD1FF">appearances</span>: which has a listing of each character against the film they appeared in.
+- <span style="color: #00203FFF;background-color:#ADEFD1FF">vehicles_piloted</span>: has a listing of each character against the vehicle they drove.
+- <span style="color: #00203FFF;background-color:#ADEFD1FF">starships_piloted</span>: has a listing of each character against the starship they piloted.
+- <span style="color: #00203FFF;background-color:#ADEFD1FF">characters</span>: has information on each character for example their height, mass etc.
+- <span style="color: #00203FFF;background-color:#ADEFD1FF">survey</span>: contains information from a survey run on the popularity of the Star Wars movies, characters etc.
+- <span style="color: #00203FFF;background-color:#ADEFD1FF">survey_levels</span>: contains an id per character level rating e.g. _Very unfavorably_ was coded as `1`.
+- <span style="color: #00203FFF;background-color:#ADEFD1FF">franchise</span>: contains the revenue of the franchise across different media - e.g. how much revenue comes from movies, merchandise etc.
+
+<br>
+
+```{r, echo = FALSE}
+library(gt)
+library(readxl)
+films_tbl <- read_xlsx("data_dictionary.xlsx", sheet = "films") %>% 
+  mutate(`Table Name` = "films", .before = `Field Name`)
+vehicles_tbl <- read_xlsx("data_dictionary.xlsx", sheet = "vehicles") %>% 
+  mutate(`Table Name` = "vehicles", .before = `Field Name`)
+starships_tbl <- read_xlsx("data_dictionary.xlsx", sheet = "starships") %>% 
+  mutate(`Table Name` = "starships", .before = `Field Name`)
+characters_tbl <- read_xlsx("data_dictionary.xlsx", sheet = "characters") %>% 
+  mutate(`Table Name` = "characters", .before = `Field Name`)
+appearances_tbl <- read_xlsx("data_dictionary.xlsx", sheet = "appearances") %>% 
+  mutate(`Table Name` = "appearances", .before = `Field Name`)
+vehicles_piloted_tbl <- read_xlsx("data_dictionary.xlsx", sheet = "vehicles_piloted") %>% 
+  mutate(`Table Name` = "vehicles_piloted", .before = `Field Name`)
+starships_piloted_tbl <- read_xlsx("data_dictionary.xlsx", sheet = "starships_piloted") %>% 
+  mutate(`Table Name` = "starships_piloted", .before = `Field Name`)
+survey_levels_tbl <- read_xlsx("data_dictionary.xlsx", sheet = "survey_levels") %>% 
+  mutate(`Table Name` = "survey_levels", .before = `Field Name`)
+survey_tbl <- read_xlsx("data_dictionary.xlsx", sheet = "survey") %>% 
+  mutate(`Table Name` = "survey", .before = `Field Name`)
+franchise_tbl <- read_xlsx("data_dictionary.xlsx", sheet = "franchise") %>% 
+  mutate(`Table Name` = "franchise", .before = `Field Name`)
+
+data_dictionary <- films_tbl %>% 
+  bind_rows(vehicles_tbl, 
+            starships_tbl,
+            characters_tbl,
+            appearances_tbl,
+            vehicles_piloted_tbl,
+            starships_piloted_tbl,
+            survey_levels_tbl, 
+            survey_tbl,
+            franchise_tbl)
+
+data_dictionary %>% 
+  gt(groupname_col = "Table Name",
+     rowname_col = "Field Name") %>% 
+  tab_header(title = "Data Dictionary for the Star Wars Database") %>% 
+  tab_options(
+    row_group.background.color = "#ADEFD1FF",
+    data_row.padding = px(3)
+  )
+```
 
 
+## Create some tables
+
+Here's an example of how I created the _films_, and the associated _appearances_ tables. 
+
+```{r}
+(films <- starwars %>%  
+  # get the films column which contains lists of values
+  select(films) %>% 
+  # flatten the films list - this will create multiple rows for
+  # each film in the list
+  unnest(films) %>% 
+  # get rid of duplicates
+  distinct() )
+
+film_years <- tribble(~name,      ~year,
+        #------------------------#------
+        "The Empire Strikes Back", 1980,
+        "Revenge of the Sith"    , 2005,
+        "Return of the Jedi"     , 1983,
+        "A New Hope"             , 1977,
+        "The Force Awakens"      , 2015,
+        "Attack of the Clones"   , 2002,
+        "The Phantom Menace"     , 1999)
+
+films <- films %>% 
+  # Join the tables to tag on the `year` column
+  inner_join(film_years,
+             # left table column = films, right table column = name
+             by = c("films" = "name"))
+
+# Order of films in terms of episodes, not release date
+# We're going to use this to create a factor
+film_levels <- c("The Phantom Menace", "Attack of the Clones", "Revenge of the Sith",
+                 "A New Hope", "The Empire Strikes Back", "Return of the Jedi",
+                 "The Force Awakens")
+(films <- films %>% 
+  # make "films" a factor using the film_levels we created above
+  # this will ensure the id = 4 is associated to 'A New Hope'
+  mutate(films = factor(films, film_levels),) %>% 
+  # create an id column - we will use this later
+  # the .before just says I want the id column to come before the films column
+  mutate(id = as.integer(films), .before = "films") %>% 
+  arrange(id))
+
+(appearances <- starwars %>% 
+  # let's save the characters appearances in the movies
+  select(name, films) %>% 
+  # we end up with {character_name, film} for every film the character appears in
+  unnest(films) %>%
+  # join it with our new films table
+  inner_join(films) %>% 
+  # select the id which we rename to film_id, and then the name of the character
+  select(film_id = id, name))
+```
+
+If you'd like to follow along the RMarkdown file with all the code is [here](https://github.com/sciencificity/intro-to-dbs-r/blob/main/make_starwars_db.Rmd).
+
+# `Connections` Pane 
+
+1. In RStudio there is a `Connections` Pane. 
+1. Create a `New Connection`.
+1. Choose an appropriate driver (e.g. I chose `MySQL ODBC 8.0 Unicode Driver`).
+1. If you struggle to figure out the parameters needed in the Popup window provided,
+the [connectionstrings](https://www.connectionstrings.com/) website is a great help. 
+
+    a. Choose the DBMS you're working with - in this case MySQL.
+    a. Copy the connection string - in this case I used the [TCP Port](https://github.com/sciencificity/intro-to-dbs-r/blob/main/images/connection_string.gif) string.
+    
+1. Copy the connection string as per the connection strings website and paste it in the `Parameters` field. Amend the parameters such as `user name`, `password` etc. as per your instance. If you're using a corporate database, you need to use the IP Address provided by your Database Administrator as `Server`, same for your credentials etc.
+1. Test the connection.
+1. Copy the full string into the console / script you're working in.
+
+    
+    <img src="connection_odbc.gif" 
+     alt="connect to a database" 
+     width="680" height="700">
+     
+
+## Make a connection
+
+### ODBC
+
+We use the connection string generated via the `Connections` Pane to connect
+to our MySQL DB, and write our data frames into database tables.
+
+```{r, eval = FALSE}
+# Load libraries
+library(DBI)
+# Make a connection
+con <- dbConnect(odbc::odbc(), 
+  .connection_string = "Driver={MySQL ODBC 8.0 Unicode Driver};
+      Server=localhost;
+      Port=3306;
+      Database=starwars;
+      Uid=admin;
+      Pwd=Luke1@my0urf@ther;", 
+    timeout = 10)
+
+```
+
+### Appropriate DBI-compliant package
+
+We may alternatively use the appropriate DBI compliant package. ([RMariaDB::MariaDB()](https://db.rstudio.com/databases/my-sql/)).
+
+<aside>DBI is the <b>D</b>ata<b>B</b>ase <b>I</b>nterface `r emo::ji("package")` for R. Instead of using an ODBC driver we may use one of the DBI compliant packages created by the R community to make a connection. In the case of MySQL we use `RMariaDB` `r emo::ji("package")`</aside>
+
+```{r, eval = FALSE}
+# Make a connection
+con <- dbConnect(drv = RMariaDB::MariaDB(), 
+                 host = "localhost", 
+                 port = "3306",
+                 user = "admin", 
+                 password = "Luke1@my0urf@ther",
+                 dbname = "starwars")
+# Good housekeeping means disconnect
+dbDisconnect(con)
+```
 
 
+## Writing to a MySQL Database from RStudio
+
+Once we have connected to the database, we're ready to write our data frames into tables in the DBMS.
+
+```{r, eval = FALSE}
+# Write data frames we created to actual tables in the database
+DBI::dbWriteTable(conn = con, 
+                  "films", # name of table in database
+                  films,   # the data frame
+                  overwrite = TRUE) # if table exists overwrite it with this data
+DBI::dbWriteTable(conn = con, "appearances",
+                  appearances, overwrite = TRUE)
+# Good housekeeping means disconnect
+dbDisconnect(con)
+```
+
+# Communicate with our MySQL Database
+
+Alright, we're all set now. We can now start to query our database tables in our MySQL DBMS.
+
+## Connect
+
+As before the first step is connecting.
+
+```{r}
+# Load libraries
+library(DBI)
+# Make a connection
+con <- dbConnect(odbc::odbc(), 
+  .connection_string = "Driver={MySQL ODBC 8.0 Unicode Driver};
+      Server=localhost;
+      Port=3306;
+      Database=starwars;
+      Uid=admin;
+      Pwd=Luke1@my0urf@ther;", 
+    timeout = 10)
+dbListTables(con)
+dbListFields(con, "characters")
+```
+
+## Take a look around
+
+Let's get familiar with our data.
+
+```{r}
+tbl(con, "characters")
+tbl(con, "films")
+tbl(con, "appearances")
+```
+
+Connecting via the `Connections` Pane has some additional perks, in that you can
+have a look at your tables as though you're in the DBMS itself. You may also 
+preview the first 1000 rows.
+
+    
+  <img src="connection_pane_perks.gif" 
+   alt="connect using the Connections pane" 
+   width="700" height="650">
+     
+
+## Explore data
+
+Let's see if we can have a look at the popularity of the characters as per
+the <span style="color: #00203FFF;background-color:#ADEFD1FF">survey</span> dataset.
+
+The [TidyTuesday Star Wars survey dataset](https://github.com/rfordatascience/tidytuesday/tree/master/data/2018/2018-05-14) we used, was based on this 
+[FiveThirtyEight article](https://fivethirtyeight.com/features/americas-favorite-star-wars-movies-and-least-favorite-characters/).
+
+```{r}
+(svy_levels <- tbl(con, "survey_levels") %>% 
+  collect())
+
+(character_survey <- tbl(con, "survey") %>% 
+  # Let's subset the rows to only those who claim they are fans of
+  # the franchise
+  filter(any_of_6 == "Yes", star_wars_fan == "Yes") %>% 
+  # Let's only consider some columns
+  select(`Han Solo`:`Yoda`, respondent_id,
+         age = Age, respondent_gender = Gender) %>% 
+  # we have to collect the data since the pivot_longer is
+  # not set up to work on DB Table data
+  collect() %>% 
+  # Put each character name which is currently the name of a column
+  # in a column as a value
+  pivot_longer(cols = c(`Han Solo`:`Yoda`), names_to = "name",
+               values_to = "survey_id") %>% 
+  # Get the actual text of the response - e.g. Very Favorable
+  inner_join(svy_levels,
+             by = c("survey_id" = "id")))
+
+# We want to only get the character info for the characters in the survey
+# So we want to basically say `WHERE name IN (...)`
+# This code is setting that up
+characters <- character_survey %>% 
+  select(name) %>% 
+  distinct() %>% 
+  mutate(name = str_glue("'{name}'")) %>% 
+  as_tibble()
+colnames(characters) <-  NULL
+characters <- characters %>% as.list() %>% unlist()
+characters <- characters %>%  paste(collapse =  ", ")
+# Creating the WHERE name IN `(...)` part
+(sql_code <- str_glue("({characters})"))
+
+char_query <- tbl(con, "characters") %>% 
+  inner_join(tbl(con, "appearances")) %>% 
+  inner_join(tbl(con, "films"),
+             by = c("film_id" = "id")) %>% 
+  select(name, gender, homeworld, species, films, year) %>% 
+  # Note here I use the special function `sql()` to directly 
+  # insert a bit of SQL code in my pipeline
+  filter(name %in% sql(sql_code)) 
+
+char_query %>% 
+  show_query()
+
+(character_info <- character_survey %>%
+  # we only want info for the characters that formed part of the survey
+  left_join(char_query %>% 
+              collect())) 
 
 
+character_info <- character_info %>% 
+  mutate(name = as.factor(name)) %>% 
+  # Let's create aggregated survey levels by combining
+  # Somewhat favorable and Very favourable into the Favourable category
+  # We're essentially trimming down the categories as per the FiveThirtyEight
+  # article
+  mutate(sub_level = case_when(
+   str_detect(level, "Neither favorably nor unfavorably")  ~  "Neutral",
+   (str_detect(level, " unfavorably") |
+      str_detect(level, "Somewhat unfavorably"))           ~  "Unfavourable",
+   (str_detect(level, "Very favorably") |
+      str_detect(level, "Somewhat favorably"))             ~ "Favourable",
+   str_detect(level, "Unfamiliar")                         ~ "Unfamiliar",
+   TRUE                                                    ~ "None"
+   )) %>% 
+  mutate(sub_level = factor(sub_level, levels = c("Favourable", 
+                                                  "Neutral", "Unfavourable", 
+                                                  "Unfamiliar"))) 
+
+# Processing to setup the waffle plot
+# We want to understand each character's popularity
+character_info <- character_info %>% 
+  select(respondent_id, name, sub_level) %>% 
+  distinct() %>% 
+  group_by(name) %>% 
+  mutate(n = n()) %>% 
+  ungroup() %>% 
+  group_by(name, sub_level) %>% 
+  mutate(
+    nn = n(),
+    perc = nn / n * 100.0) %>% 
+  ungroup() %>% 
+  select(name, sub_level, n, nn, perc) %>% 
+  distinct() %>% 
+  inner_join(character_info) %>% 
+  select(respondent_id:respondent_gender, name, 
+         survey_id, level, sub_level:perc, gender:year)
+```
+
+We'll create a waffle plot to have a look at how popular the characters are.
+In a few cases the overall percentage is slightly less than 100%. This is due to 
+rounding quirks.
+
+```{r, out.width = "110%", out.height = "110%"}
+# remotes::install_github("hrbrmstr/waffle")
+library(waffle)
+
+character_info %>% 
+  select(name, sub_level, perc) %>% 
+  distinct() %>% 
+  ggplot(aes(fill = sub_level, values = perc %>% round())) +
+  geom_waffle(colour = "white", n_rows = 10, size = 0.33,
+              pad = 1, flip = FALSE,
+              make_proportional = TRUE) +
+  facet_wrap(~ name) +
+  labs(title = "Popularity of Star Wars Characters",
+       subtitle = "Among US respondents who consider themselves Star Wars Fans",
+       x = "1 square = 1%",
+       fill = "")  +
+  theme(legend.position="bottom", 
+        panel.spacing = unit(1, "lines"),
+        strip.background = element_blank(),
+        axis.text.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks = element_blank())
+
+# Check: 
+# rounding causing waffle to not be fully filled
+character_info %>% 
+  select(name, sub_level, perc) %>% 
+  distinct() %>% 
+  filter(name == "Lando Calrissian")
+```
+
+## Done? Remember to disconnect!
+
+```{r}
+# Good housekeeping means disconnect
+dbDisconnect(con)
+```
+
+## Fin
+
+That's it for this series of working with databases. I hope it was useful, if you
+have any comments or feedback please let me know on [Twitter](https://twitter.com/Sciencificity).
+
+# Acknowledgements
+
+- [Edgar Ruiz's](https://rstudio.com/speakers/edgar-ruiz/) database work, 
+and teachings.
+
+# More resources
+
+- My [RStudio Certification GitHub Project](https://github.com/sciencificity/intro-to-dbs-r)
+- [RStudio DB Resources](https://db.rstudio.com/)
+- A [murder mystery SQLite DB](https://github.com/sciencificity/reclues)
 

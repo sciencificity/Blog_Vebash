@@ -7,7 +7,22 @@
     <description>Sciencificity's Blog
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Sun, 20 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 31 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Using the tidyverse with Databases - Part III</title>
+      <dc:creator>Vebash Naidoo</dc:creator>
+      <link>https://sciencificity-blog.netlify.app/posts/2020-12-31-using-tidyverse-with-dbs-partiii</link>
+      <description>Setting up, and connecting to a Star Wars MySQL Database</description>
+      <category>SQL</category>
+      <category>databases</category>
+      <category>tidyverse</category>
+      <category>dbplyr</category>
+      <category>MySQL</category>
+      <category>MariaDB</category>
+      <guid>https://sciencificity-blog.netlify.app/posts/2020-12-31-using-tidyverse-with-dbs-partiii</guid>
+      <pubDate>Thu, 31 Dec 2020 00:00:00 +0000</pubDate>
+      <media:content url="https://sciencificity-blog.netlify.app/posts/2020-12-31-using-tidyverse-with-dbs-partiii/jens-johnsson-OFpzBycm3u0-unsplash.jpg" medium="image" type="image/jpeg"/>
+    </item>
     <item>
       <title>Using the tidyverse with Databases - Part II</title>
       <dc:creator>Vebash Naidoo</dc:creator>
