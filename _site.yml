@@ -20,4 +20,4 @@ collections:
     share: [twitter]
 output: distill::distill_article
 rss:
-  full_content: false
+  full_content: true
