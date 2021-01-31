@@ -1,0 +1,380 @@
+---
+title: "Feel like the cat that got the cream with {forcats}"
+description: |
+  Do mi do mi do so mi do <br>
+  Every truly cultured tidyverse stud-ent knows <br>
+  You must learn your forcats and your dplyr. <br>
+    -- Adapted from 'Scales and Arpeggios' from the Aristocats
+author:
+  - name: Vebash Naidoo
+    url: https://twitter.com/Sciencificity
+date: 2021-01-31
+base_url: https://sciencificity-blog.netlify.app/
+output:
+  distill::distill_article:
+    toc: true
+    toc_depth: 3
+    self_contained: false
+    code_folding: false
+categories:
+  - Categorical Variables
+  - Factors
+  - forcats
+preview: preview.jpg
+draft: true
+---
+
+<!-- Picture on main page -->
+<!-- <span>Photo by <a href="https://unsplash.com/@v2osk?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">v2osk</a> on <a href="https://unsplash.com/s/photos/categories?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span> -->
+
+
+```{r setup, include=FALSE}
+library(formatR)
+knitr::opts_chunk$set(echo = TRUE, message = FALSE,
+                      warning = FALSE) #,
+                      # R.options =	list(width = 60))
+# Set so that long lines in R will be wrapped:
+# knitr::opts_chunk$set(tidy.opts=list(width.cutoff=80), tidy=TRUE)
+library(tidyverse)
+```
+
+
+```{css, echo = FALSE, code_folding = FALSE}
+blockquote {
+  background: #f9f9f9;
+  border-left: 10px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C""\201D""\2018""\2019";
+}
+blockquote:before {
+  color: #ccc;
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+blockquote p {
+  display: inline;
+}
+```
+
+<figure class="quote">
+  <blockquote>
+    No need to be a scared-y cat, “A lot of good tricks. I will show them to you. Your mother will not mind at all if I do.”
+  </blockquote>
+  <figcaption>
+    &mdash; The Cat In The Hat  </figcaption>
+</figure>
+
+<img src = 1.jpg  width = 600px>
+
+<span>Photo by <a href="https://unsplash.com/@miklevasilyev?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">MIKHAIL VASILYEV</a> on <a href="https://unsplash.com/s/photos/cat?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span>
+
+# Terminology
+
+To set the stage, let's talk about the types of data. These are concepts more for beginners, so if you're familiar with these please feel free to skip ahead.
+
+We have two types of data:
+
+- Numerical data, also known as `Quantitative` data.
+- Non-Numerical data, also known as `Qualitative` data (this is what we will be concentrating on in this post).
+
+### Numerical (Quantitative) data:
+
+- Takes on number values:
+
+    * Discrete: These are for example count values 0, 1, 2 - 
+    how many people took the survey, how many cats do you have 
+    in your home, how many children are there in a household?
+    
+    * Continuous: These are numbers that can take on infinite
+    values within some range of values - percentage of survey
+    filled by respondents (e.g. 21.562%, 67.893%, 90.145%),
+    heights of siberian cats (30.167 cm, 31.458 cm, 28.624 cm).
+    
+- It makes sense to take the average of numerical data, and to do 
+other arithmetic on numeric data, such as to add, subtract etc.
+
+- For example, it's easy to say, in our sample the tallest siberian cat is `r 31.458 - 30.167` centimetres taller than the shortest siberian cat.
+
+### Non-Numerical (Qualitative) data:
+
+- Also known as __categorical data__, since it can take on some
+number of distinct categories e.g. eye colour, favourite rock band, even names if you think about it fall under categorical data, albeit voluminous categories may be present in such a `name` variable.
+- The categories are distinct - Siberian cat, Cornish Rex, Russian Blue - and may be _represented_ as numbers. 
+
+    *   For example, you may have a survey question with the following categories:
+
+    |      Category|  Level Number| 
+    |-------------:|-------------:|
+    |   Very Likely|             1| 
+    |        Likely|             2| 
+    |     Uncertain|             3|
+    |      Unlikely|             4|
+    | Very Unlikely|             5|
+
+
+
+    *   Or, you may have a question asking a participant which of your favourite songs they enjoy the most, with the following categories:
+
+    |                     Category|  Level Number|
+    |----------------------------:|-------------:|
+    |          Sweet Child O' mine|             1| 
+    |      Smells Like Teen Spirit|             2| 
+    |             Hotel California|             3|
+    |                  Best of You|             4| 
+    |                         Numb|             5| 
+    | Unfamiliar with all of these|             6| 
+
+- The numbers (`Level Number`) are basically placeholders for each category level, and is meant for us to work with it easier in a programming language. If I get the responses:<br>
+
+      5, 2, 1, 2, 5, 2, 1, 5, 2, 5, 1, 1, 2
+      
+    I can't say _Numb_ is 4x better or 4x worse than _Sweet Child O' mine_, or that _Hotel California_ is the average category chosen (notice it was not chosen once) but if I take the average of numerical placeholders for the responses received, I would get `r mean(c(5, 2, 1, 2, 5, 2, 1, 5, 2, 5, 1, 1, 2))` which is 3 if I round up. In other words, We can't understand what the "average" song is.
+
+- So we have seen that it does not make sense to do arithmetic on these variables. The distance between the categories is not something that can be measured. 
+
+- We can count each category, and understand that _Smells Like Teen Spirit_ was the most popular among respondents.
+
+- Categorical data may be:
+
+    * Unordered, often refered to merely as Categorical data, or also known as `Nominal` data. For example, if your question is `What's your favourite Altoids flavour?` with the following options, while you may rank _Cinnamon_ above _Wintergreen_ there is no order to these categories! `r emo::ji("grin")`.
+    
+    |      Fave Flavour|  Level Number| 
+    |-----------------:|-------------:|
+    |        Peppermint|             1| 
+    |       Wintergreen|             2| 
+    |          Cinnamon|             3|
+    |         Spearmint|             4|
+    |         Liqourice|             5|
+    |     None of these|             6|
+    
+    
+    * Ordered, and hence called `Ordinal` data. Here's another example using age categories - these are not numerical data, because the `Level Number` is merely a placeholder for the category, and we can't do arithmetic on these. This is an `Ordinal` variable however, since there is some order to these.
+    
+    |      Age Range|  Level Number| 
+    |--------------:|-------------:|
+    |Younger than 21|             1| 
+    |          21-30|             2| 
+    |          31-45|             3|
+    |          46-55|             4|
+    |  Older than 55|             5|
+    
+
+# {forcats}
+
+The forcats `r emo::ji("package")` is meant to handle `factors` which is R's data type for categorical data. There is much categorical data that is useful to work with as factors (age-ranges, occupation, etc.), we must also keep in mind that some categorical or qualitative data should be kept as `character` data.
+
+We're going to work with categorical data in this post, and learn how to use the forcats `r emo::ji("package")` to make that task easier for us for qualitative data that truly are __factors__ (I consider this to be data with some reasonable amount of categories. For instance I would hardly ever convert recipients name variable to a factor).
+
+## Data
+
+We're going to use the data from the awesome [TidyTuesday Project](https://github.com/rfordatascience/tidytuesday) `r emo::ji("sparkle")`:
+
+- [Beer production data from 2020-03-31](https://github.com/rfordatascience/tidytuesday/tree/master/data/2020/2020-03-31)
+- [Beer awards data from 2020-10-20](https://github.com/rfordatascience/tidytuesday/tree/master/data/2020/2020-10-20).
+
+```{r}
+brewing_materials <-
+   read_csv(
+    # hacky solution to show readers the full path of file
+    # str_glue just pastes the various strings next to each other
+    str_glue('https://raw.githubusercontent.com/rfordatascience/',
+            'tidytuesday/master/data/2020/2020-03-31/',
+            'brewing_materials.csv'))
+beer_taxed <- 
+    read_csv(
+     str_glue('https://raw.githubusercontent.com/rfordatascience/', 
+              'tidytuesday/master/data/2020/2020-03-31/',
+              'beer_taxed.csv'))
+
+brewer_size <- 
+    read_csv(
+     str_glue('https://raw.githubusercontent.com/rfordatascience/',
+     'tidytuesday/master/data/2020/2020-03-31/',
+     'brewer_size.csv'))
+beer_states <- 
+    read_csv(
+     str_glue('https://raw.githubusercontent.com/rfordatascience/', 
+     'tidytuesday/master/data/2020/2020-03-31/',
+     'beer_states.csv'))
+
+beer_awards <- 
+    read_csv(
+     str_glue('https://raw.githubusercontent.com/rfordatascience/', 
+     'tidytuesday/master/data/2020/2020-10-20/',
+     'beer_awards.csv'))
+```
+
+Let's have a look at the data - here we're showing a sample of each table.
+
+```{r, code_folding = TRUE}
+brewing_materials %>% 
+  sample_n(50) %>% 
+  DT::datatable(filter = 'top', list(scrollX = TRUE,
+                     pageLength = 5),
+    caption = htmltools::tags$caption(
+      style = 'caption-side: bottom; text-align: center;',
+     'Table Name: ', htmltools::em('Brewing Materials')
+  ))
+
+beer_taxed %>% 
+  head(50) %>% 
+  DT::datatable(filter = 'top', list(scrollX = TRUE,
+                     pageLength = 5),    
+    caption = htmltools::tags$caption(
+      style = 'caption-side: bottom; text-align: center;',
+     'Table Name: ', htmltools::em('Beer Taxed')
+  ))
+
+brewer_size %>% 
+  sample_n(50) %>% 
+  DT::datatable(filter = 'top', list(scrollX = TRUE,
+                     pageLength = 5),
+    caption = htmltools::tags$caption(
+      style = 'caption-side: bottom; text-align: center;',
+     'Table Name: ', htmltools::em('Brewer Size')
+  ))
+
+
+beer_states %>% 
+  sample_n(50) %>% 
+  DT::datatable(filter = 'top', list(scrollX = TRUE,
+                     pageLength = 5),
+    caption = htmltools::tags$caption(
+      style = 'caption-side: bottom; text-align: center;',
+     'Table Name: ', htmltools::em('Beer States')
+  ))
+
+beer_awards %>% 
+  sample_n(50) %>% 
+  DT::datatable(filter = 'top', list(scrollX = TRUE,
+                     pageLength = 5),
+    caption = htmltools::tags$caption(
+      style = 'caption-side: bottom; text-align: center;',
+     'Table Name: ', htmltools::em('Beer Awards')
+  ))
+```
+
+Let's get a better feel for the material type and type fields in the <span style="color: #5196b4;background-color:#f4e4e7">`brewing_materials`</span> dataset.
+
+```{r}
+brewing_materials %>% 
+  count(material_type)
+
+brewing_materials %>% 
+  filter(stringr::str_to_lower(material_type) %in% 
+           c('grain products',
+             'non-grain products')) %>% 
+  count(material_type, type)
+
+brewing_materials %>% 
+  count(type)
+```
+
+Ok, and the other interesting one is the field `brewer_size` in the <span style="color: #5196b4;background-color:#f4e4e7">`brewer_size`</span> dataset.
+
+```{r}
+brewer_size %>% 
+  count(brewer_size)
+#brewer_size %>% count(brewer_size, wt = n_of_brewers)
+```
+
+Notice that the brewer_size variable has a few categories which are slightly different.
+
+|  brewer_size                     | 
+|:--------------------------------:|
+|  1,000,000 to 6,000,000 Barrels  |
+|  1,000,001 to 6,000,000 Barrels  |
+|  1,000,001 to 1,999,999 Barrels  |
+|  2,000,000 to 6,000,000 Barrels  |
+
+If you look closely it seems as though _1,000,000 to 6,000,000 Barrels_ may be a typo, since _500,001 to 1,000,000 Barrels_ is already a category in that year.
+
+It also looks as if _1,000,001 to 6,000,000 Barrels_ was split into _1,000,001 to 1,999,999 Barrels_ and _2,000,000 to 6,000,000 Barrels_ from 2011 onwards.
+
+
+## Convert variable to factor
+
+To convert a variable to a factor we use <span style="color: #5196b4;background-color:#f4e4e7">`factor()`</span> or <span style="color: #5196b4;background-color:#f4e4e7">`as.factor()`</span>. This converts each distinct category to some number placeholder in the background.
+
+### factor()
+
+1. Convert a character to a factor: 
+
+    a. `df$var <- factor(df$var)`
+    b. `df <- df %>% mutate(var = factor(var))`
+       
+1. To figure out what number placeholder a category was given behind the scenes, use `levels()`.
+1. The default order of `factor()` is alphabetical.
+
+    ```{r}
+    brewing_materials %>% 
+      mutate(material_type = factor(material_type)) %>% 
+      # use dplyr::pull which acts like $ to get the variable
+      pull(material_type) %>% 
+      # let's us get the number placeholder attached to each category
+      levels()
+    
+    brewing_materials %>% 
+      mutate(material_type = factor(material_type)) %>% 
+      # can also use count() to count how many in each level
+      count(material_type)
+    ```
+
+1. What if I wanted to specify the levels myself? I could specify the _levels_ in an argument as shown.
+
+    ```{r}
+    brewing_materials %>% 
+      mutate(material_type = factor(material_type,
+                              levels = c("Grain Products",
+                                         "Total Grain products",
+                                         "Non-Grain Products",
+                                         "Total Non-Grain products",
+                                         "Total Used"))) %>% 
+      pull(material_type) %>% 
+      levels()
+    ```
+
+1. What if I wanted to include levels that may exist in future datasets, but don't as yet in the dataset we have? Let's try it with adding a _Not Applicable_ level which is not in our dataset's `material_type` variable.
+
+    ```{r}
+    brewing_materials %>% 
+      mutate(material_type = factor(material_type,
+                              levels = c("Grain Products",
+                                         "Total Grain products",
+                                         "Non-Grain Products",
+                                         "Total Non-Grain products",
+                                         "Total Used",
+                                         "Not Applicable"))) %>% 
+      pull(material_type) %>% 
+      levels()
+    
+    brewing_materials %>% 
+      mutate(material_type = factor(material_type,
+                              levels = c("Grain Products",
+                                         "Total Grain products",
+                                         "Non-Grain Products",
+                                         "Total Non-Grain products",
+                                         "Total Used",
+                                         "Not Applicable"))) %>%
+      # we can also count as before but notice that
+      # one category that has no data is missing -
+      # the artificial `Not Applicable` we added
+      count(material_type)
+    
+    brewing_materials %>% 
+      mutate(material_type = factor(material_type,
+                              levels = c("Grain Products",
+                                         "Total Grain products",
+                                         "Non-Grain Products",
+                                         "Total Non-Grain products",
+                                         "Total Used",
+                                         "Not Applicable"))) %>%
+      # we can get all categories by adding the .drop = FALSE
+      count(material_type, .drop = FALSE)
+    ```
+
+### as.factor()
