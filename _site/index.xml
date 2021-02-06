@@ -7,7 +7,25 @@
     <description>Sciencificity's Blog
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Thu, 31 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 31 Jan 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Feel like the cat that got the cream with {forcats}</title>
+      <dc:creator>Vebash Naidoo</dc:creator>
+      <link>https://sciencificity-blog.netlify.app/posts/2021-01-30-control-your-factors-with-forcats</link>
+      <description>Do mi do mi do so mi do,
+
+Every truly cultured tidyverse stud-ent knows,
+
+You must learn your forcats and your d-plyr.
+
+  -- Adapted from 'Scales and Arpeggios' from the Aristocats</description>
+      <category>Categorical Variables</category>
+      <category>Factors</category>
+      <category>forcats</category>
+      <guid>https://sciencificity-blog.netlify.app/posts/2021-01-30-control-your-factors-with-forcats</guid>
+      <pubDate>Sun, 31 Jan 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://sciencificity-blog.netlify.app/posts/2021-01-30-control-your-factors-with-forcats/preview.jpg" medium="image" type="image/jpeg"/>
+    </item>
     <item>
       <title>Using the tidyverse with Databases - Part III</title>
       <dc:creator>Vebash Naidoo</dc:creator>
