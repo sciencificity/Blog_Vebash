@@ -84,7 +84,7 @@ We have two types of data:
 - Numerical data, also known as `Quantitative` data.
 - Non-Numerical data, also known as `Qualitative` data (this is what we will be concentrating on in this post).
 
-### Numerical (Quantitative) data:
+### Numerical (Quantitative) data
 
 - Takes on number values:
 
@@ -102,7 +102,7 @@ other arithmetic on numerical data, such as to add, subtract etc.
 
 - For example, it's easy to say, in our sample the tallest siberian cat is `r 31.458 - 30.167` centimetres taller than the shortest siberian cat.
 
-### Non-Numerical (Qualitative) data:
+### Non-Numerical (Qualitative) data
 
 - Also known as __categorical data__, since it can take on some
 number of distinct categories e.g. eye colour (brown, blue, green, grey etc.), favourite rock band, even names if you think about it, fall under categorical data, albeit many distinct categories may be present in such a `name` variable, and we therefore typically treat those kinds of non-numerical fields as pure character data.
@@ -147,9 +147,9 @@ number of distinct categories e.g. eye colour (brown, blue, green, grey etc.), f
       
 </pre>
 
-  I can't say <i>Numb</i> is 4x better or 4x worse than _Sweet Child O' Mine_ (i.e. it makes no sense to take Level Number of Numb [5] and subtract Level Number of Sweet Child 'O Mine [1]). 
+  I can't say <i>Numb</i> is 4x better, or 4x worse than _Sweet Child O' Mine_ (in other words, it makes no sense to take Level Number of Numb [5], and subtract Level Number of Sweet Child 'O Mine [1]). 
   
-  Neither can I say that _Hotel California_ is the average category chosen (notice it was not chosen once) but if I take the average of numerical placeholders for the responses received, I would get `r round(mean(c(5, 2, 1, 2, 5, 2, 1, 5, 2, 5, 1, 1, 2)),2)` which is 3 if I round up. In other words, we can't understand what the "average" song is.
+  Neither can I say that _Hotel California_ is the average category chosen (notice it was not chosen once) but if I take the average of the numerical placeholders for the responses received, I would get `r round(mean(c(5, 2, 1, 2, 5, 2, 1, 5, 2, 5, 1, 1, 2)),2)` which is 3 if I round up. In other words, we can't understand what the "average" song is.
 
 - So we have seen that it does not make sense to do arithmetic on these variables. The distance between the categories is not something that can be measured. 
 
@@ -169,7 +169,7 @@ number of distinct categories e.g. eye colour (brown, blue, green, grey etc.), f
     |     None of these|             6|
     
     
-    * Ordered, and hence called <span style="color: #5196b4;background-color:#f4e4e7">`Ordinal`</span> data. Here's an example using age categories - these are not numerical data, because the `Level Number` is merely a placeholder for the category, and we can't do arithmetic on these. This is an `Ordinal` variable however, since there is some order to the distinct categories.
+    * Ordered, and hence called <span style="color: #5196b4;background-color:#f4e4e7">`Ordinal`</span> data. Here's an example using age categories - these are not numerical data, because the `Level Number` is merely a placeholder for the category, and we can't do arithmetic on these. This is an `Ordinal` variable however, since there is some order to the distinct categories shown in `Age Range`.
     
     |      Age Range|  Level Number| 
     |--------------:|-------------:|
@@ -180,13 +180,13 @@ number of distinct categories e.g. eye colour (brown, blue, green, grey etc.), f
     |  Older than 55|             5|
     
 
-# {forcats}
+# {forcats} `r emo::ji("package")`
 
 The <span style="color: #5196b4;background-color:#f4e4e7">forcats</span>  `r emo::ji("package")` is meant to handle `factors` which is R's data type for categorical data. `forcats` is __for__ <b>cat</b>egorical data, and is an [anagram](https://r4ds.had.co.nz/factors.html) for `factors` `r emo::ji("cool")`. 
 
 The functions in the package start with <span style="color: #5196b4;background-color:#f4e4e7">`fct_`</span>.
 
-There is non-numeric data where it is useful to work with the data as factors (age-ranges, occupation, etc.), we must also keep in mind that some non-numeric data should be kept as `character` data.
+There is non-numeric data where it is useful to work with the data as factors (age-ranges, occupation, etc.), but we must also keep in mind that some non-numeric data should be kept as `character` data.
 
 We're going to work with non-numeric data that may be treated as factors in this post, and learn how to use the forcats `r emo::ji("package")` to make that task easier for us.
 
@@ -230,7 +230,7 @@ beer_awards <-
      'beer_awards.csv'))
 ```
 
-Let's have a look at the data - here we're showing a sample of each table.
+Let's have a look at the data - here we're showing a sample from each table.
 
 ```{r, code_folding = TRUE}
 brewing_materials %>% 
@@ -307,14 +307,14 @@ brewing_materials %>%
 
 ### factor() / as.factor()
 
-1. These are conversion functions in Base R.
+1. These are conversion functions to convert a variable to a factor in Base R.
 
-1. Convert a character to a factor: 
+1. To convert a variable to a factor we may use: 
 
     a. `df <- df %>% mutate(var = factor(var))`
     a. `df <- df %>% mutate(var = as.factor(var))`
        
-1. To figure out what number placeholder a category was given behind the scenes, use `levels()`.
+1. To figure out what number placeholder a category was given behind the scenes, use <span style="color: #5196b4;background-color:#f4e4e7">`levels()`</span>.
 
 1. The default order of `factor()` is sorted. According to the help page: "The levels of a factor are by default sorted, but the sort order may well depend on the locale at the time of creation, and should not be assumed to be [ASCII](https://theasciicode.com.ar/)."
 
@@ -334,10 +334,10 @@ brewing_materials %>%
     ```
     
     Notice that the base R functions `factor()` / `as.factor()`
-    created `levels` in the alphabetical sorted order (my locale is ASCII).
+    created `levels` in the alphabetical sorted order (my locale is ASCII). The output of the first part of the code block shows that `"Grain Products"` was coded as __1__, while `"Total Non-Grain products"` was coded as __4__, and `"Total Used"` was coded as the last level which was __5__.
 
 
-1. What if I wanted to __specify the levels__ myself? I could specify the _`levels`_ in an argument as shown.
+1. What if I wanted to __specify the levels__ myself? I could specify the __levels__ in an argument as shown: <span style="color: #5196b4;background-color:#f4e4e7">`levels = c("Level1", ..., "LevelN")`</span>.
 
     ```{r}
     brewing_materials %>% 
@@ -353,9 +353,10 @@ brewing_materials %>%
       levels()
     ```
     
-    My level specification is used to create the levels.
+    My level specification is used to create the levels, so the numeric encoding follows my specification this time. `"Total Grain products"` is coded as level __2__ this time (it was level 3 in the default creation where no `levels` argument was specified).
 
-1. What if I wanted to include levels that may exist in future datasets, but don't as yet in the dataset we have? Let's try it with adding a _Not Applicable_ level which is not in our dataset's `material_type` variable.
+1. What if I wanted to include levels that may exist in future datasets, but don't as yet in the dataset we have? This is similar to the `months` example in [R for Data Science](https://r4ds.had.co.nz/factors.html). 
+Let's try it with adding a _Not Applicable_ level, which is not in our dataset's `material_type` variable.
 
     ```{r}
     brewing_materials %>% 
@@ -390,7 +391,7 @@ brewing_materials %>%
     
     A simple `count()` does not quite let us know, but if we add 
     an argument `.drop = FALSE` we get counts for all categories, even those
-    with no observations (i.e. that categories count is 0).
+    with no observations (i.e. that category has a count of 0). By default the `count()` function drops categories with 0 counts from the output. By adding `.drop = FALSE` we're asking for these to be included.
     
     ```{r}
     brewing_materials %>% 
@@ -413,13 +414,13 @@ My locale is English South African, and hence is ASCII. The order preference in 
 
 ### forcats::as_factor()
 
-`as_factor()` behaves differently to `as.factor()` in that it creates levels in the order in which they appear, hence we get the same factor levels across different locales. 
+<span style="color: #5196b4;background-color:#f4e4e7">`as_factor()`</span> behaves differently to `as.factor()` in that it creates levels in the order in which they appear, hence we get the same factor levels across different locales. 
 
 <aside>
-Note: as<b>_</b>factor
+Note the underscore <span style="color: #5196b4;background-color:#f4e4e7">`_`</span> instead of the __`.`__: as<b>_</b>factor
 </aside>
 
-#### Base R as.factor()
+#### Base R's as.factor()
 
 ```{r}
 test_factor_var <-  c("012star", "DogsRule", "!this", "%abc",
@@ -430,9 +431,9 @@ test_factor_var %>%
   print(width = Inf)
 ```
 
-Note that the levels follow the [ASCII] sort on my machine, this may be completely different based on your locale.
+Note that the levels (seen in the output <span style="color: #5196b4;background-color:#f4e4e7">`Levels: !this $bb ...`</span>) follow the [ASCII] sort on my machine, this may be completely different based on your locale.
 
-#### Contrast with forcats as_factor()
+#### Contrast with forcats::as_factor()
 
 Now let's consider `as_factor()`. 
 
@@ -447,7 +448,7 @@ test_factor_var %>%
   print(width = Inf)
 ```
 
-Note that `as_factor()` kept the order as it appears, this will be the same for you, even if your locale is different.
+Note that `as_factor()` kept the order as it appears (<span style="color: #5196b4;background-color:#f4e4e7">`Levels: 012star DogsRule ...`</span>), this will be the same for you, even if your locale is different.
 
 #### Convert brewer data
 
@@ -458,7 +459,7 @@ Let's perform the same conversion we did with Base R functions, but now using <s
     ```{r}
     brewing_materials %>% 
       pull(material_type) %>% 
-      # what order is material_type observations in?
+      # what order are material_type observations in?
       head(12)
     
     brewing_materials %>% 
@@ -468,15 +469,13 @@ Let's perform the same conversion we did with Base R functions, but now using <s
     ```
     
     Notice the levels are created in the order they appear in the
-    `material_type` field.
+    `material_type` field - `"Grain Products"` appeared first hence is Level __1__, `"Total Grain products"` appeared second hence occupies Level __2__.
 
 ### fct_inorder()
 
-We can also explicitly use the `fct_inorder()` function to reorder the factor levels by first appearance. I add it here just so you're aware of this option.
+We can also explicitly use the <span style="color: #5196b4;background-color:#f4e4e7">`fct_inorder()`</span> function to reorder the factor levels by first appearance. I add it here just so you're aware of this option.
 
-For example the `beer_awards$medal` column would be made alphabetical in my locale if I use as.factor(). 
-
-Notice the alphabetical ordering of levels.
+For example, the `beer_awards$medal` column would be made alphabetical in my locale if I use as.factor(). 
 
 ```{r}
 beer_awards %>% 
@@ -488,6 +487,8 @@ beer_awards %>%
   levels()
 ```
 
+Notice the alphabetical ordering of levels (Bronze, Gold, Silver).
+
 If I follow this with a `fct_inorder()` the ordering of levels is now using the order of appearance instead.
 
 ```{r}
@@ -497,16 +498,31 @@ beer_awards %>%
   levels()
 ```
 
-
+In most cases we'd want this to be Bronze, Silver, Gold in order of increasing award type. We'll see how to do that just now.
 
 
 ## Manually order levels
 
 ### fct_relevel()
 
-- Now we may specify the order ourselves, but we can't add a level that is not in the dataset, or we can, but we get a <span style="color: #FFE4E1;background-color:#FD5800">Warning</span>, and the level is not added.
+- Now we may specify the order ourselves (i.e. manually order the levels) by using <span style="color: #5196b4;background-color:#f4e4e7">`fct_relevel()`</span>. For example, as we talked about previously, we may want the award medals to be ordered Bronze, Silver, Gold in order of increasing award type, instead of order of appearance (or Base R's alpha sorting in my locale).
+    
+    ```{r}
+    beer_awards %>% 
+      # I want to specify my factor levels myself
+      mutate(medal = fct_relevel(medal,
+                     # we want a specific order, and
+                     # the order in which the categories
+                     # appear does not meet that specification
+                                 "Bronze",
+                                 "Silver",
+                                 "Gold")) %>% 
+      pull(medal) %>% 
+      levels()
+    ```
 
-- We manually order by using the function `fct_relevel()`.
+- We can't add a level that is not in the dataset, or we can, but we get a <span style="color: #FFE4E1;background-color:#FD5800">Warning</span>), and the level is not added.
+
 
     ```{r, warning = TRUE}
     brewing_materials_forcats <- brewing_materials %>% 
@@ -526,22 +542,23 @@ beer_awards %>%
                                          "Total Grain products",
                                          "Total Non-Grain products",
                                          "Total Used",
+                                         # adding a level that does not exist
                                          "Not Applicable")) %>% 
       pull(material_type) %>% 
       levels()
     ```
     
-    Notice the warning you get. We can't specify a "level" that does not
+    Notice the warning you get (<span style="color: #FFE4E1;background-color:#FD5800">Warning: Problem with mutate ... </span>. We can't specify a "level" that does not
     exist in the observations.
     
-    You may have a month factor variable where the dataset you're working with
+    You may have a factor variable that at present has only some of the categories. For example, you may have a month factor variable where the dataset you're working with
     only has observations for some months at present. In this
     case you are going to be specifying the levels yourself so the best is to
     use the base functions, and specify all months in your `levels` argument
     despite these not being a part of the values seen in the observations at
     present.
 
-- The nice part about `fct_relevel()` is you don't have to list all the categories, sometimes you just want to move one level to the beginning, you may do this as shown below. You may also move some part of the list to a specific position, which may be done using the `after` argument.
+- The nice part about `fct_relevel()` is you don't have to list all the categories, sometimes you just want to move one level to the beginning, you may do this as shown below. You may also move some part of the list to a specific position, which may be done using the <span style="color: #5196b4;background-color:#f4e4e7">`after`</span> argument.
 
     * Say I want to move all the "Total" columns up front:
 
@@ -595,6 +612,8 @@ beer_awards %>%
                                                "Total Non-Grain products"), 
                                              # what slot in the levels
                                              # should these go into?
+                                             # I want them to start in slot 3
+                                             # so I set  after = 2
                                              after = 2)) %>% 
           pull(material_type) %>% 
           levels()
@@ -614,13 +633,13 @@ brewer_size %>%
   count(brewer_size, 
         # count's default is to consider the number of rows
         # in each group, we can change it using wt (weight)
-        # weight is the number of brewers
-        # in each brewer size category, so count will sum up
-        # n_of_brewers for each category of brewer_size
+        # weight in this example is:
+        # the number of brewers in each brewer size category, 
+        # so count will sum up `n_of_brewers` for each category of brewer_size
         wt = n_of_brewers)
 ```
 
-Notice that the brewer_size variable has a few categories which are slightly different.
+Notice that the brewer_size variable has a few categories which are slightly different, but which overlap.
 
 |  brewer_size                     | 
 |:--------------------------------:|
@@ -635,9 +654,10 @@ It also looks as if _1,000,001 to 6,000,000 Barrels_ was split into _1,000,001 t
 
 ### fct_collapse()
 
-We can consolidate these levels into the same level by using `fct_collapse()`.
+We can consolidate these levels into one level by using `fct_collapse()`.
 
 ```{r}
+# what are the current levels in this variable
 brewer_size %>% 
   mutate(brewer_size = as_factor(brewer_size)) %>% 
   pull(brewer_size) %>% 
@@ -646,7 +666,10 @@ brewer_size %>%
 brewer_size %>% 
   mutate(brewer_size = as_factor(brewer_size)) %>% 
   mutate(brewer_size = fct_collapse(brewer_size,
+            # the new category name
             "1,000,000 to 6,000,000 Barrels" = 
+            # the current categories that must become
+            # the new category
               c("1,000,000 to 6,000,000 Barrels",
                 "1,000,001 to 6,000,000 Barrels",
                 "1,000,001 to 1,999,999 Barrels",
@@ -658,11 +681,41 @@ brewer_size %>%
 
 Notice that our previous __16__ levels are now __13__.
 
+In this case we'd also want to reorder the levels further by using `fct_relevel()`.
+
+```{r}
+brewer_size %>% 
+  mutate(brewer_size = as_factor(brewer_size)) %>% 
+  mutate(brewer_size = fct_collapse(brewer_size,
+            "1,000,000 to 6,000,000 Barrels" = 
+              c("1,000,000 to 6,000,000 Barrels",
+                "1,000,001 to 6,000,000 Barrels",
+                "1,000,001 to 1,999,999 Barrels",
+                "2,000,000 to 6,000,000 Barrels")
+        )) %>% 
+  mutate(brewer_size = fct_relevel(brewer_size,
+        "Zero Barrels",
+        "Under 1 Barrel",
+        "1 to 1,000 Barrels",
+        "1,001 to 7,500 Barrels",
+        "7,501 to 15,000 Barrels",
+        "15,001 to 30,000 Barrels",
+        "30,001 to 60,000 Barrels",
+        "60,001 to 100,000 Barrels",
+        "100,001 to 500,000 Barrels",
+        "500,001 to 1,000,000 Barrels",
+        "1,000,000 to 6,000,000 Barrels",
+        "6,000,001 Barrels and Over")) %>% 
+  pull(brewer_size) %>% 
+  levels()
+```
+
+
 ## Reduce categories
 
-We saw that `fct_collapse()` is used to reduce categories. In the above example there was some order to the levels so the best we can do is collapse levels, i.e. an `Other` category does not make much sense in the example we used above.
+We saw that `fct_collapse()` is used to reduce categories. In the above example, there was some order to the levels so the best we can do is collapse levels into fewer categories, i.e. an `Other` category does not make much sense in the example we used above.
 
-Some times you have way too many levels to visualise or be useful in considerations but there isn't any inherent order in the levels.
+Some times you have way too many levels to visualise, or be useful in considerations, but there isn't any inherent order in the levels. We will discuss different category reduction strategies for these (i.e. where an `Other` category is a viable option).
 
 ### beer_awards
 
@@ -684,11 +737,17 @@ beer_awards %>%
 
 ### fct_other()
 
-We can also collapse levels by grouping together some levels into `Other` using `fct_other()`. 
+We can also collapse levels by grouping together some levels into `Other` using <span style="color: #5196b4;background-color:#f4e4e7">`fct_other()`</span>. 
+
+In `fct_other()` we can either:
+
+    - specify which categories we want to __keep__, where all the rest will be bucketed into the `Other` category.
+    - specify which categories we want to __drop__ - i.e. which categories do we want to be bucketed into the `Other` category.
+<br> <br>
 
 1. Let's say that we're only interested in the _Pilseners_ in the `category` variable.
 
-    We can __keep__ these Pilseners, and combine all others into an __Non-Pilseners__ category using `fct_other()`.
+    We can __keep__ these Pilseners, and combine all others into a __Non-Pilseners__ category using `fct_other()` with the <span style="color: #5196b4;background-color:#f4e4e7">`keep`</span> argument.
 
     ```{r}
     beer_awards %>% 
@@ -728,54 +787,59 @@ We can also collapse levels by grouping together some levels into `Other` using 
       levels()
     
     ```
+    
+    We have successfully kept all Pilseners, and all others have been grouped into the "Non-Pilseners" category.
 
-1. What if we want to keep everything else, and group all Pilseners into a separate category? We can instead use the `drop` argument.
-
-```{r}
-    beer_awards %>% 
-      mutate(category = as_factor(category)) %>% 
-      mutate(category = fct_other(category,
-                # which levels do you want to drop?
-                drop = c('German-Style Pilsener',
-                'Bohemian Style Pilsener',
-                'Bohemian-Style Pilsener',
-                'European-Style Pilsener',
-                'American-Style or International-Style Pilsener',
-                'International-Style Pilsener',
-                'European Pilsner',
-                'European Style Pilsener',
-                'American Light Pilsners',
-                'American-Style Lager or American-Style Pilsener',
-                'American-Style Pilsener',
-                'American-Style Pilsener or International-Style Pilsener',
-                'American Pilsener',
-                'American Pilseners',
-                'American Pilsners',
-                'American Premium Dark Pilseners',
-                'Continental Pilsners',
-                'European Classic Pilseners',
-                'German Style Pilsener',
-                'International Pilsener',
-                'Mixed, European Pilsener',
-                'American Premium Dark Pilsners',
-                'American Premium Pilseners',
-                'American Premium Pilsners',
-                'Contemporary American-Style Pilsener',
-                'Pilsener'),
-                # relabel the 'Other' level
-                other_level = "Pilseners"
-            )) %>% 
-      pull(category) %>% 
-      levels() %>% 
-      as_tibble() %>% 
-      DT::datatable()
-```
+1. What if we want to keep everything else, and group all Pilseners into a separate category? We can instead use the <span style="color: #5196b4;background-color:#f4e4e7">`drop`</span>  argument.
+    
+    ```{r}
+        beer_awards %>% 
+          mutate(category = as_factor(category)) %>% 
+          mutate(category = fct_other(category,
+                    # which levels do you want to drop?
+                    drop = c('German-Style Pilsener',
+                    'Bohemian Style Pilsener',
+                    'Bohemian-Style Pilsener',
+                    'European-Style Pilsener',
+                    'American-Style or International-Style Pilsener',
+                    'International-Style Pilsener',
+                    'European Pilsner',
+                    'European Style Pilsener',
+                    'American Light Pilsners',
+                    'American-Style Lager or American-Style Pilsener',
+                    'American-Style Pilsener',
+                    'American-Style Pilsener or International-Style Pilsener',
+                    'American Pilsener',
+                    'American Pilseners',
+                    'American Pilsners',
+                    'American Premium Dark Pilseners',
+                    'Continental Pilsners',
+                    'European Classic Pilseners',
+                    'German Style Pilsener',
+                    'International Pilsener',
+                    'Mixed, European Pilsener',
+                    'American Premium Dark Pilsners',
+                    'American Premium Pilseners',
+                    'American Premium Pilsners',
+                    'Contemporary American-Style Pilsener',
+                    'Pilsener'),
+                    # relabel the 'Other' level
+                    other_level = "Pilseners"
+                )) %>% 
+          pull(category) %>% 
+          levels() %>% 
+          as_tibble() %>% 
+          DT::datatable()
+    ```
+    
+    There are no individual "Pilsener" observations now, instead all Pilseners have been grouped into the "Other" category which we renamed to be "Pilseners".
+    
 
 ### fct_lump()
 
 In the `beer_awards$city` variable we have `r beer_awards %>% distinct(city) %>% summarise(n=n()) %>% pull(n)` cities. Say we're only interested in the top 10 cities represented in the awards. 
 
-- We can do this using `fct_lump()` along with the argument `n`.
+- We can do this using <span style="color: #5196b4;background-color:#f4e4e7">`fct_lump()`</span> along with the argument <span style="color: #5196b4;background-color:#f4e4e7">`n`</span>.
 
     ```{r}
     beer_awards %>% 
@@ -787,14 +851,16 @@ In the `beer_awards$city` variable we have `r beer_awards %>% distinct(city) %>%
       levels()
     ```
 
-- We can also keep categories with some percentage of the observations using `fct_lump()` along with the argument `prop`.
+- We can also keep categories with some percentage of the observations using `fct_lump()` along with the argument <span style="color: #5196b4;background-color:#f4e4e7">`prop`</span>.
 
     ```{r}
     beer_awards %>% 
       mutate(city = as_factor(city)) %>% 
       # keep the cities with at least 1.5% of the observations
       # and collapse all other cities into an `Other` category
-      mutate(city = fct_lump(city, prop = 0.015)) %>% 
+      mutate(city = fct_lump(city, prop = 0.015,
+                             # we can again relabel the 'Other' category
+                             other_level = "Rest of the Cities")) %>% 
       pull(city) %>% 
       levels()
     ```
@@ -812,20 +878,22 @@ brewing_materials %>%
 
 ### fct_recode()
 
-The `brewing_materials$type` variable has some long names. Let's use `fct_recode()` to rename these.
+The `brewing_materials$type` variable has some long names. Let's use <span style="color: #5196b4;background-color:#f4e4e7">`fct_recode()`</span> to rename these.
 
 ```{r}
 brewing_materials %>% 
   mutate(type = as_factor(type)) %>% 
   mutate(type = fct_recode(type,
-          "Barley"   = "Barley and barley products",
-          "Malt"     = "Malt and malt products",
-          "Rice"     = "Rice and rice products",
-          "Corn"     = "Corn and corn products",
+          # "new_name" = "old_name"                 
+          "Barley"     = "Barley and barley products",
+          "Malt"       = "Malt and malt products",
+          "Rice"       = "Rice and rice products",
+          "Corn"       = "Corn and corn products",
+          "Wheat"      = "Wheat and wheat products",
           # Notice here I am kinda doing the equivalent of fct_collapse()
-          "Hops"     = "Hops (dry)",
-          "Hops"     = "Hops (used as extracts)",
-          "Wheat"    = "Wheat and wheat products"
+          # by assigning 2 categories to new "Hops" category
+          "Hops"       = "Hops (dry)",
+          "Hops"       = "Hops (used as extracts)"
           )) %>% 
   count(type, sort = TRUE)
 ```
@@ -833,23 +901,34 @@ brewing_materials %>%
 
 ## Reorder levels
 
-When visualising data we often want to reorder the levels of our factors. We can use `fct_reorder()`, `fct_reorder2()`, `fct_infreq()` and `fct_rev()` for ordering our factors in visuals.
+When visualising data we often want to reorder the levels of our factors. We can use <span style="color: #5196b4;background-color:#f4e4e7">`fct_reorder()`</span>, <span style="color: #5196b4;background-color:#f4e4e7">`fct_reorder2()`</span>, <span style="color: #5196b4;background-color:#f4e4e7">`fct_infreq()`</span> and <span style="color: #5196b4;background-color:#f4e4e7">`fct_rev()`</span> for ordering our factors for visuals.
 
 ### fct_infreq() and fct_rev()
 
-`fct_infreq()` orders by the frequency of each category.
+<span style="color: #5196b4;background-color:#f4e4e7">`fct_infreq()`</span> orders by the frequency of each category.
 
 Let's say we were interested in which breweries did the best over time in terms of winning gold medals.
 
-```{r}
+```{r, layout="l-body-outset", out.width = '70%', out.height = '70%'}
+theme_set(theme_light())
+
 beer_awards %>% 
-  mutate(brewery = fct_lump(brewery, n = 10)) %>% 
+  # I only care about Gold medals
+  filter(medal == "Gold") %>% 
+  # I am only interested in top 10 most successful breweries
+  mutate(brewery = fct_lump(brewery, n = 10,
+                            # if there are ties in 10th and 11th position, keep the first one
+                            ties.method = "first")) %>% 
+  # add a count variable which will be named `n`
   add_count(brewery, medal) %>% 
-  filter(brewery != "Other", medal == "Gold") %>% 
+  # remove the Other category since it overwhelms the plot
+  filter(brewery != "Other") %>% 
+  # order the brewery by the frequency in each brewery
   ggplot(aes(y = fct_infreq(brewery))) +
-  geom_bar() +
+  geom_bar(fill = "#f4e4e7") +
   geom_text(aes(label = as.character(n),
-                x = n + .06), hjust = -0.5) +
+                x = n + .06), hjust = "center",
+            colour = "#5196b4") +
   labs(x = "",
        y = "",
        title = "Breweries that won the most gold medals over time") +
@@ -857,31 +936,38 @@ beer_awards %>%
         axis.ticks.x = element_blank())
 ```
 
-The `fct_infreq()` orders it from most frequent (shown at bottom of plot) to least frequent(shown at top of plot).
+The `fct_infreq()` orders it from most frequent (which is shown at bottom of plot, because ggplot plots the levels from the bottom going up) to least frequent (shown at top of plot). Visually we see the least frequent at top of the plot, and most frequent at the bottom of the plot.
 
-To see this let's look at the levels if we use `fct_infreq()`.
+To see what `fct_infreq()` does let's look at the levels.
 
-```{r}
+```{r, layout="l-body-outset"}
 beer_awards %>% 
-  mutate(brewery = fct_lump(brewery, n = 10)) %>%
-  filter(brewery != "Other", medal == "Gold") %>%
+  filter(medal == "Gold") %>% 
+  mutate(brewery = fct_lump(brewery, n = 10,
+                            ties.method = "first")) %>%
+  filter(brewery != "Other") %>%
   mutate(brewery = fct_infreq(brewery)) %>% 
   pull(brewery) %>% 
   levels()
 ```
 
-It is sometimes better to see bar plots in descending order on the visual. This can be accomplished by combining `fct_rev()` with `fct_infreq()`.
+It is sometimes better to see bar plots in descending order on the visual (i.e. we want to see the most frequent at top of plot, and least frequent at the bottom). This can be accomplished by combining <span style="color: #5196b4;background-color:#f4e4e7">`fct_rev()`</span> with <span style="color: #5196b4;background-color:#f4e4e7">`fct_infreq()`</span>.
 
-```{r}
+```{r, layout="l-body-outset"}
 beer_awards %>% 
-  mutate(brewery = fct_lump(brewery, n = 10)) %>% 
+  filter(medal == "Gold") %>% 
+  mutate(brewery = fct_lump(brewery, n = 10,
+                            ties.method = "first")) %>% 
   add_count(brewery, medal) %>% 
-  filter(brewery != "Other", medal == "Gold") %>%
-  # show in decreasing order of winners
+  filter(brewery != "Other") %>%
+  # show in decreasing order of winners on plot
   ggplot(aes(y = fct_rev(fct_infreq(brewery)))) +
-  geom_bar() +
+  geom_bar(fill = "#f4e4e7") +
   geom_text(aes(label = as.character(n),
-                x = n + .06), hjust = -0.5) +
+                x = n + .06), hjust = 1.2,
+            colour = "#5196b4",
+            size = 4.5,
+            position = position_dodge(width = 1)) +
   labs(x = "",
        y = "",
        title = "Breweries that won the most gold medals over time") +
@@ -889,21 +975,70 @@ beer_awards %>%
         axis.ticks.x = element_blank())
 ```
 
-```{r}
+```{r, layout="l-body-outset"}
 beer_awards %>% 
   mutate(brewery = fct_lump(brewery, n = 10)) %>% 
   add_count(brewery, medal) %>% 
   filter(brewery != "Other") %>% 
   ggplot(aes(y = fct_rev(fct_infreq(brewery)))) +
-  geom_bar() +
+  geom_bar(fill = "#f4e4e7") +
   geom_text(aes(label = as.character(n),
-                x = n + .06), hjust = -0.04) +
+                x = n + .06), hjust = 1.2,
+            colour = "#5196b4",
+            size = 4.2,
+            position = position_dodge(width = 1)) +
   facet_wrap(~ fct_inorder(medal)) +
   labs(x = "",
        y = "",
-       title = "Most successful breweries over time") +
+       title = "Most successful breweries over time",
+       subtitle = "In all medal categories") +
   theme(axis.text.x = element_blank(),
         axis.ticks.x = element_blank())
+```
+
+### fct_reorder()
+
+On occasion you may want to reorder to make your visuals easier to read. You can do this using <span style="color: #5196b4;background-color:#f4e4e7">`fct_reorder()`</span>.
+
+<span style="color: #5196b4;background-color:#f4e4e7">`fct_reorder(var, some_other_var, some_func)`</span> where:
+
+- var: the variable you want to reorder (below this is the `brewery` variable)
+- some_other_var: what should determine the order that var will be put into? Below we're going to reorder `brewery` by the count of medals the brewery received.
+- some_func: Is there some summary function that must be applied? For example, should we sum up some_other_var, or take the median of some_other_var for the order of var to be determined by. Below since we have Bronze, Silver and Gold medals we're going to sum up the counts in each medal category and use that to determine which order `brewery` should be in.
+
+Ultimately we want to plot the most successful breweries from most successful to least successful in the top 10.
+
+```{r}
+beer_awards %>% 
+  # keep top 10 breweries, lump all the rest into Other
+  mutate(brewery = fct_lump(brewery, n = 10)) %>% 
+  add_count(brewery, medal) %>% 
+  select(brewery, medal, n) %>% 
+  distinct() %>% 
+  # remove the "Other" category because it makes it hard
+  # to see all the rest
+  filter(brewery != "Other") %>% 
+  # reorder the brewery by the sum of the number of all
+  # medals such that brewery with most medals are at top
+  mutate(brewery = fct_reorder(brewery, n, sum)) %>% 
+  mutate(medal = fct_relevel(medal,
+                                "Bronze",
+                                "Silver",
+                                "Gold")) %>% 
+  ggplot(aes(n, brewery, 
+             fill = medal)) +
+  geom_col() +
+  geom_text(aes(label = n, fontface = "bold"), 
+            position = position_stack(vjust = 0.5),
+            colour = "white") +
+  scale_fill_viridis_d() +
+  labs(x = "",
+       y = "",
+       title = "Breweries with the most medals",
+       fill = "Medal") +
+  theme(axis.text.x = element_blank(),
+        axis.ticks.x = element_blank())
+  
 ```
 
 
@@ -919,4 +1054,5 @@ sessionInfo()
 1. Chapter on [Factors](https://r4ds.had.co.nz/factors.html) in `R for Data Science`.
 1. {forcats} [Tidyverse Page](https://forcats.tidyverse.org/).
 1. [Vignette on {forcats}](https://forcats.tidyverse.org/articles/forcats.html) by [Emily Robinson](https://twitter.com/robinson_es?lang=en).
+1. [David Robinson's TidyTuesday screencasts](https://www.youtube.com/channel/UCeiiqmVK07qhY-wvg3IZiZQ) often include much factor wrangling.
 
