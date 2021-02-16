@@ -2497,6 +2497,43 @@ d-appendix d-footnote-list a.footnote-backlink {
   <script src="../../site_libs/webcomponents-2.0.0/webcomponents.js"></script>
   <script src="../../site_libs/distill-2.2.21/template.v2.js"></script>
   <!--radix_placeholder_site_in_header-->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (!/posts/.test(location.pathname)) {
+      return;
+    }
+
+    var script = document.createElement("script");
+    script.src = "https://utteranc.es/client.js";
+    script.setAttribute("repo", "sciencificity/Blog_Vebash");
+    script.setAttribute("issue-term", "title");
+    script.setAttribute("crossorigin", "anonymous");
+    script.setAttribute("label", "comments ðŸ’¬");
+    script.setAttribute("theme", "github-light");
+
+    /* wait for article to load, append script to article element */
+    var observer = new MutationObserver(function (mutations, observer) {
+      var article = document.querySelector("d-article");
+      if (article) {
+        observer.disconnect();
+        /* HACK: article scroll */
+        article.setAttribute("style", "overflow-y: hidden");
+        article.appendChild(script);
+      }
+    });
+
+    observer.observe(document.body, { childList: true });
+  });
+</script>
+
+<!-- <script src="https://utteranc.es/client.js" -->
+<!--         repo="sciencificity/Blog_Vebash" -->
+<!--         issue-term="title" -->
+<!--         label="comments ðŸ’¬" -->
+<!--         theme="github-light" -->
+<!--         crossorigin="anonymous" -->
+<!--         async> -->
+<!-- </script> -->
 <!--/radix_placeholder_site_in_header-->
 
 
@@ -2961,6 +2998,9 @@ WHERE (`result` IN (&#39;WINNER&#39;, &#39;RUNNER-UP&#39;))</code></pre>
       Share: &nbsp;
       <a href="https://twitter.com/share?text=Using%20the%20tidyverse%20with%20Databases%20-%20Part%20II&amp;url=https%3A%2F%2Fsciencificity-blog.netlify.app%2Fposts%2F2020-12-20-using-the-tidyverse-with-dbs-partii%2F">
         <i class="fab fa-twitter"></i>
+      </a>
+      <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fsciencificity-blog.netlify.app%2Fposts%2F2020-12-20-using-the-tidyverse-with-dbs-partii%2F&amp;title=Using%20the%20tidyverse%20with%20Databases%20-%20Part%20II">
+        <i class="fab fa-linkedin"></i>
       </a>
     </span>
   </p>
