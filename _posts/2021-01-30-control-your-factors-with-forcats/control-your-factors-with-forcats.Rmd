@@ -39,7 +39,7 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE,
                       # R.options =	list(width = 60))
 # Set so that long lines in R will be wrapped:
 # knitr::opts_chunk$set(tidy.opts=list(width.cutoff=80), tidy=TRUE)
-library(tidyverse)
+
 ```
 
 
@@ -199,6 +199,7 @@ We're going to use the data from the awesome [TidyTuesday Project](https://githu
 - [Beer awards data from 2020-10-20](https://github.com/rfordatascience/tidytuesday/tree/master/data/2020/2020-10-20).
 
 ```{r, cache = TRUE}
+library(tidyverse)
 brewing_materials <-
    read_csv(
     # hacky solution to show readers the full path of file
@@ -1043,6 +1044,9 @@ beer_awards %>%
   
 ```
 
+## Code
+
+You will find the RMarkdown replica of this post [here](https://github.com/sciencificity/forcats-tutorial/blob/master/forcats_tutorial.Rmd).
 
 ## Session Info
 

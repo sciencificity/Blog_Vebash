@@ -7,7 +7,18 @@
     <description>Sciencificity's Blog
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Sun, 31 Jan 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 20 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Enable utterances with distill</title>
+      <dc:creator>Vebash Naidoo</dc:creator>
+      <link>https://sciencificity-blog.netlify.app/posts/2021-02-20-enable-utterances-with-distill</link>
+      <description>Interested in giving your readers the ability to comment on your {distill} blog? Look no further than utteranc.es.</description>
+      <category>Blog Comments</category>
+      <category>utterances</category>
+      <guid>https://sciencificity-blog.netlify.app/posts/2021-02-20-enable-utterances-with-distill</guid>
+      <pubDate>Sat, 20 Feb 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://sciencificity-blog.netlify.app/posts/2021-02-20-enable-utterances-with-distill/preview2_small_.jpg" medium="image" type="image/jpeg"/>
+    </item>
     <item>
       <title>Feel like the cat that got the cream with {forcats}</title>
       <dc:creator>Vebash Naidoo</dc:creator>

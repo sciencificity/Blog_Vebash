@@ -70,3 +70,9 @@ I am an R-Lady and proud member of AfricaR. `r emo::ji("international")`
 I am a certified RStudio [Tidyverse instructor](https://bit.ly/my-rstudio-cert-profile).
 
 I'm a mum, and hence that last picture of me visiting some far out galaxy ('cos that's what you do when you have young kids, go on many adventures in far out places). 
+
+#### Resources
+
+- Please subscribe to [RWeekly](https://rweekly.org), they put out a weekly newsletter, and showcase much learning material, including mine.
+- Please consider giving [me](https://twitter.com/Sciencificity) a follow. I announce there once a new blog post is up.
+- Please give [R posts you might have missed](https://twitter.com/icymi_r) a follow. The account puts out much learning material regarding R, you are bound to find something you're interested in `r emo::ji("book")` `r emo::ji("upward")`.

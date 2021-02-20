@@ -2,15 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" version="1.0">
   <url>
     <loc>https://sciencificity-blog.netlify.app/about.html</loc>
-    <lastmod>2020-12-31T23:48:46+02:00</lastmod>
+    <lastmod>2021-02-20T21:57:38+02:00</lastmod>
   </url>
   <url>
     <loc>https://sciencificity-blog.netlify.app/</loc>
     <lastmod>2021-02-16T17:23:15+02:00</lastmod>
   </url>
   <url>
+    <loc>https://sciencificity-blog.netlify.app/posts/2021-02-20-enable-utterances-with-distill/</loc>
+    <lastmod>2021-02-20T22:30:01+02:00</lastmod>
+  </url>
+  <url>
     <loc>https://sciencificity-blog.netlify.app/posts/2021-01-30-control-your-factors-with-forcats/</loc>
-    <lastmod>2021-02-16T17:16:07+02:00</lastmod>
+    <lastmod>2021-02-20T21:39:33+02:00</lastmod>
   </url>
   <url>
     <loc>https://sciencificity-blog.netlify.app/posts/2020-12-31-using-tidyverse-with-dbs-partiii/</loc>
