@@ -10,15 +10,15 @@
           "url": "https://twitter.com/Sciencificity"
         }
       ],
-      "contents": "\r\n\r\n\r\nblockquote {\r\n  background: #f9f9f9;\r\n  border-left: 10px solid #ccc;\r\n  margin: 1.5em 10px;\r\n  padding: 0.5em 10px;\r\n  quotes: \"\\201C\"\"\\201D\"\"\\2018\"\"\\2019\";\r\n}\r\nblockquote:before {\r\n  color: #ccc;\r\n  content: open-quote;\r\n  font-size: 4em;\r\n  line-height: 0.1em;\r\n  margin-right: 0.25em;\r\n  vertical-align: -0.4em;\r\n}\r\n# blockquote:after {\r\n#   color: #ccc;\r\n#   content:\"\\201D\";\r\n#   font-size: 4em;\r\n#   line-height: 0.1em;\r\n#   margin-right: 0.25em;\r\n#   vertical-align: -0.4em;\r\n# }\r\nblockquote p {\r\n  display: inline;\r\n}\r\n\r\n\r\nDo NOT mock the sciencificity of the process.\r\n\r\n\r\n— Lorelai Gilmore in A Tale of Poes and Fire\r\nWho am I?\r\n\r\nLike most people who will read this blog, I am a nerd, and a proud R nerd at that 😂.\r\nI am an R-Lady and proud member of AfricaR. 🌍\r\nI am a certified RStudio Tidyverse instructor.\r\nI’m a mum, and hence that last picture of me visiting some far out galaxy (’cos that’s what you do when you have young kids, go on many adventures in far out places).\r\nResources\r\nPlease subscribe to RWeekly, they put out a weekly newsletter, and showcase much learning material, including mine.\r\nPlease consider giving me a follow. I announce there once a new blog post is up.\r\nPlease give R posts you might have missed a follow. The account puts out much learning material regarding R, you are bound to find something you’re interested in 📖 📈.\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-02-20T22:25:18+02:00"
+      "contents": "\r\n\r\n\r\nblockquote {\r\n  background: #f9f9f9;\r\n  border-left: 10px solid #ccc;\r\n  margin: 1.5em 10px;\r\n  padding: 0.5em 10px;\r\n  quotes: \"\\201C\"\"\\201D\"\"\\2018\"\"\\2019\";\r\n}\r\nblockquote:before {\r\n  color: #ccc;\r\n  content: open-quote;\r\n  font-size: 4em;\r\n  line-height: 0.1em;\r\n  margin-right: 0.25em;\r\n  vertical-align: -0.4em;\r\n}\r\n# blockquote:after {\r\n#   color: #ccc;\r\n#   content:\"\\201D\";\r\n#   font-size: 4em;\r\n#   line-height: 0.1em;\r\n#   margin-right: 0.25em;\r\n#   vertical-align: -0.4em;\r\n# }\r\nblockquote p {\r\n  display: inline;\r\n}\r\n\r\n\r\nDo NOT mock the sciencificity of the process.\r\n\r\n\r\n— Lorelai Gilmore in A Tale of Poes and Fire\r\nWho am I?\r\n\r\nLike most people who will read this blog, I am a nerd, and a proud R nerd at that 😂.\r\nI am an R-Lady and proud member of AfricaR. 🌐\r\nI am a certified RStudio Tidyverse instructor.\r\nI’m a mum, and hence that last picture of me visiting some far out galaxy (’cos that’s what you do when you have young kids, go on many adventures in far out places).\r\nResources\r\nPlease subscribe to RWeekly, they put out a weekly newsletter, and showcase much learning material, including mine.\r\nPlease consider giving me a follow. I announce there once a new blog post is up.\r\nPlease give R posts you might have missed a follow. The account puts out much learning material regarding R, you are bound to find something you’re interested in 📖 📈.\r\n\r\n\r\n\r\n",
+      "last_modified": "2021-04-02T21:37:22+02:00"
     },
     {
       "path": "index.html",
       "title": "'Curiouser and curiouser!' `r emo::ji('spy')`",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-02-20T22:35:29+02:00"
+      "last_modified": "2021-04-02T21:42:22+02:00"
     }
   ],
   "collections": ["posts/posts.json"]

@@ -1,0 +1,96 @@
+---
+title: "Don't always need to work 9 to 5, with {lubridate} to the rescue!"
+description: |
+  Learn to work with dates and times in R using the {lubridate} `r emo::ji("package")`
+author:
+  - name: Vebash Naidoo
+    url: https://twitter.com/Sciencificity
+date: 2021-03-14
+base_url: https://sciencificity-blog.netlify.app/
+output:
+  distill::distill_article:
+    toc: true
+    toc_depth: 3
+    self_contained: false
+    code_folding: false
+categories:
+  - Dates
+  - Times
+  - lubridate
+preview: preview1.jpg
+draft: true
+---
+
+<!-- Picture on main page -->
+<!-- 
+preview2: Photo by <a href="https://unsplash.com/@charissek?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Charisse Kenion</a> on <a href="/s/photos/date-and-time?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+
+preview: Photo by <a href="https://unsplash.com/@ikukevk?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Kevin Ku</a> on <a href="/s/photos/date-and-time?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+
+
+
+preview1: Photo by <a href="https://unsplash.com/@hudsoncrafted?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Debby Hudson</a> on <a href="/s/photos/date-and-time?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+   
+-->
+
+
+
+```{r setup, include=FALSE}
+library(formatR)
+knitr::opts_chunk$set(echo = TRUE, message = FALSE,
+                      warning = FALSE) #,
+                      # R.options =	list(width = 60))
+# Set so that long lines in R will be wrapped:
+# knitr::opts_chunk$set(tidy.opts=list(width.cutoff=80), tidy=TRUE)
+
+```
+
+
+```{css, echo = FALSE, code_folding = FALSE}
+blockquote {
+  background: #f9f9f9;
+  border-left: 10px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C""\201D""\2018""\2019";
+}
+blockquote:before {
+  color: #ccc;
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+blockquote p {
+  display: inline;
+}
+.myCustomImages {
+  max-width: 60%;
+  max-height: 60%;
+}
+```
+
+<figure class="quote">
+  <blockquote>
+Saturday, wait <br>
+And Sunday always comes too late <br>
+But Friday, never hesitate, <br>
+I'm gonna learn {lubridate}
+  </blockquote>
+  <figcaption>
+    &mdash; Adapted from "The Cure - Friday I'm In Love" </figcaption>
+</figure>
+
+<img src = xkcd_image.png alt = "An xkcd cartoon on the woes of timezones" class="myCustomImages">
+
+<span>Picture from <a href="https://xkcd.com/1883/">xkcd</a></span>
+
+# What is the correct way to write dates?
+
+Many places around the world have different ways of writing dates, some use <span style="color: #5196b4;background-color:#f4e4e7">DD-MM-YY</span> (26-04-16), others <span style="color: #5196b4;background-color:#f4e4e7">MM-DD-YYYY</span> (04-26-2016), and yet others use <span style="color: #5196b4;background-color:#f4e4e7">Month Day, Year</span> (April 26, 2016) ... so how should we capture dates?
+
+There is a standard way of capturing and referring to dates which is the [ISO8601 Standard](https://www.iso.org/iso-8601-date-and-time-format.html), and the standard specifies that an internationally agreed format is <span style="color: #5196b4;background-color:#f4e4e7">YYYY-MM-DD</span> i.e. in decreasing order of time units  - year, then month, then day e.g. 2016-04-26.
+
+<aside>Note: Single digit months and days are padded with a leading 0. For example, January will be 01, and the 7th day of the month will be 07.</aside>
+
