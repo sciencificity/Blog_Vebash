@@ -1,0 +1,417 @@
+---
+title: "{datadrivencv} of the ultimate (read as 'best') troublemaker"
+description: |
+  We're going to create a cv using {datadrivencv} by  Nicholas Strayer
+author:
+  - name: Vebash Naidoo
+    url: https://twitter.com/Sciencificity
+date: 2021-04-16
+base_url: https://sciencificity-blog.netlify.app/
+output:
+  distill::distill_article:
+    toc: true
+    toc_depth: 3
+    self_contained: false
+    code_folding: false
+categories:
+  - datadrivencv
+  - RMarkdown
+preview: preview.jpg
+draft: false
+---
+
+<!-- Photo by <a href="https://unsplash.com/@randomlies?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Ashim D’Silva</a> on <a href="https://unsplash.com/s/photos/madiba?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a> -->
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE,
+                      warning = FALSE)
+```
+
+```{css, echo = FALSE, code_folding = FALSE}
+blockquote {
+  background: #f9f9f9;
+  border-left: 10px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C""\201D""\2018""\2019";
+}
+blockquote:before {
+  color: #ccc;
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+blockquote p {
+  display: inline;
+}
+```
+
+<figure class="quote">
+  <blockquote>
+    What counts in life is not the mere fact that we have lived. It is what difference we have made to the lives of others that will determine the significance of the life we lead.
+  </blockquote>
+  <figcaption>
+    &mdash; Nelson Mandela </figcaption>
+</figure>
+
+<img src = 1.png  width = 800px alt = "timeline of Nelson Mandela's life, made by www.timelinemaker.com">
+
+<span>Timeline pic from <a href="https://www.timelinemaker.com">Timelinemaker</a> where the featured timeline was <a href="https://www.timelinemaker.com/featured-timeline/nelson-mandela-timeline.php">Nelson Rolihlahla Mandela</a></span>
+
+# Background
+
+I recently applied for admission into an online Masters
+in Analytics at a US university. As part of the process
+I needed to submit my CV. I used [Nicholas Strayer's](https://twitter.com/nicholasstrayer?lang=en) [{datadrivencv}](http://nickstrayer.me/datadrivencv/) to create the CV I submitted.
+
+But I am a bit embarrassed at putting my own CV into the
+public domain, so I thought I would create a <span style="color: #5196b4;background-color:#f4e4e7"><bold>mock CV</bold></span> for the best "troublemaker" to ever have graced this earth - at least in my opinion - Nelson Rolihlahla Mandela `r emo::ji("excited")`!
+
+There are no words for what Madiba did for my country, I still remember mourning his death like that of a dearest loved one, so foundational was he in this ordinary South African's life.
+
+# So, what are we doing?
+
+We're going to run through the motions of setting up a [CV](https://sciencificity.github.io/madiba-datadriven-cv/) using the <span style="color: #5196b4;background-color:#f4e4e7">{datadrivencv} </span>`r emo::ji("package")`.
+
+## Download {datadrivencv} `r emo::ji("package")`
+
+```{r, eval=FALSE}
+install.packages("devtools")
+devtools::install_github("nstrayer/datadrivencv")
+```
+
+## Set-up data
+
+The data is housed within a <span style="color: #5196b4;background-color:#f4e4e7">google sheet</span>, or alternately you can generate <span style="color: #5196b4;background-color:#f4e4e7">csv's</span> from an Excel workbook / Googlesheet to hold your data. 
+
+We're going to use the google sheet method since it is the easiest and cleanest.
+
+### Google Sheet Method
+
+Instead of starting from scratch, as Nicholas says in the documentation, you can create a copy of this [data](https://docs.google.com/spreadsheets/d/14MQICF2F8-vf8CKPF1m4lyGKO6_thG-4aSwat1e2TWc/edit#gid=917338460) and amend it to suit your needs.
+
+<figure>
+<img src = copy.JPG  width = 600px alt = "Make a copy of Nicholas Strayer's google sheet containing his resume data">
+<figcaption>Figure 1 - Make a copy of Nick's Google Sheet Data</figcaption>
+</figure>
+
+
+### Google Sheet Amendments
+
+Amend your google sheet copy as you need.
+
+#### Entries Sheet
+
+I removed certain sections, and added a `born`, `community_positions` and `awards` section.
+
+I renamed `data_science_writings` to `writing`.
+
+Here is what my <span style="color: #5196b4;background-color:#f4e4e7">`entries`</span> sheet looks like after my changes.
+
+<figure>
+<img src = entries.JPG  width = 600px alt = "the altered entries sheet of the google sheet is shown with new sections, removed sections and amended sections">
+<figcaption>Figure 2 - My entries sheet in the Google Sheet Workbook</figcaption>
+</figure>
+
+
+#### Text Blocks Sheet
+You may also want to include different `aside`(s) in your CV. These are specified in the <span style="color: #5196b4;background-color:#f4e4e7">`text_blocks`</span> sheet of the google sheets document. 
+
+Here is what my `text_blocks` sheet looks like after my changes. The <span style="color: #5196b4;background-color:#f4e4e7">aside(s)</span> are tailored to the sections I have included on the `entries` sheet.
+
+<figure>
+<img src = text-blocks.JPG  width = 600px alt = "the altered text_blocks sheet of the google sheet is shown with asides">
+<figcaption>Figure 3 - My text_blocks sheet in the Google Sheet Workbook</figcaption>
+</figure>
+
+<aside>This is an aside, which renders in the gutter of an article. Your asides will render in the gutter of your html and pdf CV.</aside>
+
+#### Contact and Languages
+These are the other 2 sheets which need to be personalised with your info.
+
+## Create skeleton project
+
+1. Create a folder in an appropriate location on your machine, which will house the files of your CV.
+1. I like working in an R project. If you'd like to do the same, open RStudio, and create a project in that "Existing folder" you created in step 1 (File -> New Project -> Existing Directory)
+1. Run something similar to the below in your <span style="color: #5196b4;background-color:#f4e4e7">console window</span>, after replacing the names with yours, and also replacing the `data_location` with the location of where your data is housed (i.e. the URL of your copy of the google sheet data).
+
+    ```{r, eval=FALSE}
+    datadrivencv::use_datadriven_cv(
+        full_name = "Nelson Mandela",
+        data_location = "https://docs.google.com/spreadsheets/d/1_6fzNA6MwDSjUBXjjV7ThJfKEYj8xxJO9i09IV1cVVY/edit#gid=917338460",
+        pdf_location = here::here("nelson-mandela.pdf"),
+        html_location = here::here(),
+        source_location = here::here()
+    )
+    ```
+  
+    - This creates a few files in your folder, the most important ones being `cv.rmd`, `cv_printing_functions.r` and `render_cv.r`.
+    - `cv.rmd` contains the flow of your CV, this is the file which you amend as you need, for example, if I wanted to add a **Community Building** section I would do so in this file.
+    - `cv_printing_functions.r` contains the code to print your CV. This is generally not amended, but I did make a few amendments which I will show in the course of the tutorial.
+    - `render_cv.r` renders both the html and pdf versions of your CV when it is run (sourced).
+    
+### cv.rmd
+
+- In <span style="color: #5196b4;background-color:#f4e4e7">cv.rmd</span> you will set out the flow of your CV.
+- Here, for example is where I added the `Born` section, and any other sections which were particular to my `entries` sheet.
+
+
+  ````
+      Born {data-icon=superpowers data-concise=true}
+    --------------------------------------------------------------------------------
+    
+    ```{r}`r ''`
+    CV %<>% print_section('born')
+    ```
+  ````
+
+- I also amended certain sections I had re-named. All in all this should talk to your <span style="color: #5196b4;background-color:#f4e4e7">entries</span>  sections, and the <span style="color: #5196b4;background-color:#f4e4e7">text_blocks</span> names (stored in column `loc`) for your asides.
+
+    <figure>
+    <img src = entries-comm.JPG  width = 600px alt = "my entries sheet of the Google Sheets is shown with the community_positions highlighted">
+    <figcaption>Figure 4 - My Google Sheet entries for the community_positions section</figcaption>
+    </figure>
+    
+    <figure>
+    <img src = aside-comm.JPG  width = 600px alt = "my text_blocks sheet of the Google Sheets is shown with the community_experience_aside highlighted">
+    <figcaption>Figure 5 - My Google Sheet text_blocks for the community_positions section</figcaption>
+    </figure>
+    
+    <figure>
+    <img src = community.JPG  width = 600px alt = "my community experience section in the .Rmd file with the amendments that talk to the entries and text_block sheets of the Google Sheets is shown">
+    <figcaption>Figure 6 - The "Community Experience" section in the cv.rmd file</figcaption>
+    </figure>
+
+    
+
+- Some other things you might want to do here is change the <span style="color: #5196b4;background-color:#f4e4e7">data-icon</span> part. For example, I wanted a superhero icon for the `Born` section so I searched [fontawesome](https://fontawesome.com/) for something like that. It doesn't work all the time, and I have not dug into the reason behind why some icons are not rendering. For example, searching for hero gives the option of a `mask` but making `data-icon=mask` does not render.
+
+    <figure>
+    <img src = font-awesome.JPG  width = 150px alt = "fontawesome.com can be used to search for new icons to use in the CV, here the search is for 'superpower'">
+    <figcaption>Figure 7 - fontawesome search for "superpower"</figcaption>
+    </figure>
+    
+    <figure>
+    <img src = font-awesome2.JPG  width = 150px alt = "another example of using fontawesome.com to find a graduate icon">
+    <figcaption>Figure 8 - fontawesome search for "graduate"</figcaption>
+    </figure>
+    
+- You may need to add line breaks to align your CV nicely. To do this add a <span style="color: #5196b4;background-color:#f4e4e7">`<br>`</span> in the cv.rmd file to space sections out to your liking.
+
+  ```
+  <br>
+  <br>
+  ```
+      
+### cv_printing_functions.r
+
+There is not much to do in this file. If you want to keep your Google sheet private there is something you need to do, but we'll get into that later.
+
+In Nick's data you will see that the `loc` column contains the university or company, and the `institution` column contains the actual physical place.
+
+<figure>
+<img src = nick-cv.JPG  width = 600px alt = "Google sheet of Nick's CV data has loc which stands for location containing the institution, and institution contains names of physical places">
+<figcaption>Figure 9 - Nick's location and institution entries</figcaption>
+</figure>
+
+
+I did it the opposite, that is, for `loc` I captured the physical place on earth, whereas `institution` I captured *ANC* etc.
+
+<figure>
+<img src = madiba-cv.JPG  width = 600px alt = "Google sheet showing how I used loc for physical earth location, and institution for company/group etc.">
+<figcaption>Figure 10 - My location and institution entries are swopped</figcaption>
+</figure>
+
+
+So I needed to amend the **`print_section()`** function in this file. I switched the `{loc}` and `{institution}` positions in the glue_template.
+
+<figure>
+<img src = print-section.JPG  width = 600px alt = "Amend the print_section function to swop location denoted by loc and institution">
+<figcaption>Figure 11 - The amended print_section() function in cv_printing_functions.r</figcaption>
+</figure>
+
+## Data for CV
+
+The data for the CV may be housed in:
+
+- A private Google Sheet file
+- A public Google Sheet file
+- csv files on your local machine
+
+### Working with a Private Google Sheets File in R
+
+You may prefer to keep your google sheet file private, and not have it publicly available for everyone to see.
+
+1. In this case we need to [authenticate](https://googlesheets4.tidyverse.org/articles/articles/auth.html) for the R session.
+
+    ```{r, eval=FALSE}
+    googlesheets4::gs4_auth(email = "test@gmail.com")
+    ```
+
+1. A new window will open in the browser asking you to allow "Tidyverse API Packages", or similar, access to your Google Account. Allow the access so that you may read the google sheets in your R session.
+
+1. In the R session you will be asked if information must be cached to `a/certain/path/in/your/local/machine`. I said yes to mine and set my options in the <span style="color: #5196b4;background-color:#f4e4e7">`cv_printing_functions.r`</span> file to the cache specified, as follows:
+
+    ```{r, eval=FALSE}
+    options(
+           gargle_oauth_cache = "C:/Users/vebashini/.R/gargle/gargle-oauth"
+    )
+    ```
+
+    <figure>
+    <img src = pvt-auth.JPG  width = 600px alt = "to keep the google sheet private you need to authenticate with google and allow the googlesheets package access, this caches the info and specifies it here">
+    <figcaption>Figure 12 - Authentication cache in cv_printing_functions.r</figcaption>
+    </figure>
+    
+    
+1. In the <span style="color: #5196b4;background-color:#f4e4e7"><bold>cv.rmd</bold></span> file only the `pdf_mode` parameter is present, but since we are keeping the Google sheet private we need to add another parameter `sheet_is_publicly_readable` and set it to *false*.
+
+    ```
+    params:
+      pdf_mode:
+        value: true
+      sheet_is_publicly_readable:
+        value: false
+    ```
+    
+    <figure>
+    <img src = amend-rmd.JPG  width = 600px alt = "add parameter to note that authentication is needed for reading the google sheet">
+    <figcaption>Figure 13 - `sheet_is_publicly_readable` Parameter needed in the cv.rmd file</figcaption>
+    </figure>
+    
+  
+1. We want to pass this parameter into the `create_CV_object()` function so we amend it as well.
+
+    <figure>
+    <img src = create_cv.JPG  width = 600px alt = "add parameter as an argument in the create_CV_object function">
+    <figcaption>Figure 14 - Parameter needed in the `create_CV_object()` function too</figcaption>
+    </figure>
+
+    
+    
+### Working with a Public Google Sheets File in R 
+
+If you're okay to keep your Google Sheet public you need to <span style="color: #5196b4;background-color:#f4e4e7">`Share`</span> your sheet by specifying that "Anyone with the link" may `View` the google sheet. 
+
+<figure>
+<img src = public-access.JPG  width = 600px alt = "share the google sheet with public access">
+<figcaption>Figure 15 - Allow your Google Sheet to be viewed by anyone with the link</figcaption>
+</figure>
+
+
+There is no need to add the `sheet_is_publicly_readable` to your parameter list in **cv.rmd**.
+
+The `sheet_is_publicly_readable` parameter is *TRUE* by default and hence the `googlesheets4::sheets_deauth()` will be run.
+
+<figure>
+<img src = sheet-public.JPG  width = 600px alt = "sharing the google sheet with public access means that the R session can work without authentication">
+<figcaption>Figure 16 - Sharing the Google sheet with public access means that the R session can work without authentication</figcaption>
+</figure>
+
+
+### Working with csvs
+
+If you want you can also download the Google sheet data as an Excel file on your machine and amend it there.
+
+To create csvs from the Excel file you can run something like this:
+
+```{r, eval = FALSE}
+library(readxl)
+library(readr)
+
+entries <- read_xlsx("csvs/madiba_cv_data.xlsx", sheet = 1)
+language <- read_xlsx("csvs/madiba_cv_data.xlsx", sheet = 2)
+text_blocks <- read_xlsx("csvs/madiba_cv_data.xlsx", sheet = 3)
+contact <- read_xlsx("csvs/madiba_cv_data.xlsx", sheet = 4)
+
+write_csv(entries, "csvs/entries.csv")
+write_csv(language, "csvs/language_skills.csv")
+write_csv(text_blocks, "csvs/text_blocks.csv")
+write_csv(contact, "csvs/contact_info.csv")
+```
+
+The Google Sheets method is better because every amendment you make on the Excel workbook will mean re-running this code `r emo::ji("fear")`!
+
+You will also need to make the `data_location` argument in the <span style="color: #5196b4;background-color:#f4e4e7">`create_CV_object()`</span> (in `cv.rmd`) be the folder where your csvs are located.
+
+<figure>
+<img src = csvs.JPG  width = 600px alt = "change data location in the function create_CV_object">
+<figcaption>Figure 17 - Amend the `data_location` argument in the `create_CV_object()` function</figcaption>
+</figure>
+
+
+## Render your CV
+
+Finally you're all set to be able to render your CV!
+
+To do this you <span style="color: #5196b4;background-color:#f4e4e7"><bold>source</bold></span> the `render_cv.r` file. 
+  
+  ```
+  source('C:/Work/Learning/madiba-cv/render_cv.r')
+  ```
+
+If you want to host the html version of your CV as a static site (say on <span style="color: #5196b4;background-color:#f4e4e7">GitHub Pages, or Netlify</span>) you should make one amendment in this file.
+
+Change the output file in your HTML rendering call from `cv.html` to <span style="color: #5196b4;background-color:#f4e4e7">`index.html`</span>.
+
+<figure>
+<img src = render-html.JPG  width = 600px alt = "change the output file so that you can host on GitHub Pages or Netlify">
+<figcaption>Figure 18 - Amend the `output_file` argument to be `index.html`</figcaption>
+</figure>
+
+## Host Online
+
+1. Push your files to GitHub.
+1. In the <span style="color: #5196b4;background-color:#f4e4e7">`Settings`</span> Page navigate to <span style="color: #5196b4;background-color:#f4e4e7">`GitHub Pages`</span> section and fill in the source as your branch, and the folder as root. 
+1. Your site will be published with a URL (it may take a few minutes to render so try again after a few minutes if you experience a 404 error).
+
+<figure>
+<img src = settings.JPG  width = 600px alt = "Add the branch you are on and the folder in which to look for index.html">
+<figcaption>Figure 19 - Setup the GitHub Pages to host your CV online</figcaption>
+</figure>
+
+# Appendices
+
+1. {datadrivencv} [GitHub site](https://github.com/nstrayer/datadrivencv) as well as [documentation](http://nickstrayer.me/datadrivencv/).
+1. Nick's [blog post](https://livefreeordichotomize.com/2019/09/04/building_a_data_driven_cv_with_r/).
+1. Nick's [CV](https://github.com/nstrayer/cv).
+1. Connecting to [Google Sheets](https://datascienceplus.com/how-to-use-googlesheets-to-connect-r-to-google-sheets/).
+1. [Google Sheets Authentication](https://googlesheets4.tidyverse.org/articles/articles/auth.html), also [{gargle}](https://gargle.r-lib.org/reference/gargle_options.html#gargle-oauth-cache).
+
+# Mock CV Files
+
+The mock CV source files can be found [here](https://github.com/sciencificity/madiba-datadriven-cv).
+
+The html finished product is [here](https://sciencificity.github.io/madiba-datadriven-cv/).
+
+<span style="color: #5196b4;background-color:#f4e4e7"><bold>Note:</bold> I amended the Google Sheet to be public and amended the code to use a "public" file so an audience can see all the components.</span>
+
+# Packages used
+
+In this post the main packages we used are the following:
+
+```{r, eval = FALSE}
+library(datadrivencv)
+library(googlesheets4)
+library(pagedown)
+library(magrittr)
+library(readxl)
+library(readr)
+library(knitr)
+library(glue)
+library(gargle)
+library(here)
+```
+
+Most of these are installed as part of the install of {datadrivencv}.
+
+
+
+
+
+
+
+
