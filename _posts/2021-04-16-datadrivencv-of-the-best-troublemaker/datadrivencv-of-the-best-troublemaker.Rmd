@@ -68,15 +68,15 @@ in Analytics at a US university. As part of the process
 I needed to submit my CV. I used [Nicholas Strayer's](https://twitter.com/nicholasstrayer?lang=en) [{datadrivencv}](http://nickstrayer.me/datadrivencv/) to create the CV I submitted.
 
 But I am a bit embarrassed at putting my own CV into the
-public domain, so I thought I would create a <span style="color: #5196b4;background-color:#f4e4e7"><bold>mock CV</bold></span> for the best "troublemaker" to ever have graced this earth - at least in my opinion - Nelson Rolihlahla Mandela `r emo::ji("excited")`!
+public domain, so I thought I would create a <span style="color: #5196b4;background-color:#f4e4e7"><bold>mock CV</bold></span> for the best "troublemaker" to ever have graced this earth - at least in my opinion - Nelson Rolihlahla Mandela `r emoji::emoji("heartpulse")`!
 
 There are no words for what Madiba did for my country, I still remember mourning his death like that of a dearest loved one, so foundational was he in this ordinary South African's life.
 
 # So, what are we doing?
 
-We're going to run through the motions of setting up a [CV](https://sciencificity.github.io/madiba-datadriven-cv/) using the <span style="color: #5196b4;background-color:#f4e4e7">{datadrivencv} </span>`r emo::ji("package")`.
+We're going to run through the motions of setting up a [CV](https://sciencificity.github.io/madiba-datadriven-cv/) using the <span style="color: #5196b4;background-color:#f4e4e7">{datadrivencv} </span>`r emoji::emoji("package")`.
 
-## Download {datadrivencv} `r emo::ji("package")`
+## Download {datadrivencv} `r emoji::emoji("package")`
 
 ```{r, eval=FALSE}
 install.packages("devtools")
@@ -333,7 +333,7 @@ write_csv(text_blocks, "csvs/text_blocks.csv")
 write_csv(contact, "csvs/contact_info.csv")
 ```
 
-The Google Sheets method is better because every amendment you make on the Excel workbook will mean re-running this code `r emo::ji("fear")`!
+The Google Sheets method is better because every amendment you make on the Excel workbook will mean re-running this code `r emoji::emoji("fearful")`!
 
 You will also need to make the `data_location` argument in the <span style="color: #5196b4;background-color:#f4e4e7">`create_CV_object()`</span> (in `cv.rmd`) be the folder where your csvs are located.
 

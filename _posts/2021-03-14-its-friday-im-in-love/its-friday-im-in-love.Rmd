@@ -1,7 +1,7 @@
 ---
 title: "Don't always need to work 9 to 5, with {lubridate} to the rescue!"
 description: |
-  Learn to work with dates and times in R using the {lubridate} `r emo::ji("package")`
+  Learn to work with dates and times in R using the {lubridate} `r emoji::emoji("package")`
 author:
   - name: Vebash Naidoo
     url: https://twitter.com/Sciencificity

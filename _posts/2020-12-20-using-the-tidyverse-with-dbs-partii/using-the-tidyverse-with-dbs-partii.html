@@ -23,6 +23,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -55,7 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -76,13 +77,14 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
+
 
   <!--radix_placeholder_meta_tags-->
   <title>Using the tidyverse with Databases - Part II</title>
@@ -115,7 +117,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["data/great_brit_bakeoff.db","Paper.R_journal.33.png","Paper.R_journal.33_.png","Paper.R_Programming.4.png","Paper.R_Programming.5.png","using-the-tidyverse-with-dbs-partii_files/anchor-4.2.2/anchor.min.js","using-the-tidyverse-with-dbs-partii_files/bowser-1.9.3/bowser.min.js","using-the-tidyverse-with-dbs-partii_files/crosstalk-1.1.0.1/css/crosstalk.css","using-the-tidyverse-with-dbs-partii_files/crosstalk-1.1.0.1/js/crosstalk.js","using-the-tidyverse-with-dbs-partii_files/crosstalk-1.1.0.1/js/crosstalk.js.map","using-the-tidyverse-with-dbs-partii_files/crosstalk-1.1.0.1/js/crosstalk.min.js","using-the-tidyverse-with-dbs-partii_files/crosstalk-1.1.0.1/js/crosstalk.min.js.map","using-the-tidyverse-with-dbs-partii_files/datatables-binding-0.16/datatables.js","using-the-tidyverse-with-dbs-partii_files/datatables-css-0.0.0/datatables-crosstalk.css","using-the-tidyverse-with-dbs-partii_files/distill-2.2.21/template.v2.js","using-the-tidyverse-with-dbs-partii_files/dt-core-1.10.20/css/jquery.dataTables.extra.css","using-the-tidyverse-with-dbs-partii_files/dt-core-1.10.20/css/jquery.dataTables.min.css","using-the-tidyverse-with-dbs-partii_files/dt-core-1.10.20/js/jquery.dataTables.min.js","using-the-tidyverse-with-dbs-partii_files/figure-html5/unnamed-chunk-12-1.png","using-the-tidyverse-with-dbs-partii_files/htmlwidgets-1.5.1/htmlwidgets.js","using-the-tidyverse-with-dbs-partii_files/jquery-1.11.3/jquery.min.js","using-the-tidyverse-with-dbs-partii_files/jquery-1.12.4/jquery.min.js","using-the-tidyverse-with-dbs-partii_files/jquery-1.12.4/LICENSE.txt","using-the-tidyverse-with-dbs-partii_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["data/great_brit_bakeoff.db","Paper.R_journal.33.png","Paper.R_journal.33_.png","Paper.R_Programming.4.png","Paper.R_Programming.5.png","using-the-tidyverse-with-dbs-partii_files/anchor-4.2.2/anchor.min.js","using-the-tidyverse-with-dbs-partii_files/bowser-1.9.3/bowser.min.js","using-the-tidyverse-with-dbs-partii_files/crosstalk-1.1.0.1/css/crosstalk.css","using-the-tidyverse-with-dbs-partii_files/crosstalk-1.1.0.1/js/crosstalk.js","using-the-tidyverse-with-dbs-partii_files/crosstalk-1.1.0.1/js/crosstalk.js.map","using-the-tidyverse-with-dbs-partii_files/crosstalk-1.1.0.1/js/crosstalk.min.js","using-the-tidyverse-with-dbs-partii_files/crosstalk-1.1.0.1/js/crosstalk.min.js.map","using-the-tidyverse-with-dbs-partii_files/crosstalk-1.1.1/css/crosstalk.css","using-the-tidyverse-with-dbs-partii_files/crosstalk-1.1.1/js/crosstalk.js","using-the-tidyverse-with-dbs-partii_files/crosstalk-1.1.1/js/crosstalk.js.map","using-the-tidyverse-with-dbs-partii_files/crosstalk-1.1.1/js/crosstalk.min.js","using-the-tidyverse-with-dbs-partii_files/crosstalk-1.1.1/js/crosstalk.min.js.map","using-the-tidyverse-with-dbs-partii_files/datatables-binding-0.16/datatables.js","using-the-tidyverse-with-dbs-partii_files/datatables-binding-0.19/datatables.js","using-the-tidyverse-with-dbs-partii_files/datatables-css-0.0.0/datatables-crosstalk.css","using-the-tidyverse-with-dbs-partii_files/distill-2.2.21/template.v2.js","using-the-tidyverse-with-dbs-partii_files/dt-core-1.10.20/css/jquery.dataTables.extra.css","using-the-tidyverse-with-dbs-partii_files/dt-core-1.10.20/css/jquery.dataTables.min.css","using-the-tidyverse-with-dbs-partii_files/dt-core-1.10.20/js/jquery.dataTables.min.js","using-the-tidyverse-with-dbs-partii_files/figure-html5/unnamed-chunk-12-1.png","using-the-tidyverse-with-dbs-partii_files/header-attrs-2.11/header-attrs.js","using-the-tidyverse-with-dbs-partii_files/header-attrs-2.6.6/header-attrs.js","using-the-tidyverse-with-dbs-partii_files/htmlwidgets-1.5.1/htmlwidgets.js","using-the-tidyverse-with-dbs-partii_files/htmlwidgets-1.5.4/htmlwidgets.js","using-the-tidyverse-with-dbs-partii_files/jquery-1.11.3/jquery.min.js","using-the-tidyverse-with-dbs-partii_files/jquery-1.12.4/jquery.min.js","using-the-tidyverse-with-dbs-partii_files/jquery-1.12.4/LICENSE.txt","using-the-tidyverse-with-dbs-partii_files/jquery-3.6.0/jquery-3.6.0.js","using-the-tidyverse-with-dbs-partii_files/jquery-3.6.0/jquery-3.6.0.min.js","using-the-tidyverse-with-dbs-partii_files/jquery-3.6.0/jquery-3.6.0.min.map","using-the-tidyverse-with-dbs-partii_files/popper-2.6.0/popper.min.js","using-the-tidyverse-with-dbs-partii_files/tippy-6.2.7/tippy-bundle.umd.min.js","using-the-tidyverse-with-dbs-partii_files/tippy-6.2.7/tippy-light-border.css","using-the-tidyverse-with-dbs-partii_files/tippy-6.2.7/tippy.css","using-the-tidyverse-with-dbs-partii_files/tippy-6.2.7/tippy.umd.min.js","using-the-tidyverse-with-dbs-partii_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1262,7 +1264,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          return "<p>" + $('#ref-' + ref).html() + "</p>";
+        }).join("\n");
         window.tippy(this, {
           allowHTML: true,
           content: refHtml,
@@ -1433,16 +1438,16 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="using-the-tidyverse-with-dbs-partii_files/header-attrs-2.6.6/header-attrs.js"></script>
-  <script src="using-the-tidyverse-with-dbs-partii_files/htmlwidgets-1.5.1/htmlwidgets.js"></script>
-  <script src="using-the-tidyverse-with-dbs-partii_files/jquery-1.12.4/jquery.min.js"></script>
+  <script src="using-the-tidyverse-with-dbs-partii_files/header-attrs-2.11/header-attrs.js"></script>
+  <script src="using-the-tidyverse-with-dbs-partii_files/htmlwidgets-1.5.4/htmlwidgets.js"></script>
   <link href="using-the-tidyverse-with-dbs-partii_files/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-  <script src="using-the-tidyverse-with-dbs-partii_files/datatables-binding-0.16/datatables.js"></script>
+  <script src="using-the-tidyverse-with-dbs-partii_files/datatables-binding-0.19/datatables.js"></script>
+  <script src="using-the-tidyverse-with-dbs-partii_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <link href="using-the-tidyverse-with-dbs-partii_files/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
   <link href="using-the-tidyverse-with-dbs-partii_files/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
   <script src="using-the-tidyverse-with-dbs-partii_files/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
-  <link href="using-the-tidyverse-with-dbs-partii_files/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
-  <script src="using-the-tidyverse-with-dbs-partii_files/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+  <link href="using-the-tidyverse-with-dbs-partii_files/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
+  <script src="using-the-tidyverse-with-dbs-partii_files/crosstalk-1.1.1/js/crosstalk.min.js"></script>
   <script src="using-the-tidyverse-with-dbs-partii_files/popper-2.6.0/popper.min.js"></script>
   <link href="using-the-tidyverse-with-dbs-partii_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="using-the-tidyverse-with-dbs-partii_files/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -1565,7 +1570,7 @@ pre[class] {
 <p>As always, our <strong>first</strong> step is to <span style="color: #008080;background-color:#e4a199"><strong>connect to the database</strong></span>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://r-dbi.github.io/DBI'>DBI</a></span><span class='op'>)</span> <span class='co'># main DB interface</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dbi.r-dbi.org'>DBI</a></span><span class='op'>)</span> <span class='co'># main DB interface</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span> 
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dbplyr.tidyverse.org/'>dbplyr</a></span><span class='op'>)</span> <span class='co'># dplyr back-end for DBs</span>
 
@@ -1598,8 +1603,8 @@ pre[class] {
 </code></pre>
 </div>
 <pre><code># Source:   lazy query [?? x 4]
-# Database: sqlite 3.33.0
-#   [C:\Personal\Blog_Vebash\_posts\2020-12-20-using-the-tidyverse-with-dbs-partii\data\great_brit_bakeoff.db]
+# Database: sqlite 3.36.0 [C:\Users\Vebashini\OneDrive -
+#   Rain\Documents\Main-Documents\Personal\Blog_Vebash\_posts\2020-12-20-using-the-tidyverse-with-dbs-partii\data\great_brit_bakeoff.db]
    series episode baker   result
     &lt;int&gt;   &lt;int&gt; &lt;chr&gt;   &lt;chr&gt; 
  1      1       1 Annetha IN    
@@ -1620,8 +1625,8 @@ pre[class] {
 </code></pre>
 </div>
 <pre><code># Source:     lazy query [?? x 2]
-# Database:   sqlite 3.33.0
-#   [C:\Personal\Blog_Vebash\_posts\2020-12-20-using-the-tidyverse-with-dbs-partii\data\great_brit_bakeoff.db]
+# Database:   sqlite 3.36.0 [C:\Users\Vebashini\OneDrive -
+#   Rain\Documents\Main-Documents\Personal\Blog_Vebash\_posts\2020-12-20-using-the-tidyverse-with-dbs-partii\data\great_brit_bakeoff.db]
 # Ordered by: desc(n)
   result         n
   &lt;chr&gt;      &lt;int&gt;
@@ -1643,8 +1648,8 @@ pre[class] {
   <span class='fu'>DT</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DT/man/datatable.html'>datatable</a></span><span class='op'>(</span>options <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>scrollX <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># force DT horizontal scrollbar</span>
 </code></pre>
 </div>
-<div id="htmlwidget-4ec391f7dee9ebc5312e" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4ec391f7dee9ebc5312e">{"x":{"filter":"none","data":[["1","2","3","4","5","6"],[1,1,1,1,1,1],["Annetha Mills","David Chambers","Edward \"Edd\" Kimber","Jasminder Randhawa","Jonathan Shepherd","Lea Harris"],["Annetha","David","Edd","Jasminder","Jonathan","Lea"],[30,31,24,45,25,51],["Single mother","Entrepreneur","Debt collector for Yorkshire Bank","Assistant Credit Control Manager","Research Analyst","Retired"],["Essex","Milton Keynes","Bradford","Birmingham","St Albans","Midlothian, Scotland"],["Mills","Chambers","Kimber","Randhawa","Shepherd","Harris"],["Annetha","David","Edward","Jasminder","Jonathan","Lea"],[0,0,0,0,0,0],[0,0,2,0,1,0],[1,1,4,2,1,0],[1,3,1,2,2,1],[2,3,1,2,1,10],[7,8,6,5,9,10],[4.5,4.5,2,3,6,10],[0,0,1,0,0,0],[0,0,0,0,0,0],[2,4,6,5,3,1],[14838,14838,14838,14838,14838,14838],[14845,14859,14873,14866,14852,14838],[null,null,null,null,null,null],[null,null,null,null,null,null],[33.3333333333333,66.6666666666667,100,83.3333333333333,50,16.6666666666667],[50,25,66.6666666666667,40,33.3333333333333,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>series<\/th>\n      <th>baker_full<\/th>\n      <th>baker<\/th>\n      <th>age<\/th>\n      <th>occupation<\/th>\n      <th>hometown<\/th>\n      <th>baker_last<\/th>\n      <th>baker_first<\/th>\n      <th>star_baker<\/th>\n      <th>technical_winner<\/th>\n      <th>technical_top3<\/th>\n      <th>technical_bottom<\/th>\n      <th>technical_highest<\/th>\n      <th>technical_lowest<\/th>\n      <th>technical_median<\/th>\n      <th>series_winner<\/th>\n      <th>series_runner_up<\/th>\n      <th>total_episodes_appeared<\/th>\n      <th>first_date_appeared<\/th>\n      <th>last_date_appeared<\/th>\n      <th>first_date_us<\/th>\n      <th>last_date_us<\/th>\n      <th>percent_episodes_appeared<\/th>\n      <th>percent_technical_top3<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,4,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-45b0d6ccd9dcd6fad558" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-45b0d6ccd9dcd6fad558">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6"],[1,1,1,1,1,1],["Annetha Mills","David Chambers","Edward \"Edd\" Kimber","Jasminder Randhawa","Jonathan Shepherd","Lea Harris"],["Annetha","David","Edd","Jasminder","Jonathan","Lea"],[30,31,24,45,25,51],["Single mother","Entrepreneur","Debt collector for Yorkshire Bank","Assistant Credit Control Manager","Research Analyst","Retired"],["Essex","Milton Keynes","Bradford","Birmingham","St Albans","Midlothian, Scotland"],["Mills","Chambers","Kimber","Randhawa","Shepherd","Harris"],["Annetha","David","Edward","Jasminder","Jonathan","Lea"],[0,0,0,0,0,0],[0,0,2,0,1,0],[1,1,4,2,1,0],[1,3,1,2,2,1],[2,3,1,2,1,10],[7,8,6,5,9,10],[4.5,4.5,2,3,6,10],[0,0,1,0,0,0],[0,0,0,0,0,0],[2,4,6,5,3,1],[14838,14838,14838,14838,14838,14838],[14845,14859,14873,14866,14852,14838],[null,null,null,null,null,null],[null,null,null,null,null,null],[33.3333333333333,66.6666666666667,100,83.3333333333333,50,16.6666666666667],[50,25,66.6666666666667,40,33.3333333333333,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>series<\/th>\n      <th>baker_full<\/th>\n      <th>baker<\/th>\n      <th>age<\/th>\n      <th>occupation<\/th>\n      <th>hometown<\/th>\n      <th>baker_last<\/th>\n      <th>baker_first<\/th>\n      <th>star_baker<\/th>\n      <th>technical_winner<\/th>\n      <th>technical_top3<\/th>\n      <th>technical_bottom<\/th>\n      <th>technical_highest<\/th>\n      <th>technical_lowest<\/th>\n      <th>technical_median<\/th>\n      <th>series_winner<\/th>\n      <th>series_runner_up<\/th>\n      <th>total_episodes_appeared<\/th>\n      <th>first_date_appeared<\/th>\n      <th>last_date_appeared<\/th>\n      <th>first_date_us<\/th>\n      <th>last_date_us<\/th>\n      <th>percent_episodes_appeared<\/th>\n      <th>percent_technical_top3<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,4,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 <p>Notice the use of the <span style="color: #008080;background-color:#e4a199"><code>collect()</code></span> function in the code above. I wanted us to be able to get a full glimpse of the data in a nice table, and hence I brought the first few rows of data into R by using the <span style="color: #008080;background-color:#e4a199"><code>collect()</code></span> function. This allowed me to then use <code>datatable</code> to display the results a bit better, than the <code>print(width = Inf)</code> alternative.</p>
 <h1 id="what-are-we-interested-in">What are we interested in?</h1>
@@ -1711,13 +1716,13 @@ pre[class] {
 </div>
 <p>Notice that all columns of <span style="color: #5196b4;background-color:#f4e4e7">baker_results</span> appear first and then we have the “extra” columns from <span style="color: #5196b4;background-color:#f4e4e7">results</span> i.e. <code>episode</code> and <code>result</code>.</p>
 <h4 id="common-mistake">Common mistake</h4>
-<p>I included the above to show that each time we “talk” to a table we must do so through our connection, because I often make the mistake of not including the <code>tbl(con, "name_of_tbl_i_am_joining")</code> in the <strong>join</strong> function. I, more times than I care to admit 🤦, <strong>incorrectly</strong> write:</p>
+<p>I included the above to show that each time we “talk” to a table we must do so through our connection, because I often make the mistake of not including the <code>tbl(con, "name_of_tbl_i_am_joining")</code> in the <strong>join</strong> function. I, more times than I care to admit 🤦‍♀️, <strong>incorrectly</strong> write:</p>
 <pre>
   tbl(con, "table1") %>% # correct -> "talk" through connection
      left_join(table2,   # incorrect -> forgot to use the connection
           by = c("tbl1_name1" = "tbl2_name1"))
 </pre>
-<p>I would like to help you, not repeat my mistake 😕, so heads up <span style="color: #FFE4E1;background-color:#FD5800">AVOID THE FOLLOWING</span> 🚏:</p>
+<p>I would like to help you, not repeat my mistake 😕, so heads up <span style="color: #FFE4E1;background-color:#FD5800">AVOID THE FOLLOWING</span> 🛑:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://dplyr.tidyverse.org/reference/tbl.html'>tbl</a></span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"baker_results"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># use connection to "talk" to baker_results</span>
@@ -1748,29 +1753,27 @@ pre[class] {
 </code></pre>
 </div>
 <pre><code># Source:   lazy query [?? x 24]
-# Database: sqlite 3.33.0
-#   [C:\Personal\Blog_Vebash\_posts\2020-12-20-using-the-tidyverse-with-dbs-partii\data\great_brit_bakeoff.db]
-   series baker   age occupation hometown baker_last baker_first
-    &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;      
- 1      1 Edd      24 Debt coll~ Bradford Kimber     Edward     
- 2      1 Mira~    37 Food buye~ Midhurs~ Browne     Miranda    
- 3      1 Ruth     31 Retail ma~ Poynton~ Clemens    Ruth       
- 4      2 Holly    31 Advertisi~ Leicest~ Bell       Holly      
- 5      2 Joan~    41 Housewife  Ongar, ~ Wheatley   Joanne     
- 6      2 Mary~    45 Housewife  Kidderm~ Boermans   Mary-Anne  
- 7      3 Bren~    63 Recruitme~ Sutton ~ Lynch      Brendan    
- 8      3 James    21 Medical s~ Hillswi~ Morton     James      
- 9      3 John     23 Law stude~ Wigan    Whaite     John       
-10      4 Fran~    31 Children&#39;~ Market ~ Quinn      Frances    
+# Database: sqlite 3.36.0 [C:\Users\Vebashini\OneDrive -
+#   Rain\Documents\Main-Documents\Personal\Blog_Vebash\_posts\2020-12-20-using-the-tidyverse-with-dbs-partii\data\great_brit_bakeoff.db]
+   series baker       age occupation  hometown  baker_last baker_first
+    &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;      
+ 1      1 Edd          24 Debt colle~ Bradford  Kimber     Edward     
+ 2      1 Miranda      37 Food buyer~ Midhurst~ Browne     Miranda    
+ 3      1 Ruth         31 Retail man~ Poynton,~ Clemens    Ruth       
+ 4      2 Holly        31 Advertisin~ Leicester Bell       Holly      
+ 5      2 Joanne       41 Housewife   Ongar, E~ Wheatley   Joanne     
+ 6      2 Mary-Anne    45 Housewife   Kiddermi~ Boermans   Mary-Anne  
+ 7      3 Brendan      63 Recruitmen~ Sutton C~ Lynch      Brendan    
+ 8      3 James        21 Medical st~ Hillswic~ Morton     James      
+ 9      3 John         23 Law student Wigan     Whaite     John       
+10      4 Frances      31 Children&#39;s~ Market H~ Quinn      Frances    
 # ... with more rows, and 17 more variables: star_baker &lt;int&gt;,
 #   technical_winner &lt;int&gt;, technical_top3 &lt;int&gt;,
 #   technical_bottom &lt;int&gt;, technical_highest &lt;dbl&gt;,
 #   technical_lowest &lt;dbl&gt;, technical_median &lt;dbl&gt;,
 #   series_winner &lt;int&gt;, series_runner_up &lt;int&gt;,
 #   total_episodes_appeared &lt;dbl&gt;, first_date_appeared &lt;dbl&gt;,
-#   last_date_appeared &lt;dbl&gt;, first_date_us &lt;dbl&gt;,
-#   last_date_us &lt;dbl&gt;, percent_episodes_appeared &lt;dbl&gt;,
-#   percent_technical_top3 &lt;dbl&gt;, result &lt;chr&gt;</code></pre>
+#   last_date_appeared &lt;dbl&gt;, first_date_us &lt;dbl&gt;, ...</code></pre>
 </div>
 <p>The above code just sets up the query that will be executed should we run (Ctrl + Enter) <code>final_query</code> in R (hence the <strong>lazy query [?? x 24]</strong> in the output). No data is collected (i.e. present in your local R environment) as yet.</p>
 <h3 id="what-does-the-query-look-like">What does the query look like?</h3>
@@ -1813,27 +1816,25 @@ WHERE (`result` IN (&#39;WINNER&#39;, &#39;RUNNER-UP&#39;))</code></pre>
 </code></pre>
 </div>
 <pre><code># A tibble: 24 x 24
-   series baker   age occupation hometown baker_last baker_first
-    &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;      
- 1      1 Edd      24 Debt coll~ Bradford Kimber     Edward     
- 2      1 Mira~    37 Food buye~ Midhurs~ Browne     Miranda    
- 3      1 Ruth     31 Retail ma~ Poynton~ Clemens    Ruth       
- 4      2 Holly    31 Advertisi~ Leicest~ Bell       Holly      
- 5      2 Joan~    41 Housewife  Ongar, ~ Wheatley   Joanne     
- 6      2 Mary~    45 Housewife  Kidderm~ Boermans   Mary-Anne  
- 7      3 Bren~    63 Recruitme~ Sutton ~ Lynch      Brendan    
- 8      3 James    21 Medical s~ Hillswi~ Morton     James      
- 9      3 John     23 Law stude~ Wigan    Whaite     John       
-10      4 Fran~    31 Children&#39;~ Market ~ Quinn      Frances    
+   series baker       age occupation  hometown  baker_last baker_first
+    &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;      
+ 1      1 Edd          24 Debt colle~ Bradford  Kimber     Edward     
+ 2      1 Miranda      37 Food buyer~ Midhurst~ Browne     Miranda    
+ 3      1 Ruth         31 Retail man~ Poynton,~ Clemens    Ruth       
+ 4      2 Holly        31 Advertisin~ Leicester Bell       Holly      
+ 5      2 Joanne       41 Housewife   Ongar, E~ Wheatley   Joanne     
+ 6      2 Mary-Anne    45 Housewife   Kiddermi~ Boermans   Mary-Anne  
+ 7      3 Brendan      63 Recruitmen~ Sutton C~ Lynch      Brendan    
+ 8      3 James        21 Medical st~ Hillswic~ Morton     James      
+ 9      3 John         23 Law student Wigan     Whaite     John       
+10      4 Frances      31 Children&#39;s~ Market H~ Quinn      Frances    
 # ... with 14 more rows, and 17 more variables: star_baker &lt;int&gt;,
 #   technical_winner &lt;int&gt;, technical_top3 &lt;int&gt;,
 #   technical_bottom &lt;int&gt;, technical_highest &lt;dbl&gt;,
 #   technical_lowest &lt;dbl&gt;, technical_median &lt;dbl&gt;,
 #   series_winner &lt;int&gt;, series_runner_up &lt;int&gt;,
 #   total_episodes_appeared &lt;dbl&gt;, first_date_appeared &lt;dbl&gt;,
-#   last_date_appeared &lt;dbl&gt;, first_date_us &lt;dbl&gt;,
-#   last_date_us &lt;dbl&gt;, percent_episodes_appeared &lt;dbl&gt;,
-#   percent_technical_top3 &lt;dbl&gt;, result &lt;chr&gt;</code></pre>
+#   last_date_appeared &lt;dbl&gt;, first_date_us &lt;dbl&gt;, ...</code></pre>
 </div>
 <p>How about that? Notice the <strong>A tibble: 24 x 24</strong>! R now, has the data in it’s local environment, and can definitively tell us it knows there are 24 observations (no more <em>lazy query</em>) 😄.</p>
 <h3 id="visualise-data">Visualise Data</h3>
@@ -1841,7 +1842,7 @@ WHERE (`result` IN (&#39;WINNER&#39;, &#39;RUNNER-UP&#39;))</code></pre>
 <p>I am interested in understanding how did the winner and runner-up(s) of series 6 do across the season in terms of technical challenges etc.?</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
 
 <span class='va'>top_performers</span> <span class='op'>%&gt;%</span> 
   <span class='co'># filter for season we're interested in</span>

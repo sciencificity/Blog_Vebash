@@ -1,5 +1,5 @@
 ---
-title: "'Curiouser and curiouser!' `r emo::ji('spy')`"
+title: "'Curiouser and curiouser!' `r emoji::emoji('female_detective')`"
 site: distill::distill_website
 listing: posts
 ---

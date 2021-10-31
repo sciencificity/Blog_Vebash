@@ -158,7 +158,7 @@ number of distinct categories e.g. eye colour (brown, blue, green, grey etc.), f
 
 - Categorical data may be:
 
-    * Unordered, often refered to merely as Categorical data, or also known as <span style="color: #5196b4;background-color:#f4e4e7">`Nominal`</span> data. For example, if your question is "`What's your favourite Altoids flavour?`" with the following options, while you may rank _Cinnamon_ above _Wintergreen_ there is no order to these categories! `r emo::ji("grin")`.
+    * Unordered, often refered to merely as Categorical data, or also known as <span style="color: #5196b4;background-color:#f4e4e7">`Nominal`</span> data. For example, if your question is "`What's your favourite Altoids flavour?`" with the following options, while you may rank _Cinnamon_ above _Wintergreen_ there is no order to these categories! `r emoji::emoji("grin")`.
     
     |      Fave Flavour|  Level Number| 
     |-----------------:|-------------:|
@@ -181,19 +181,19 @@ number of distinct categories e.g. eye colour (brown, blue, green, grey etc.), f
     |  Older than 55|             5|
     
 
-# {forcats} `r emo::ji("package")`
+# {forcats} `r emoji::emoji("package")`
 
-The <span style="color: #5196b4;background-color:#f4e4e7">forcats</span>  `r emo::ji("package")` is meant to handle `factors` which is R's data type for categorical data. `forcats` is __for__ <b>cat</b>egorical data, and is an [anagram](https://r4ds.had.co.nz/factors.html) for `factors` `r emo::ji("cool")`. 
+The <span style="color: #5196b4;background-color:#f4e4e7">forcats</span>  `r emoji::emoji("package")` is meant to handle `factors` which is R's data type for categorical data. `forcats` is __for__ <b>cat</b>egorical data, and is an [anagram](https://r4ds.had.co.nz/factors.html) for `factors` `r emoji::emoji("cool")`. 
 
 The functions in the package start with <span style="color: #5196b4;background-color:#f4e4e7">`fct_`</span>.
 
 There is non-numeric data where it is useful to work with the data as factors (age-ranges, occupation, etc.), but we must also keep in mind that some non-numeric data should be kept as `character` data.
 
-We're going to work with non-numeric data that may be treated as factors in this post, and learn how to use the forcats `r emo::ji("package")` to make that task easier for us.
+We're going to work with non-numeric data that may be treated as factors in this post, and learn how to use the forcats `r emoji::emoji("package")` to make that task easier for us.
 
 ## Data
 
-We're going to use the data from the awesome [TidyTuesday Project](https://github.com/rfordatascience/tidytuesday) `r emo::ji("sparkle")`:
+We're going to use the data from the awesome [TidyTuesday Project](https://github.com/rfordatascience/tidytuesday) `r emoji::emoji("sparkles")`:
 
 - [Beer production data from 2020-03-31](https://github.com/rfordatascience/tidytuesday/tree/master/data/2020/2020-03-31)
 - [Beer awards data from 2020-10-20](https://github.com/rfordatascience/tidytuesday/tree/master/data/2020/2020-10-20).

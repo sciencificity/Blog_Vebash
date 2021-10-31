@@ -290,10 +290,10 @@ dbListTables(con) # nothing there yet -> character(0)
 ]
 ]
 
-.panel[.panel-name[Using an DBI-compliant R `r emo::ji("package")`]
+.panel[.panel-name[Using an DBI-compliant R `r emoji::emoji("package")`]
 
-- Install the DBI-compliant R `r emo::ji("package")`
-- We'll use the `RPostgres` `r emo::ji("package")` as an example here (similar process for `RMariaDB` etc.).
+- Install the DBI-compliant R `r emoji::emoji("package")`
+- We'll use the `RPostgres` `r emoji::emoji("package")` as an example here (similar process for `RMariaDB` etc.).
 
 .tiny[
 ```{r eval=FALSE}
@@ -665,7 +665,7 @@ background-size: 300px 400px
 [Teaching in Production](https://rstudio-education.github.io/teaching-in-production/)
 
 #### Yihui Xie's and Garrick Aden-Buie's excellent
-[xaringan](https://github.com/yihui/xaringan) `r emo::ji("package")`  [xaringanExtra](https://github.com/gadenbuie/xaringanExtra) `r emo::ji("package")`
+[xaringan](https://github.com/yihui/xaringan) `r emoji::emoji("package")`  [xaringanExtra](https://github.com/gadenbuie/xaringanExtra) `r emoji::emoji("package")`
 
 #### Mine Çetinkaya-Rundel "Start with Cake"
 [Let them eat cake (first)!](https://www.youtube.com/watch?v=RsVOrpXAPXo&feature=emb_logo)
@@ -681,10 +681,10 @@ background-size: 300px 200px
 
 Check out:
 
-1. [Databases using R](https://db.rstudio.com/) `r emo::ji("tada")` `r emo::ji("heart")`.
-1. I have a package called [reclues](https://github.com/sciencificity/reclues) which contains a database which mimics the SQL Murder Mystery done by [Northwestern’s Knight Lab](https://github.com/NUKnightLab/sql-mysteries). The `r emo::ji("package")` [site is here](https://sciencificity.github.io/reclues/).
+1. [Databases using R](https://db.rstudio.com/) `r emoji::emoji("tada")` `r emoji::emoji("heartpulse")`.
+1. I have a package called [reclues](https://github.com/sciencificity/reclues) which contains a database which mimics the SQL Murder Mystery done by [Northwestern’s Knight Lab](https://github.com/NUKnightLab/sql-mysteries). The `r emoji::emoji("package")` [site is here](https://sciencificity.github.io/reclues/).
 
-1. I included the SQL Create scripts in the scripts folder - you can make a PostgreSQL version of `The Great British Bake Off` data to practise on `r emo::ji("happy")` `r emo::ji("dessert")`.
+1. I included the SQL Create scripts in the scripts folder - you can make a PostgreSQL version of `The Great British Bake Off` data to practise on `r emoji::emoji("smile")` `r emoji::emoji("birthday")`.
 
 
 ---

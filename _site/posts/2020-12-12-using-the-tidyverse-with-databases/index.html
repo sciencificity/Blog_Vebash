@@ -20,19 +20,19 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -52,7 +52,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
@@ -112,6 +112,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <meta property="twitter:description" content="You don&#39;t need to be a SQL expert to work with Databases through R"/>
 <meta property="twitter:url" content="https://sciencificity-blog.netlify.app/posts/2020-12-12-using-the-tidyverse-with-databases/"/>
 <meta property="twitter:image" content="https://sciencificity-blog.netlify.app/posts/2020-12-12-using-the-tidyverse-with-databases/data2-unsplash.jpg"/>
+<meta property="twitter:site" content="@sciencificity"/>
+<meta property="twitter:creator" content="@sciencificity"/>
 
 <!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->
 <meta name="citation_title" content="Sciencificity&#39;s Blog: Using the tidyverse with Databases - Part I"/>
@@ -129,7 +131,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["30-rock-gif-111.gif","data/great_brit_bakeoff.db","data.jpg","data1-unsplash.jpg","data2-unsplash.jpg","gh.gif","slides/assets/css/my-fonts.css","slides/assets/css/my-theme.css","slides/images/clouds.jpg","slides/images/daniel-cheung-B7N0IjiIJYo-unsplash.jpg","slides/images/far.jpg","slides/images/faria-anzum-ONK9IlKizS4-unsplash.jpg","slides/images/geordanna-cordero-2Qg4y32pdCc-unsplash.jpg","slides/images/hex-tidyverse.png","slides/images/markus-spiske-8CWoXxaqGrs-unsplash.jpg","slides/images/mum.jpg","slides/images/nathan-dumlao-KMEqlxz3mKc-unsplash.jpg","slides/images/nerd.jpg","slides/images/neven-krcmarek-0TH1H1rq_eY-unsplash.jpg","slides/images/rladies.jpg","slides/images/ryan-howerter-JXIFjYVbAS8-unsplash.jpg","slides/images/thank_you1.jpg","slides/images/will-porada-DH5183gvKUg-unsplash.jpg","slides/index.html","slides/index.Rmd","slides/libs/clipboard/clipboard.min.js","slides/libs/panelset/panelset.css","slides/libs/panelset/panelset.js","slides/libs/remark-css/default.css","slides/libs/shareon/shareon.min.css","slides/libs/shareon/shareon.min.js","slides/libs/tile-view/tile-view.css","slides/libs/tile-view/tile-view.js","slides/libs/xaringanExtra-shareagain/shareagain.css","slides/libs/xaringanExtra-shareagain/shareagain.js","using-the-tidyverse-with-databases_files/anchor-4.2.2/anchor.min.js","using-the-tidyverse-with-databases_files/bowser-1.9.3/bowser.min.js","using-the-tidyverse-with-databases_files/clipboard-2.0.6/clipboard.min.js","using-the-tidyverse-with-databases_files/distill-2.2.21/template.v2.js","using-the-tidyverse-with-databases_files/fitvids-2.1.1/fitvids.min.js","using-the-tidyverse-with-databases_files/jquery-1.11.3/jquery.min.js","using-the-tidyverse-with-databases_files/shareon-1.4.1/shareon.min.css","using-the-tidyverse-with-databases_files/shareon-1.4.1/shareon.min.js","using-the-tidyverse-with-databases_files/webcomponents-2.0.0/webcomponents.js","using-the-tidyverse-with-databases_files/xaringanExtra-shareagain-0.2.1/shareagain.css","using-the-tidyverse-with-databases_files/xaringanExtra-shareagain-0.2.1/shareagain.js"]}
+  {"type":"character","attributes":{},"value":["data/great_brit_bakeoff.db","data.jpg","data1-unsplash.jpg","data2-unsplash.jpg","slides/assets/css/my-fonts.css","slides/assets/css/my-theme.css","slides/images/clouds.jpg","slides/images/daniel-cheung-B7N0IjiIJYo-unsplash.jpg","slides/images/far.jpg","slides/images/faria-anzum-ONK9IlKizS4-unsplash.jpg","slides/images/geordanna-cordero-2Qg4y32pdCc-unsplash.jpg","slides/images/hex-tidyverse.png","slides/images/markus-spiske-8CWoXxaqGrs-unsplash.jpg","slides/images/mum.jpg","slides/images/nathan-dumlao-KMEqlxz3mKc-unsplash.jpg","slides/images/nerd.jpg","slides/images/neven-krcmarek-0TH1H1rq_eY-unsplash.jpg","slides/images/rladies.jpg","slides/images/ryan-howerter-JXIFjYVbAS8-unsplash.jpg","slides/images/thank_you1.jpg","slides/images/will-porada-DH5183gvKUg-unsplash.jpg","slides/index.html","slides/index.Rmd","slides/libs/clipboard/clipboard.min.js","slides/libs/panelset/panelset.css","slides/libs/panelset/panelset.js","slides/libs/remark-css/default.css","slides/libs/shareon/shareon.min.css","slides/libs/shareon/shareon.min.js","slides/libs/tile-view/tile-view.css","slides/libs/tile-view/tile-view.js","slides/libs/xaringanExtra-shareagain/shareagain.css","slides/libs/xaringanExtra-shareagain/shareagain.js","using-the-tidyverse-with-databases_files/anchor-4.2.2/anchor.min.js","using-the-tidyverse-with-databases_files/bowser-1.9.3/bowser.min.js","using-the-tidyverse-with-databases_files/clipboard-2.0.6/clipboard.min.js","using-the-tidyverse-with-databases_files/distill-2.2.21/template.v2.js","using-the-tidyverse-with-databases_files/fitvids-2.1.1/fitvids.min.js","using-the-tidyverse-with-databases_files/jquery-1.11.3/jquery.min.js","using-the-tidyverse-with-databases_files/shareon-1.4.1/shareon.min.css","using-the-tidyverse-with-databases_files/shareon-1.4.1/shareon.min.js","using-the-tidyverse-with-databases_files/webcomponents-2.0.0/webcomponents.js","using-the-tidyverse-with-databases_files/xaringanExtra-shareagain-0.2.1/shareagain.css","using-the-tidyverse-with-databases_files/xaringanExtra-shareagain-0.2.1/shareagain.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -475,7 +477,7 @@ d-title {
 
 </style>
 
-<script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <link href="../../site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
 <link href="../../site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
 <script src="../../site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -1882,7 +1884,10 @@ function init_distill() {
 
     // hoverable references
     $('span.citation[data-cites]').each(function() {
-      var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+      var refs = $(this).attr('data-cites').split(" ");
+      var refHtml = refs.map(function(ref) {
+        return "<p>" + $('#ref-' + ref).html() + "</p>";
+      }).join("\n");
       window.tippy(this, {
         allowHTML: true,
         content: refHtml,
@@ -2475,13 +2480,18 @@ d-appendix d-footnote-list a.footnote-backlink {
   color: var(--hover-color, white);
 }</style>
 <!--/radix_placeholder_distill-->
+  <script src="../../site_libs/header-attrs-2.11/header-attrs.js"></script>
   <script src="../../site_libs/clipboard-2.0.6/clipboard.min.js"></script>
   <link href="../../site_libs/shareon-1.4.1/shareon.min.css" rel="stylesheet" />
   <script src="../../site_libs/shareon-1.4.1/shareon.min.js"></script>
-  <link href="../../site_libs/xaringanExtra-shareagain-0.2.1/shareagain.css" rel="stylesheet" />
-  <script src="../../site_libs/xaringanExtra-shareagain-0.2.1/shareagain.js"></script>
+  <link href="../../site_libs/xaringanExtra-shareagain-0.2.6/shareagain.css" rel="stylesheet" />
+  <script src="../../site_libs/xaringanExtra-shareagain-0.2.6/shareagain.js"></script>
   <script src="../../site_libs/fitvids-2.1.1/fitvids.min.js"></script>
-  <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
+  <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="../../site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="../../site_libs/tippy-6.2.7/tippy.umd.min.js"></script>
   <script src="../../site_libs/anchor-4.2.2/anchor.min.js"></script>
   <script src="../../site_libs/bowser-1.9.3/bowser.min.js"></script>
   <script src="../../site_libs/webcomponents-2.0.0/webcomponents.js"></script>
@@ -2548,6 +2558,7 @@ d-appendix d-footnote-list a.footnote-backlink {
 <div class="nav-right">
 <a href="../../index.html">Home</a>
 <a href="../../about.html">About</a>
+<a href="../../code-snippets.html">Code Snippets</a>
 <a href="https://twitter.com/Sciencificity">
 <i class="fa fa-twitter" aria-hidden="true"></i>
 </a>
@@ -2587,14 +2598,17 @@ d-appendix d-footnote-list a.footnote-backlink {
 <h3>Contents</h3>
 <ul>
 <li><a href="#background">Background</a></li>
-<li><a href="#intro-to-using-databases-in-r-with-tidyverse-tools-part-i">Intro to using Databases in R, with Tidyverse tools (Part I)</a><ul>
+<li><a href="#intro-to-using-databases-in-r-with-tidyverse-tools-part-i">Intro to using Databases in R, with Tidyverse tools (Part I)</a>
+<ul>
 <li><a href="#motivation">Motivation</a></li>
-<li><a href="#connecting-to-a-database">Connecting to a Database</a><ul>
+<li><a href="#connecting-to-a-database">Connecting to a Database</a>
+<ul>
 <li><a href="#packages-needed">Packages needed</a></li>
 <li><a href="#the-database-well-use">The database we’ll use</a></li>
 <li><a href="#connecting-to-a-sqlite-db">Connecting to a SQLite DB</a></li>
 </ul></li>
-<li><a href="#take-a-look-around">Take a look around</a><ul>
+<li><a href="#take-a-look-around">Take a look around</a>
+<ul>
 <li><a href="#dbi-functions">DBI Functions</a></li>
 <li><a href="#dplyr-functions"><code>dplyr</code> Functions</a></li>
 <li><a href="#have-a-look-at-the-sql-behind-the-scenes">Have a look at the SQL behind the scenes</a></li>
@@ -2603,7 +2617,8 @@ d-appendix d-footnote-list a.footnote-backlink {
 <li><a href="#done-remember-to-disconnect">Done? Remember to disconnect!</a></li>
 </ul></li>
 <li><a href="#slides">Slides</a></li>
-<li><a href="#still-to-come">Still to come</a><ul>
+<li><a href="#still-to-come">Still to come</a>
+<ul>
 <li><a href="#acknowledgements">Acknowledgements</a></li>
 </ul></li>
 </ul>
@@ -2616,7 +2631,7 @@ d-appendix d-footnote-list a.footnote-backlink {
 <h2 id="motivation">Motivation</h2>
 <p>You often have data in a corporate or institutional database (often termed relational database management system, or <code>RDBMS</code>). The language to talk with such a database (DB) is some variant of the language SQL (Structured Query Language). I say some variant, since a vendor providing an RDBMS may adopt the standardised SQL, but they may also extend it with their own variations.</p>
 <p>If you use different RDBMS’s from different vendors you need to understand how to query that DB using the particular SQL dialect used by that vendor. For example, we use PostgreSQL, and we also use PrestoDB (for Athena on AWS). <code>JSON</code> fields in the PostgreSQL DB are ingested as structured nested arrays in AWS and hence when querying the same field we use different query syntax.</p>
-<p>You know R, especially the <code>dplyr</code> 📦. Even though the <code>dplyr</code> 📦 is so well written to mimic the SQL syntax - <strong>select()</strong>, <strong>group_by()</strong>, <strong>left_join()</strong> etc. there is still a cognitive load when you switch between using R syntax, and SQL syntax (ask me, who has often written <code>==</code> in SQL syntax on Athena only to wonder why I am getting an error 🤐).</p>
+<p>You know R, especially the <code>dplyr</code> 📦. Even though the <code>dplyr</code> 📦 is so well written to mimic the SQL syntax - <strong>select()</strong>, <strong>group_by()</strong>, <strong>left_join()</strong> etc. there is still a cognitive load when you switch between using R syntax, and SQL syntax (ask me, who has often written <code>==</code> in SQL syntax on Athena only to wonder why I am getting an error 😶).</p>
 <p>You only have so much memory in your local environment, and may want your RDBMS to do the heavy lifting (most of the computation), and only pull data into R when you need to (e.g. pull in aggregated data to create plots for a report).</p>
 <p>In this tutorial you will learn how to use <code>dbplyr</code>, which is a database back-end of <code>dplyr</code>, to execute queries directly in your RDBMS all the while writing R tidyverse syntax 😮 ⭐.</p>
 <h2 id="connecting-to-a-database">Connecting to a Database</h2>
@@ -2639,7 +2654,7 @@ d-appendix d-footnote-list a.footnote-backlink {
 </ol>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://r-dbi.github.io/DBI'>DBI</a></span><span class='op'>)</span> <span class='co'># main DB interface</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dbi.r-dbi.org'>DBI</a></span><span class='op'>)</span> <span class='co'># main DB interface</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span> 
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dbplyr.tidyverse.org/'>dbplyr</a></span><span class='op'>)</span> <span class='co'># dplyr back-end for DBs</span>
 
@@ -2657,7 +2672,7 @@ d-appendix d-footnote-list a.footnote-backlink {
 <h3 id="dbi-functions">DBI Functions</h3>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='fu'><a href='https://dbi.r-dbi.org/reference/dbListTables.html'>dbListTables</a></span><span class='op'>(</span><span class='va'>con</span><span class='op'>)</span> <span class='co'># List me the tables at the connection</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://dbi.r-dbi.org/reference/dbListTables.html'>dbListTables</a></span><span class='op'>(</span><span class='va'>con</span><span class='op'>)</span> <span class='co'># List me the tables at the connection</span>
 </code></pre>
 </div>
 <pre><code> [1] &quot;baker_results&quot;     &quot;bakers&quot;            &quot;bakes&quot;            
@@ -2665,13 +2680,13 @@ d-appendix d-footnote-list a.footnote-backlink {
  [7] &quot;episodes&quot;          &quot;ratings&quot;           &quot;ratings_seasons&quot;  
 [10] &quot;results&quot;           &quot;seasons&quot;           &quot;series&quot;           </code></pre>
 <div class="sourceCode">
-<pre><code><span class='fu'><a href='https://dbi.r-dbi.org/reference/dbListFields.html'>dbListFields</a></span><span class='op'>(</span><span class='va'>con</span>, <span class='co'># Reach into my connection and ...</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://dbi.r-dbi.org/reference/dbListFields.html'>dbListFields</a></span><span class='op'>(</span><span class='va'>con</span>, <span class='co'># Reach into my connection and ...</span>
       <span class='st'>"bakers"</span><span class='op'>)</span>   <span class='co'># tell me what fields does the `bakers` table have?</span>
 </code></pre>
 </div>
 <pre><code>[1] &quot;series&quot;     &quot;baker_full&quot; &quot;age&quot;        &quot;occupation&quot; &quot;hometown&quot;  </code></pre>
 <div class="sourceCode">
-<pre><code><span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dbi.r-dbi.org/reference/dbSendQuery.html'>dbSendQuery</a></span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"SELECT * FROM bakers LIMIT 3"</span><span class='op'>)</span> <span class='co'># Execute a query</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dbi.r-dbi.org/reference/dbSendQuery.html'>dbSendQuery</a></span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"SELECT * FROM bakers LIMIT 3"</span><span class='op'>)</span> <span class='co'># Execute a query</span>
 <span class='fu'><a href='https://dbi.r-dbi.org/reference/dbFetch.html'>dbFetch</a></span><span class='op'>(</span><span class='va'>res</span><span class='op'>)</span> <span class='co'># get the result</span>
 </code></pre>
 </div>
@@ -2684,7 +2699,7 @@ d-appendix d-footnote-list a.footnote-backlink {
 2 Milton Keynes
 3      Bradford</code></pre>
 <div class="sourceCode">
-<pre><code><span class='fu'><a href='https://dbi.r-dbi.org/reference/dbClearResult.html'>dbClearResult</a></span><span class='op'>(</span><span class='va'>res</span><span class='op'>)</span> <span class='co'># clear the result</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://dbi.r-dbi.org/reference/dbClearResult.html'>dbClearResult</a></span><span class='op'>(</span><span class='va'>res</span><span class='op'>)</span> <span class='co'># clear the result</span>
 </code></pre>
 </div>
 </div>
@@ -2695,44 +2710,44 @@ d-appendix d-footnote-list a.footnote-backlink {
 </ul>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='fu'><a href='https://dplyr.tidyverse.org/reference/tbl.html'>tbl</a></span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"bakers"</span><span class='op'>)</span> <span class='co'># let's have a look - works like glimpse()</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://dplyr.tidyverse.org/reference/tbl.html'>tbl</a></span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"bakers"</span><span class='op'>)</span> <span class='co'># let's have a look - works like glimpse()</span>
 </code></pre>
 </div>
 <pre><code># Source:   table&lt;bakers&gt; [?? x 5]
-# Database: sqlite 3.33.0
-#   [C:\Personal\Blog_Vebash\_posts\2020-12-12-using-the-tidyverse-with-databases\data\great_brit_bakeoff.db]
-   series baker_full          age occupation            hometown      
-    &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;                 &lt;chr&gt;         
- 1      1 &quot;Annetha Mills&quot;      30 Midwife               Essex         
- 2      1 &quot;David Chambers&quot;     31 Entrepreneur          Milton Keynes 
- 3      1 &quot;Edward \&quot;Edd\&quot; ~    24 Debt collector for Y~ Bradford      
- 4      1 &quot;Jasminder Randh~    45 Assistant Credit Con~ Birmingham    
- 5      1 &quot;Jonathan Shephe~    25 Research Analyst      St Albans     
- 6      1 &quot;Lea Harris&quot;         51 Retired               Midlothian, S~
- 7      1 &quot;Louise Brimelow&quot;    44 Police Officer        Manchester    
- 8      1 &quot;Mark Whithers&quot;      48 Bus Driver            South Wales   
- 9      1 &quot;Miranda Gore Br~    37 Food buyer for Marks~ Midhurst, Wes~
-10      1 &quot;Ruth Clemens&quot;       31 Retail manager/House~ Poynton, Ches~
+# Database: sqlite 3.36.0 [C:\Users\Vebashini\OneDrive -
+#   Rain\Documents\Main-Documents\Personal\Blog_Vebash\_posts\2020-12-12-using-the-tidyverse-with-databases\data\great_brit_bakeoff.db]
+   series baker_full                age occupation         hometown   
+    &lt;dbl&gt; &lt;chr&gt;                   &lt;dbl&gt; &lt;chr&gt;              &lt;chr&gt;      
+ 1      1 &quot;Annetha Mills&quot;            30 Midwife            Essex      
+ 2      1 &quot;David Chambers&quot;           31 Entrepreneur       Milton Key~
+ 3      1 &quot;Edward \&quot;Edd\&quot; Kimber&quot;    24 Debt collector fo~ Bradford   
+ 4      1 &quot;Jasminder Randhawa&quot;       45 Assistant Credit ~ Birmingham 
+ 5      1 &quot;Jonathan Shepherd&quot;        25 Research Analyst   St Albans  
+ 6      1 &quot;Lea Harris&quot;               51 Retired            Midlothian~
+ 7      1 &quot;Louise Brimelow&quot;          44 Police Officer     Manchester 
+ 8      1 &quot;Mark Whithers&quot;            48 Bus Driver         South Wales
+ 9      1 &quot;Miranda Gore Browne&quot;      37 Food buyer for Ma~ Midhurst, ~
+10      1 &quot;Ruth Clemens&quot;             31 Retail manager/Ho~ Poynton, C~
 # ... with more rows</code></pre>
 <div class="sourceCode">
-<pre><code><span class='fu'><a href='https://dplyr.tidyverse.org/reference/tbl.html'>tbl</a></span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"bakers"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://dplyr.tidyverse.org/reference/tbl.html'>tbl</a></span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"bakers"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span> <span class='co'># "SELECT * FROM bakers LIMIT 3"</span>
 </code></pre>
 </div>
 <pre><code># Source:   lazy query [?? x 5]
-# Database: sqlite 3.33.0
-#   [C:\Personal\Blog_Vebash\_posts\2020-12-12-using-the-tidyverse-with-databases\data\great_brit_bakeoff.db]
-  series baker_full           age occupation               hometown   
-   &lt;dbl&gt; &lt;chr&gt;              &lt;dbl&gt; &lt;chr&gt;                    &lt;chr&gt;      
-1      1 &quot;Annetha Mills&quot;       30 Midwife                  Essex      
-2      1 &quot;David Chambers&quot;      31 Entrepreneur             Milton Key~
-3      1 &quot;Edward \&quot;Edd\&quot; K~    24 Debt collector for York~ Bradford   </code></pre>
+# Database: sqlite 3.36.0 [C:\Users\Vebashini\OneDrive -
+#   Rain\Documents\Main-Documents\Personal\Blog_Vebash\_posts\2020-12-12-using-the-tidyverse-with-databases\data\great_brit_bakeoff.db]
+  series baker_full                age occupation           hometown  
+   &lt;dbl&gt; &lt;chr&gt;                   &lt;dbl&gt; &lt;chr&gt;                &lt;chr&gt;     
+1      1 &quot;Annetha Mills&quot;            30 Midwife              Essex     
+2      1 &quot;David Chambers&quot;           31 Entrepreneur         Milton Ke~
+3      1 &quot;Edward \&quot;Edd\&quot; Kimber&quot;    24 Debt collector for ~ Bradford  </code></pre>
 </div>
 <p>Notice that each time we used <span style="color: #008080;background-color:#9FDDBA"><code>con</code></span>. We use our connection <strong>con</strong> to “talk” to our database, and we will use it throughout, even in our <em>tidy</em> pipelines.</p>
 <p>In <code>baker_results</code> we have the baker with their details, as well as their standing in the series competition. Let’s say we wanted to know if the winners came from different areas in Britain, or from some areas in particular.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='fu'><a href='https://dbi.r-dbi.org/reference/dbListFields.html'>dbListFields</a></span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"baker_results"</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://dbi.r-dbi.org/reference/dbListFields.html'>dbListFields</a></span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"baker_results"</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code> [1] &quot;series&quot;                    &quot;baker_full&quot;               
@@ -2748,13 +2763,13 @@ d-appendix d-footnote-list a.footnote-backlink {
 [21] &quot;first_date_us&quot;             &quot;last_date_us&quot;             
 [23] &quot;percent_episodes_appeared&quot; &quot;percent_technical_top3&quot;   </code></pre>
 <div class="sourceCode">
-<pre><code><span class='fu'><a href='https://dplyr.tidyverse.org/reference/tbl.html'>tbl</a></span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"baker_results"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://dplyr.tidyverse.org/reference/tbl.html'>tbl</a></span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"baker_results"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>series</span>, <span class='va'>baker</span>, <span class='va'>hometown</span>, <span class='va'>series_winner</span><span class='op'>)</span> <span class='co'># normal dplyr select</span>
 </code></pre>
 </div>
 <pre><code># Source:   lazy query [?? x 4]
-# Database: sqlite 3.33.0
-#   [C:\Personal\Blog_Vebash\_posts\2020-12-12-using-the-tidyverse-with-databases\data\great_brit_bakeoff.db]
+# Database: sqlite 3.36.0 [C:\Users\Vebashini\OneDrive -
+#   Rain\Documents\Main-Documents\Personal\Blog_Vebash\_posts\2020-12-12-using-the-tidyverse-with-databases\data\great_brit_bakeoff.db]
    series baker     hometown              series_winner
     &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;                         &lt;int&gt;
  1      1 Annetha   Essex                             0
@@ -2773,15 +2788,15 @@ d-appendix d-footnote-list a.footnote-backlink {
 <p>Time to see if our winning bakers hail from similar hometowns or not.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='fu'><a href='https://dplyr.tidyverse.org/reference/tbl.html'>tbl</a></span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"baker_results"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://dplyr.tidyverse.org/reference/tbl.html'>tbl</a></span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"baker_results"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>series</span>, <span class='va'>baker</span>, <span class='va'>hometown</span>, <span class='va'>series_winner</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>series_winner</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># normal dplyr filter</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>hometown</span>, sort <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>   <span class='co'># normal dplyr count</span>
 </code></pre>
 </div>
 <pre><code># Source:     lazy query [?? x 2]
-# Database:   sqlite 3.33.0
-#   [C:\Personal\Blog_Vebash\_posts\2020-12-12-using-the-tidyverse-with-databases\data\great_brit_bakeoff.db]
+# Database:   sqlite 3.36.0 [C:\Users\Vebashini\OneDrive -
+#   Rain\Documents\Main-Documents\Personal\Blog_Vebash\_posts\2020-12-12-using-the-tidyverse-with-databases\data\great_brit_bakeoff.db]
 # Ordered by: desc(n)
   hometown                              n
   &lt;chr&gt;                             &lt;int&gt;
@@ -2799,7 +2814,7 @@ d-appendix d-footnote-list a.footnote-backlink {
 <p>Our <code>dplyr</code> syntax is converted behind the scenes to SQL which is executed directly on the DB table.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='fu'><a href='https://dplyr.tidyverse.org/reference/tbl.html'>tbl</a></span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"baker_results"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://dplyr.tidyverse.org/reference/tbl.html'>tbl</a></span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"baker_results"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>series</span>, <span class='va'>baker</span>, <span class='va'>hometown</span>, <span class='va'>series_winner</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>series_winner</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>hometown</span>, sort <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
@@ -2834,14 +2849,14 @@ ORDER BY `n` DESC</code></pre>
 <p>Good housekeeping means always remembering to disconnect once you’re done.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='fu'><a href='https://dbi.r-dbi.org/reference/dbDisconnect.html'>dbDisconnect</a></span><span class='op'>(</span><span class='va'>con</span><span class='op'>)</span> <span class='co'># closes our DB connection</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://dbi.r-dbi.org/reference/dbDisconnect.html'>dbDisconnect</a></span><span class='op'>(</span><span class='va'>con</span><span class='op'>)</span> <span class='co'># closes our DB connection</span>
 </code></pre>
 </div>
 </div>
 <p>To see that is indeed the case let’s see if we can use the connection further …</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='fu'><a href='https://dbi.r-dbi.org/reference/dbListTables.html'>dbListTables</a></span><span class='op'>(</span><span class='va'>con</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://dbi.r-dbi.org/reference/dbListTables.html'>dbListTables</a></span><span class='op'>(</span><span class='va'>con</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>Error: Invalid or closed connection</code></pre>

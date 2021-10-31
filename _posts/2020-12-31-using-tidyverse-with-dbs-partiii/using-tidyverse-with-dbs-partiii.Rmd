@@ -152,7 +152,7 @@ That's it for the MySQL DBMS itself, the rest of the work for setting up our DB 
 
 ## Our data
 
-In the {dplyr} `r emo::ji("package")` we have a dataset <span style="color: #9d5a61;background-color:#efb087"><b>starwars</b></span> which has information for the characters.
+In the {dplyr} `r emoji::emoji("package")` we have a dataset <span style="color: #9d5a61;background-color:#efb087"><b>starwars</b></span> which has information for the characters.
 
 ```{r, eval = TRUE, echo = TRUE}
 # need to figure out what data is included
@@ -338,7 +338,7 @@ con <- dbConnect(odbc::odbc(),
 
 We may alternatively use the appropriate DBI compliant package. ([RMariaDB::MariaDB()](https://db.rstudio.com/databases/my-sql/)).
 
-<aside>DBI is the <b>D</b>ata<b>B</b>ase <b>I</b>nterface `r emo::ji("package")` for R. Instead of using an ODBC driver we may use one of the DBI compliant packages created by the R community to make a connection. In the case of MySQL we use `RMariaDB` `r emo::ji("package")`</aside>
+<aside>DBI is the <b>D</b>ata<b>B</b>ase <b>I</b>nterface `r emoji::emoji("package")` for R. Instead of using an ODBC driver we may use one of the DBI compliant packages created by the R community to make a connection. In the case of MySQL we use `RMariaDB` `r emoji::emoji("package")`</aside>
 
 ```{r, eval = FALSE}
 # Make a connection

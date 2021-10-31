@@ -23,6 +23,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -55,7 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -76,7 +77,7 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
@@ -84,10 +85,11 @@ code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 
+
   <!--radix_placeholder_meta_tags-->
   <title>Sciencificity's Blog: About this blog</title>
 
-  <meta property="description" itemprop="description" content="Welcome to my blog. I am mainly an R person so expect mostly R material! ❤️"/>
+  <meta property="description" itemprop="description" content="Welcome to my blog. I am mainly an R person so expect mostly R material! 💗"/>
 
 
   <meta name="article:author" content="Vebash Naidoo"/>
@@ -95,20 +97,22 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="Sciencificity&#39;s Blog: About this blog"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="Welcome to my blog. I am mainly an R person so expect mostly R material! ❤️"/>
+  <meta property="og:description" content="Welcome to my blog. I am mainly an R person so expect mostly R material! 💗"/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="Sciencificity&#39;s Blog"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
   <meta property="twitter:title" content="Sciencificity&#39;s Blog: About this blog"/>
-  <meta property="twitter:description" content="Welcome to my blog. I am mainly an R person so expect mostly R material! ❤️"/>
+  <meta property="twitter:description" content="Welcome to my blog. I am mainly an R person so expect mostly R material! 💗"/>
+  <meta property="twitter:site" content="@sciencificity"/>
+  <meta property="twitter:creator" content="@sciencificity"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author"]}},"value":[{"type":"character","attributes":{},"value":["About this blog"]},{"type":"character","attributes":{},"value":["Welcome to my blog. I am mainly an R person so expect mostly R material! ❤️\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Vebash Naidoo"]},{"type":"character","attributes":{},"value":["https://twitter.com/Sciencificity"]},{"type":"character","attributes":{},"value":["R-Ladies Johannesburg"]},{"type":"character","attributes":{},"value":["https://twitter.com/RLadiesJozi"]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author"]}},"value":[{"type":"character","attributes":{},"value":["About this blog"]},{"type":"character","attributes":{},"value":["Welcome to my blog. I am mainly an R person so expect mostly R material! 💗\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Vebash Naidoo"]},{"type":"character","attributes":{},"value":["https://twitter.com/Sciencificity"]},{"type":"character","attributes":{},"value":["R-Ladies Johannesburg"]},{"type":"character","attributes":{},"value":["https://twitter.com/RLadiesJozi"]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -455,7 +459,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   </style>
 
-  <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
   <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -1862,7 +1866,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          return "<p>" + $('#ref-' + ref).html() + "</p>";
+        }).join("\n");
         window.tippy(this, {
           allowHTML: true,
           content: refHtml,
@@ -2455,7 +2462,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: var(--hover-color, white);
   }</style>
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2512,7 +2519,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"About this blog","description":"Welcome to my blog. I am mainly an R person so expect mostly R material! ❤️","authors":[{"author":"Vebash Naidoo","authorURL":"https://twitter.com/Sciencificity","affiliation":"R-Ladies Johannesburg","affiliationURL":"https://twitter.com/RLadiesJozi","orcidID":""}]}
+{"title":"About this blog","description":"Welcome to my blog. I am mainly an R person so expect mostly R material! 💗","authors":[{"author":"Vebash Naidoo","authorURL":"https://twitter.com/Sciencificity","affiliation":"R-Ladies Johannesburg","affiliationURL":"https://twitter.com/RLadiesJozi","orcidID":""}]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2526,6 +2533,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="nav-right">
 <a href="index.html">Home</a>
 <a href="about.html">About</a>
+<a href="code-snippets.html">Code Snippets</a>
 <a href="https://twitter.com/Sciencificity">
 <i class="fa fa-twitter" aria-hidden="true"></i>
 </a>
@@ -2544,7 +2552,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <h1>About this blog</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>Welcome to my blog. I am mainly an R person so expect mostly R material! ❤️</p></p>
+<p><p>Welcome to my blog. I am mainly an R person so expect mostly R material! 💗</p></p>
 </div>
 
 <div class="d-byline">
@@ -2600,14 +2608,14 @@ Do NOT mock the sciencificity of the process.
               src="whoami.jpg" 
               width = 600px/></p>
 <p>Like most people who will read this blog, I am a nerd, and a proud R nerd at that 😂.</p>
-<p>I am an R-Lady and proud member of AfricaR. 🌎</p>
+<p>I am an R-Lady and proud member of AfricaR. 🌍</p>
 <p>I am a certified RStudio <a href="https://bit.ly/my-rstudio-cert-profile">Tidyverse instructor</a>.</p>
 <p>I’m a mum, and hence that last picture of me visiting some far out galaxy (’cos that’s what you do when you have young kids, go on many adventures in far out places).</p>
 <h4 id="resources">Resources</h4>
 <ul>
 <li>Please subscribe to <a href="https://rweekly.org">RWeekly</a>, they put out a weekly newsletter, and showcase much learning material, including mine.</li>
 <li>Please consider giving <a href="https://twitter.com/Sciencificity">me</a> a follow. I announce there once a new blog post is up.</li>
-<li>Please give <a href="https://twitter.com/icymi_r">R posts you might have missed</a> a follow. The account puts out much learning material regarding R, you are bound to find something you’re interested in 📖 📈.</li>
+<li>Please give <a href="https://twitter.com/icymi_r">R posts you might have missed</a> a follow. The account puts out much learning material regarding R, you are bound to find something you’re interested in 📚 📈.</li>
 </ul>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->

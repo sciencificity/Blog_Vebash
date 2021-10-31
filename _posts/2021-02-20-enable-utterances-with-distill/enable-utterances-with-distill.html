@@ -23,6 +23,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -55,7 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -76,13 +77,14 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
+
 
   <!--radix_placeholder_meta_tags-->
   <title>Enable utterances with distill</title>
@@ -117,7 +119,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["1.png","enable-utterances-with-distill_files/anchor-4.2.2/anchor.min.js","enable-utterances-with-distill_files/bowser-1.9.3/bowser.min.js","enable-utterances-with-distill_files/distill-2.2.21/template.v2.js","enable-utterances-with-distill_files/header-attrs-2.6.6/header-attrs.js","enable-utterances-with-distill_files/jquery-1.11.3/jquery.min.js","enable-utterances-with-distill_files/popper-2.6.0/popper.min.js","enable-utterances-with-distill_files/tippy-6.2.7/tippy-bundle.umd.min.js","enable-utterances-with-distill_files/tippy-6.2.7/tippy-light-border.css","enable-utterances-with-distill_files/tippy-6.2.7/tippy.css","enable-utterances-with-distill_files/tippy-6.2.7/tippy.umd.min.js","enable-utterances-with-distill_files/webcomponents-2.0.0/webcomponents.js","preview.jpg","preview1.jpg","preview2.jpg","preview2_small.jpg","preview2_small_.jpg","utterances1.JPG","utterances2.JPG","utterances3.JPG","utterances4.JPG"]}
+  {"type":"character","attributes":{},"value":["1.png","enable-utterances-with-distill_files/anchor-4.2.2/anchor.min.js","enable-utterances-with-distill_files/bowser-1.9.3/bowser.min.js","enable-utterances-with-distill_files/distill-2.2.21/template.v2.js","enable-utterances-with-distill_files/header-attrs-2.11/header-attrs.js","enable-utterances-with-distill_files/header-attrs-2.6.6/header-attrs.js","enable-utterances-with-distill_files/jquery-1.11.3/jquery.min.js","enable-utterances-with-distill_files/jquery-3.6.0/jquery-3.6.0.js","enable-utterances-with-distill_files/jquery-3.6.0/jquery-3.6.0.min.js","enable-utterances-with-distill_files/jquery-3.6.0/jquery-3.6.0.min.map","enable-utterances-with-distill_files/popper-2.6.0/popper.min.js","enable-utterances-with-distill_files/tippy-6.2.7/tippy-bundle.umd.min.js","enable-utterances-with-distill_files/tippy-6.2.7/tippy-light-border.css","enable-utterances-with-distill_files/tippy-6.2.7/tippy.css","enable-utterances-with-distill_files/tippy-6.2.7/tippy.umd.min.js","enable-utterances-with-distill_files/webcomponents-2.0.0/webcomponents.js","preview.jpg","preview1.jpg","preview2.jpg","preview2_small.jpg","preview2_small_.jpg","utterances1.JPG","utterances2.JPG","utterances3.JPG","utterances4.JPG"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1264,7 +1266,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          return "<p>" + $('#ref-' + ref).html() + "</p>";
+        }).join("\n");
         window.tippy(this, {
           allowHTML: true,
           content: refHtml,
@@ -1435,8 +1440,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="enable-utterances-with-distill_files/header-attrs-2.6.6/header-attrs.js"></script>
-  <script src="enable-utterances-with-distill_files/jquery-1.11.3/jquery.min.js"></script>
+  <script src="enable-utterances-with-distill_files/header-attrs-2.11/header-attrs.js"></script>
+  <script src="enable-utterances-with-distill_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <script src="enable-utterances-with-distill_files/popper-2.6.0/popper.min.js"></script>
   <link href="enable-utterances-with-distill_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="enable-utterances-with-distill_files/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -1583,7 +1588,7 @@ You may also follow <a href="https://github.com/rstudio/distill/issues/155">Tara
 <li>As <a href="https://masalmon.eu/2019/10/02/disqus/">Maëlle remarks</a> the downside is perhaps that your reader needs a GitHub account. I am hopeful this will not be too big of a deterrent for readers. If it is, don’t hesitate to reach out on <a href="https://twitter.com/Sciencificity">Twitter</a> - I am interested to hear your opinion.</li>
 </ul>
 <h4 id="happy-distill-blogging">Happy {distill} Blogging</h4>
-<p>🕺</p>
+<p>💃</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->

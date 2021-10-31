@@ -2,38 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" version="1.0">
   <url>
     <loc>https://sciencificity-blog.netlify.app/about.html</loc>
-    <lastmod>2021-02-20T21:57:38+02:00</lastmod>
+    <lastmod>2021-10-31T15:09:45+02:00</lastmod>
+  </url>
+  <url>
+    <loc>https://sciencificity-blog.netlify.app/code-snippets.html</loc>
+    <lastmod>2021-10-31T09:03:54+02:00</lastmod>
   </url>
   <url>
     <loc>https://sciencificity-blog.netlify.app/</loc>
-    <lastmod>2021-02-16T17:23:15+02:00</lastmod>
+    <lastmod>2021-10-31T09:25:28+02:00</lastmod>
   </url>
   <url>
     <loc>https://sciencificity-blog.netlify.app/posts/2021-04-16-datadrivencv-of-the-best-troublemaker/</loc>
-    <lastmod>2021-05-30T22:48:05+02:00</lastmod>
+    <lastmod>2021-10-31T10:20:30+02:00</lastmod>
   </url>
   <url>
     <loc>https://sciencificity-blog.netlify.app/posts/2021-03-27-sql-in-rmarkdown/</loc>
-    <lastmod>2021-04-02T21:36:45+02:00</lastmod>
+    <lastmod>2021-10-31T10:13:53+02:00</lastmod>
   </url>
   <url>
     <loc>https://sciencificity-blog.netlify.app/posts/2021-02-20-enable-utterances-with-distill/</loc>
-    <lastmod>2021-02-20T22:30:01+02:00</lastmod>
+    <lastmod>2021-10-31T10:07:26+02:00</lastmod>
   </url>
   <url>
     <loc>https://sciencificity-blog.netlify.app/posts/2021-01-30-control-your-factors-with-forcats/</loc>
-    <lastmod>2021-02-20T21:39:33+02:00</lastmod>
+    <lastmod>2021-10-31T10:04:09+02:00</lastmod>
   </url>
   <url>
     <loc>https://sciencificity-blog.netlify.app/posts/2020-12-31-using-tidyverse-with-dbs-partiii/</loc>
-    <lastmod>2021-01-09T23:24:30+02:00</lastmod>
+    <lastmod>2021-10-31T07:48:55+02:00</lastmod>
   </url>
   <url>
     <loc>https://sciencificity-blog.netlify.app/posts/2020-12-20-using-the-tidyverse-with-dbs-partii/</loc>
-    <lastmod>2021-01-31T18:05:04+02:00</lastmod>
+    <lastmod>2021-10-31T10:00:17+02:00</lastmod>
   </url>
   <url>
     <loc>https://sciencificity-blog.netlify.app/posts/2020-12-12-using-the-tidyverse-with-databases/</loc>
-    <lastmod>2020-12-15T00:46:20+02:00</lastmod>
+    <lastmod>2021-10-31T07:47:53+02:00</lastmod>
   </url>
 </urlset>

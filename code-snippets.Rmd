@@ -1,0 +1,55 @@
+---
+title: "Code Snippets"
+description: Some code snippets as reminders
+output:
+  distill::distill_article:
+    css: "content/strapless.css"
+twitter:
+  creator: "@sciencificity"
+base_url: https://sciencificity-blog.netlify.app/
+---
+
+<!-- Remove margin under images -->
+<style>
+d-article img {
+  margin-bottom: 0px;
+}
+
+.btn-primary {
+    background-color: #74a08a;
+    color: #FFFFFF;
+    padding: 3px 5px 3px 5px;
+    margin: 0 2px 0 2px;
+    border-radius: 5px; /* Rounded edges */
+    border: 0px;
+}
+
+.btn-primary:hover {
+    background-color: #8a74a0;
+    color: #FFFFFF;
+}
+</style>
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(bs4cards)
+# library(distilltools)
+# Read in code snippets csv file 
+code_snips <- readr::read_csv(here::here("content", "code-snippets.csv"))
+```
+
+```{r projects, echo=FALSE, layout="l-body-outset"}
+code_snips %>% 
+  cards(
+    title = title,
+    text = description,
+    link = url,
+    image = src,
+    label_colour = "#ffffff",
+    tags = paste0("All;", tags),
+    footer = as.character(tags),
+    border_radius = 5,
+    width = 4
+  )
+```

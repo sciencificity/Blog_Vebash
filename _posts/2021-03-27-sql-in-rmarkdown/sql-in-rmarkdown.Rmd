@@ -45,7 +45,7 @@ knitr::opts_chunk$set(echo = TRUE,
 
 RMarkdown (Rmd) allows code chunks of different language types besides R.
 
-For example, we can have normal R code blocks (created on a Windows machine using the shortcut <span style="color: #5196b4;background-color:#f4e4e7">`Ctrl + Alt + i`</span>), Python code blocks, and even SQL code blocks (created using the <span style="color: #5196b4;background-color:#f4e4e7">`Insert code chunk`</span> button, or by hand `r emo::ji("smile")`).
+For example, we can have normal R code blocks (created on a Windows machine using the shortcut <span style="color: #5196b4;background-color:#f4e4e7">`Ctrl + Alt + i`</span>), Python code blocks, and even SQL code blocks (created using the <span style="color: #5196b4;background-color:#f4e4e7">`Insert code chunk`</span> button, or by hand `r emoji::emoji("smile")`).
 
 <img src="code-chunks.gif" alt="GIF of how to add code chunks in RMarkdown" width = "700px">
 
@@ -65,7 +65,7 @@ The blog post assumes that you have at least a beginner understanding of:
 
 ## Dataset
 
-In my home, my 6 year old is currently obsessed with [Ticket to Ride Europe](https://www.daysofwonder.com/tickettoride/en/europe/), so I was excited when I saw the [TidyTuesday Transit Costs Project](https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-01-05/readme.md) data `r emo::ji("train")`.
+In my home, my 6 year old is currently obsessed with [Ticket to Ride Europe](https://www.daysofwonder.com/tickettoride/en/europe/), so I was excited when I saw the [TidyTuesday Transit Costs Project](https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-01-05/readme.md) data `r emoji::emoji("steam_locomotive")`.
 
 ### Glimpse into the Data
 
@@ -283,7 +283,7 @@ LIMIT 10
 
 ### Using Your SQL Knowledge
 
-Let's use SQL to get a few columns of the `transit_cost` table for `Denmark` (DK) and `Turkey` (TR). My kid's favourite route in *Ticket to Ride* is Kobenhavn-Erzurum so he can use the high scoring tunnel, which gets him 21 points `r emo::ji("hooray")`!
+Let's use SQL to get a few columns of the `transit_cost` table for `Denmark` (DK) and `Turkey` (TR). My kid's favourite route in *Ticket to Ride* is Kobenhavn-Erzurum so he can use the high scoring tunnel, which gets him 21 points `r emoji::emoji("raised_hands")`!
 
 ````
 ```{sql, connection = ttr_con} `r ''`
@@ -317,7 +317,7 @@ ORDER BY start_year, country
 
 We can also pass data between code blocks by using the <span style="color: #5196b4;background-color:#f4e4e7">`ouput.var`</span> variable in a code block.
 
-For example, below we use a SQL query (in a `{sql, connection = ttr_con}` code block) but the result is stored in a variable which is subsequently used in an `{r}` code chunk. How cool is that! `r emo::ji("cool")` `r emo::ji("flex")`
+For example, below we use a SQL query (in a `{sql, connection = ttr_con}` code block) but the result is stored in a variable which is subsequently used in an `{r}` code chunk. How cool is that! `r emoji::emoji("sunglasses")` `r emoji::emoji("muscle")`
 
 ````
 ```{sql, connection = ttr_con,  output.var = "transit_subset"} `r ''`
@@ -511,11 +511,11 @@ query(
 )
 ```
 
-We get the results of our query on a data frame! `r emo::ji("wow")` `r emo::ji("munch")` 
+We get the results of our query on a data frame! `r emoji::emoji("open_mouth")` `r emoji::emoji("scream")` 
 
 ### tidyquery::show_dplyr()
 
-The package also has a <span style="color: #5196b4;background-color:#f4e4e7">`show_dplyr()`</span> function to let you see how to use {dplyr} verbs to get equivalent output as your SQL query `r emo::ji("exclamation")` `r emo::ji("stars")`.
+The package also has a <span style="color: #5196b4;background-color:#f4e4e7">`show_dplyr()`</span> function to let you see how to use {dplyr} verbs to get equivalent output as your SQL query `r emoji::emoji("heart_exclamation")` `r emoji::emoji("stars")`.
 
 - Call <span style="color: #5196b4;background-color:#f4e4e7">`show_dplyr()`</span>
 - Pass in a SQL query in `""` as an argument.
@@ -539,7 +539,7 @@ We get the {dplyr} pipeline!
 
 ### Toggle to {dplyr} from SQL
 
-Copying and pasting this {dplyr} pipeline into an `{r}` code chunk results in the same output! Nice, eh? `r emo::ji("tada")`
+Copying and pasting this {dplyr} pipeline into an `{r}` code chunk results in the same output! Nice, eh? `r emoji::emoji("tada")`
 
 ```{r}
 transit_cost %>%
@@ -583,7 +583,7 @@ show_dplyr(
 ```
 
 
-Copying and pasting the {dplyr} code produced here also works like the bomb! `r emo::ji("bomb")`
+Copying and pasting the {dplyr} code produced here also works like the bomb! `r emoji::emoji("bomb")`
 
 ```{r}
 transit_cost %>%

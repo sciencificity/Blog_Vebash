@@ -20,19 +20,19 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -52,7 +52,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
@@ -87,31 +87,31 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   <!--radix_placeholder_meta_tags-->
   <title>Using the tidyverse with Databases - Part III</title>
-  
+
   <meta property="description" itemprop="description" content="Setting up, and connecting to a Star Wars MySQL Database"/>
-  
-  
+
+
   <!--  https://schema.org/Article -->
   <meta property="article:published" itemprop="datePublished" content="2020-12-31"/>
   <meta property="article:created" itemprop="dateCreated" content="2020-12-31"/>
   <meta name="article:author" content="Vebash Naidoo"/>
-  
+
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="Using the tidyverse with Databases - Part III"/>
   <meta property="og:type" content="article"/>
   <meta property="og:description" content="Setting up, and connecting to a Star Wars MySQL Database"/>
   <meta property="og:image" content="https://sciencificity-blog.netlify.app/jens-johnsson-OFpzBycm3u0-unsplash.jpg"/>
   <meta property="og:locale" content="en_US"/>
-  
+
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary_large_image"/>
   <meta property="twitter:title" content="Using the tidyverse with Databases - Part III"/>
   <meta property="twitter:description" content="Setting up, and connecting to a Star Wars MySQL Database"/>
   <meta property="twitter:image" content="https://sciencificity-blog.netlify.app/jens-johnsson-OFpzBycm3u0-unsplash.jpg"/>
-  
+
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
-  
+
   <script type="text/json" id="radix-rmarkdown-metadata">
   {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","base_url","output","categories","preview","draft"]}},"value":[{"type":"character","attributes":{},"value":["Using the tidyverse with Databases - Part III"]},{"type":"character","attributes":{},"value":["Setting up, and connecting to a Star Wars MySQL Database\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Vebash Naidoo"]},{"type":"character","attributes":{},"value":["https://twitter.com/Sciencificity"]},{"type":"character","attributes":{},"value":["R-Ladies Johannesburg"]},{"type":"character","attributes":{},"value":["https://twitter.com/RLadiesJozi"]}]}]},{"type":"character","attributes":{},"value":["2020-12-31"]},{"type":"character","attributes":{},"value":["https://sciencificity-blog.netlify.app/"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","toc_depth","self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[3]},{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["SQL","databases","tidyverse","dbplyr","MySQL","MariaDB"]},{"type":"character","attributes":{},"value":["jens-johnsson-OFpzBycm3u0-unsplash.jpg"]},{"type":"logical","attributes":{},"value":[false]}]}
   </script>
@@ -123,41 +123,41 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
   <!--radix_placeholder_distill-->
-  
+
   <style type="text/css">
-  
+
   body {
     background-color: white;
   }
-  
+
   .pandoc-table {
     width: 100%;
   }
-  
+
   .pandoc-table>caption {
     margin-bottom: 10px;
   }
-  
+
   .pandoc-table th:not([align]) {
     text-align: left;
   }
-  
+
   .pagedtable-footer {
     font-size: 15px;
   }
-  
+
   d-byline .byline {
     grid-template-columns: 2fr 2fr;
   }
-  
+
   d-byline .byline h3 {
     margin-block-start: 1.5em;
   }
-  
+
   d-byline .byline .authors-affiliations h3 {
     margin-block-start: 0.5em;
   }
-  
+
   .authors-affiliations .orcid-id {
     width: 16px;
     height:16px;
@@ -166,12 +166,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     vertical-align: middle;
     padding-bottom: 2px;
   }
-  
+
   d-title .dt-tags {
     margin-top: 1em;
     grid-column: text;
   }
-  
+
   .dt-tags .dt-tag {
     text-decoration: none;
     display: inline-block;
@@ -185,24 +185,24 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     text-transform: uppercase;
     font-weight: 500;
   }
-  
+
   d-article table.gt_table td,
   d-article table.gt_table th {
     border-bottom: none;
   }
-  
+
   .html-widget {
     margin-bottom: 2.0em;
   }
-  
+
   .l-screen-inset {
     padding-right: 16px;
   }
-  
+
   .l-screen .caption {
     margin-left: 10px;
   }
-  
+
   .shaded {
     background: rgb(247, 247, 247);
     padding-top: 20px;
@@ -210,75 +210,75 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   }
-  
+
   .shaded .html-widget {
     margin-bottom: 0;
     border: 1px solid rgba(0, 0, 0, 0.1);
   }
-  
+
   .shaded .shaded-content {
     background: white;
   }
-  
+
   .text-output {
     margin-top: 0;
     line-height: 1.5em;
   }
-  
+
   .hidden {
     display: none !important;
   }
-  
+
   d-article {
     padding-top: 2.5rem;
     padding-bottom: 30px;
   }
-  
+
   d-appendix {
     padding-top: 30px;
   }
-  
+
   d-article>p>img {
     width: 100%;
   }
-  
+
   d-article h2 {
     margin: 1rem 0 1.5rem 0;
   }
-  
+
   d-article h3 {
     margin-top: 1.5rem;
   }
-  
+
   d-article iframe {
     border: 1px solid rgba(0, 0, 0, 0.1);
     margin-bottom: 2.0em;
     width: 100%;
   }
-  
+
   /* Tweak code blocks */
-  
+
   d-article div.sourceCode code,
   d-article pre code {
     font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   }
-  
+
   d-article pre,
   d-article div.sourceCode,
   d-article div.sourceCode pre {
     overflow: auto;
   }
-  
+
   d-article div.sourceCode {
     background-color: white;
   }
-  
+
   d-article div.sourceCode pre {
     padding-left: 10px;
     font-size: 12px;
     border-left: 2px solid rgba(0,0,0,0.1);
   }
-  
+
   d-article pre {
     font-size: 12px;
     color: black;
@@ -290,45 +290,50 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     word-break: normal;
     word-wrap: normal;
     line-height: 1.5;
-  
+
     -moz-tab-size: 4;
     -o-tab-size: 4;
     tab-size: 4;
-  
+
     -webkit-hyphens: none;
     -moz-hyphens: none;
     -ms-hyphens: none;
     hyphens: none;
   }
-  
+
   d-article pre a {
     border-bottom: none;
   }
-  
+
   d-article pre a:hover {
     border-bottom: none;
     text-decoration: underline;
   }
-  
+
+  d-article details {
+    grid-column: text;
+    margin-bottom: 0.8em;
+  }
+
   @media(min-width: 768px) {
-  
+
   d-article pre,
   d-article div.sourceCode,
   d-article div.sourceCode pre {
     overflow: visible !important;
   }
-  
+
   d-article div.sourceCode pre {
     padding-left: 18px;
     font-size: 14px;
   }
-  
+
   d-article pre {
     font-size: 14px;
   }
-  
+
   }
-  
+
   figure img.external {
     background: white;
     border: 1px solid rgba(0, 0, 0, 0.1);
@@ -336,9 +341,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     padding: 18px;
     box-sizing: border-box;
   }
-  
+
   /* CSS for d-contents */
-  
+
   .d-contents {
     grid-column: text;
     color: rgba(0,0,0,0.8);
@@ -350,7 +355,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     padding-left: 0.25em;
     justify-self: start;
   }
-  
+
   @media(min-width: 1000px) {
     .d-contents.d-contents-float {
       height: 0;
@@ -361,82 +366,82 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
       padding-left: 2em;
     }
   }
-  
+
   .d-contents nav h3 {
     font-size: 18px;
     margin-top: 0;
     margin-bottom: 1em;
   }
-  
+
   .d-contents li {
     list-style-type: none
   }
-  
+
   .d-contents nav > ul {
     padding-left: 0;
   }
-  
+
   .d-contents ul {
     padding-left: 1em
   }
-  
+
   .d-contents nav ul li {
     margin-top: 0.6em;
     margin-bottom: 0.2em;
   }
-  
+
   .d-contents nav a {
     font-size: 13px;
     border-bottom: none;
     text-decoration: none
     color: rgba(0, 0, 0, 0.8);
   }
-  
+
   .d-contents nav a:hover {
     text-decoration: underline solid rgba(0, 0, 0, 0.6)
   }
-  
+
   .d-contents nav > ul > li > a {
     font-weight: 600;
   }
-  
+
   .d-contents nav > ul > li > ul {
     font-weight: inherit;
   }
-  
+
   .d-contents nav > ul > li > ul > li {
     margin-top: 0.2em;
   }
-  
-  
+
+
   .d-contents nav ul {
     margin-top: 0;
     margin-bottom: 0.25em;
   }
-  
+
   .d-article-with-toc h2:nth-child(2) {
     margin-top: 0;
   }
-  
-  
+
+
   /* Figure */
-  
+
   .figure {
     position: relative;
     margin-bottom: 2.5em;
     margin-top: 1.5em;
   }
-  
+
   .figure img {
     width: 100%;
   }
-  
+
   .figure .caption {
     color: rgba(0, 0, 0, 0.6);
     font-size: 12px;
     line-height: 1.5em;
   }
-  
+
   .figure img.external {
     background: white;
     border: 1px solid rgba(0, 0, 0, 0.1);
@@ -444,31 +449,42 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     padding: 18px;
     box-sizing: border-box;
   }
-  
+
   .figure .caption a {
     color: rgba(0, 0, 0, 0.6);
   }
-  
+
   .figure .caption b,
   .figure .caption strong, {
     font-weight: 600;
     color: rgba(0, 0, 0, 1.0);
   }
-  
+
   /* Citations */
-  
+
   d-article .citation {
     color: inherit;
     cursor: inherit;
   }
-  
+
   div.hanging-indent{
     margin-left: 1em; text-indent: -1em;
   }
-  
-  
+
+  /* Citation hover box */
+
+  .tippy-box[data-theme~=light-border] {
+    background-color: rgba(250, 250, 250, 0.95);
+  }
+
+  .tippy-content > p {
+    margin-bottom: 0;
+    padding: 2px;
+  }
+
+
   /* Tweak 1000px media break to show more text */
-  
+
   @media(min-width: 1000px) {
     .base-grid,
     distill-header,
@@ -484,11 +500,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
       grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
       grid-column-gap: 16px;
     }
-  
+
     .grid {
       grid-column-gap: 16px;
     }
-  
+
     d-article {
       font-size: 1.06rem;
       line-height: 1.7em;
@@ -497,7 +513,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
       font-size: 13px;
     }
   }
-  
+
   @media(min-width: 1180px) {
     .base-grid,
     distill-header,
@@ -513,16 +529,16 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
       grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
       grid-column-gap: 32px;
     }
-  
+
     .grid {
       grid-column-gap: 32px;
     }
   }
-  
-  
+
+
   /* Get the citation styles for the appendix (not auto-injected on render since
      we do our own rendering of the citation appendix) */
-  
+
   d-appendix .citation-appendix,
   .d-appendix .citation-appendix {
     font-size: 11px;
@@ -539,9 +555,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     white-space: pre-wrap;
     word-wrap: break-word;
   }
-  
+
   /* Include appendix styles here so they can be overridden */
-  
+
   d-appendix {
     contain: layout style;
     font-size: 0.8em;
@@ -553,7 +569,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     padding-top: 60px;
     padding-bottom: 48px;
   }
-  
+
   d-appendix h3 {
     grid-column: page-start / text-start;
     font-size: 15px;
@@ -562,59 +578,59 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     margin-bottom: 0;
     color: rgba(0,0,0,0.65);
   }
-  
+
   d-appendix h3 + * {
     margin-top: 1em;
   }
-  
+
   d-appendix ol {
     padding: 0 0 0 15px;
   }
-  
+
   @media (min-width: 768px) {
     d-appendix ol {
       padding: 0 0 0 30px;
       margin-left: -30px;
     }
   }
-  
+
   d-appendix li {
     margin-bottom: 1em;
   }
-  
+
   d-appendix a {
     color: rgba(0, 0, 0, 0.6);
   }
-  
+
   d-appendix > * {
     grid-column: text;
   }
-  
+
   d-appendix > d-footnote-list,
   d-appendix > d-citation-list,
   d-appendix > distill-appendix {
     grid-column: screen;
   }
-  
+
   /* Include footnote styles here so they can be overridden */
-  
+
   d-footnote-list {
     contain: layout style;
   }
-  
+
   d-footnote-list > * {
     grid-column: text;
   }
-  
+
   d-footnote-list a.footnote-backlink {
     color: rgba(0,0,0,0.3);
     padding-left: 0.5em;
   }
-  
-  
-  
+
+
+
   /* Anchor.js */
-  
+
   .anchorjs-link {
     /*transition: all .25s linear; */
     text-decoration: none;
@@ -625,86 +641,86 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     text-decoration: none;
     border-bottom: none;
   }
-  
+
   /* Social footer */
-  
+
   .social_footer {
     margin-top: 30px;
     margin-bottom: 0;
     color: rgba(0,0,0,0.67);
   }
-  
+
   .disqus-comments {
     margin-right: 30px;
   }
-  
+
   .disqus-comment-count {
     border-bottom: 1px solid rgba(0, 0, 0, 0.4);
     cursor: pointer;
   }
-  
+
   #disqus_thread {
     margin-top: 30px;
   }
-  
+
   .article-sharing a {
     border-bottom: none;
     margin-right: 8px;
   }
-  
+
   .article-sharing a:hover {
     border-bottom: none;
   }
-  
+
   .sidebar-section.subscribe {
     font-size: 12px;
     line-height: 1.6em;
   }
-  
+
   .subscribe p {
     margin-bottom: 0.5em;
   }
-  
-  
+
+
   .article-footer .subscribe {
     font-size: 15px;
     margin-top: 45px;
   }
-  
-  
+
+
   .sidebar-section.custom {
     font-size: 12px;
     line-height: 1.6em;
   }
-  
+
   .custom p {
     margin-bottom: 0.5em;
   }
-  
+
   /* Styles for listing layout (hide title) */
   .layout-listing d-title, .layout-listing .d-title {
     display: none;
   }
-  
+
   /* Styles for posts lists (not auto-injected) */
-  
-  
+
+
   .posts-with-sidebar {
     padding-left: 45px;
     padding-right: 45px;
   }
-  
+
   .posts-list .description h2,
   .posts-list .description p {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
   }
-  
+
   .posts-list .description h2 {
     font-weight: 700;
     border-bottom: none;
     padding-bottom: 0;
   }
-  
+
   .posts-list h2.post-tag {
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     padding-bottom: 12px;
@@ -713,7 +729,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     margin-top: 60px;
     margin-bottom: 24px;
   }
-  
+
   .posts-list .post-preview {
     text-decoration: none;
     overflow: hidden;
@@ -721,29 +737,29 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     padding: 24px 0;
   }
-  
+
   .post-preview-last {
     border-bottom: none !important;
   }
-  
+
   .posts-list .posts-list-caption {
     grid-column: screen;
     font-weight: 400;
   }
-  
+
   .posts-list .post-preview h2 {
     margin: 0 0 6px 0;
     line-height: 1.2em;
     font-style: normal;
     font-size: 24px;
   }
-  
+
   .posts-list .post-preview p {
     margin: 0 0 12px 0;
     line-height: 1.4em;
     font-size: 16px;
   }
-  
+
   .posts-list .post-preview .thumbnail {
     box-sizing: border-box;
     margin-bottom: 24px;
@@ -754,32 +770,32 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     width: 100%;
     display: block;
   }
-  
+
   .posts-list .metadata {
     font-size: 12px;
     line-height: 1.4em;
     margin-bottom: 18px;
   }
-  
+
   .posts-list .metadata > * {
     display: inline-block;
   }
-  
+
   .posts-list .metadata .publishedDate {
     margin-right: 2em;
   }
-  
+
   .posts-list .metadata .dt-authors {
     display: block;
     margin-top: 0.3em;
     margin-right: 2em;
   }
-  
+
   .posts-list .dt-tags {
     display: block;
     line-height: 1em;
   }
-  
+
   .posts-list .dt-tags .dt-tag {
     display: inline-block;
     color: rgba(0,0,0,0.6);
@@ -792,24 +808,24 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     text-transform: uppercase;
     font-weight: 500;
   }
-  
+
   .posts-list img {
     opacity: 1;
   }
-  
+
   .posts-list img[data-src] {
     opacity: 0;
   }
-  
+
   .posts-more {
     clear: both;
   }
-  
-  
+
+
   .posts-sidebar {
     font-size: 16px;
   }
-  
+
   .posts-sidebar h3 {
     font-size: 16px;
     margin-top: 0;
@@ -817,39 +833,39 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     font-weight: 400;
     text-transform: uppercase;
   }
-  
+
   .sidebar-section {
     margin-bottom: 30px;
   }
-  
+
   .categories ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
   }
-  
+
   .categories li {
     color: rgba(0, 0, 0, 0.8);
     margin-bottom: 0;
   }
-  
+
   .categories li>a {
     border-bottom: none;
   }
-  
+
   .categories li>a:hover {
     border-bottom: 1px solid rgba(0, 0, 0, 0.4);
   }
-  
+
   .categories .active {
     font-weight: 600;
   }
-  
+
   .categories .category-count {
     color: rgba(0, 0, 0, 0.4);
   }
-  
-  
+
+
   @media(min-width: 768px) {
     .posts-list .post-preview h2 {
       font-size: 26px;
@@ -885,55 +901,55 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
       padding-bottom: 24px;
     }
   }
-  
-  
+
+
   /* Improve display for browsers without grid (IE/Edge <= 15) */
-  
+
   .downlevel {
     line-height: 1.6em;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
     margin: 0;
   }
-  
+
   .downlevel .d-title {
     padding-top: 6rem;
     padding-bottom: 1.5rem;
   }
-  
+
   .downlevel .d-title h1 {
     font-size: 50px;
     font-weight: 700;
     line-height: 1.1em;
     margin: 0 0 0.5rem;
   }
-  
+
   .downlevel .d-title p {
     font-weight: 300;
     font-size: 1.2rem;
     line-height: 1.55em;
     margin-top: 0;
   }
-  
+
   .downlevel .d-byline {
     padding-top: 0.8em;
     padding-bottom: 0.8em;
     font-size: 0.8rem;
     line-height: 1.8em;
   }
-  
+
   .downlevel .section-separator {
     border: none;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
   }
-  
+
   .downlevel .d-article {
     font-size: 1.06rem;
     line-height: 1.7em;
     padding-top: 1rem;
     padding-bottom: 2rem;
   }
-  
-  
+
+
   .downlevel .d-appendix {
     padding-left: 0;
     padding-right: 0;
@@ -945,11 +961,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     padding-top: 40px;
     padding-bottom: 48px;
   }
-  
+
   .downlevel .footnotes ol {
     padding-left: 13px;
   }
-  
+
   .downlevel .base-grid,
   .downlevel .distill-header,
   .downlevel .d-title,
@@ -966,7 +982,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     padding-left: 40px;
     padding-right: 40px;
   }
-  
+
   @media(min-width: 768px) {
     .downlevel .base-grid,
     .downlevel .distill-header,
@@ -986,14 +1002,14 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     max-width: 900px;
   }
   }
-  
+
   .downlevel pre code {
     display: block;
     border-left: 2px solid rgba(0, 0, 0, .1);
     padding: 0 0 0 20px;
     font-size: 14px;
   }
-  
+
   .downlevel code, .downlevel pre {
     color: black;
     background: none;
@@ -1004,27 +1020,27 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     word-break: normal;
     word-wrap: normal;
     line-height: 1.5;
-  
+
     -moz-tab-size: 4;
     -o-tab-size: 4;
     tab-size: 4;
-  
+
     -webkit-hyphens: none;
     -moz-hyphens: none;
     -ms-hyphens: none;
     hyphens: none;
   }
-  
+
   .downlevel .posts-list .post-preview {
     color: inherit;
   }
-  
-  
-  
+
+
+
   </style>
-  
+
   <script type="application/javascript">
-  
+
   function is_downlevel_browser() {
     if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
                                    window.navigator.userAgent)) {
@@ -1033,20 +1049,20 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
       return window.load_distill_framework === undefined;
     }
   }
-  
+
   // show body when load is complete
   function on_load_complete() {
-  
+
     // add anchors
     if (window.anchors) {
       window.anchors.options.placement = 'left';
       window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
     }
-  
-  
+
+
     // set body to visible
     document.body.style.visibility = 'visible';
-  
+
     // force redraw for leaflet widgets
     if (window.HTMLWidgets) {
       var maps = window.HTMLWidgets.findAll(".leaflet");
@@ -1059,39 +1075,39 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
         });
       });
     }
-  
+
     // trigger 'shown' so htmlwidgets resize
     $('d-article').trigger('shown');
   }
-  
+
   function init_distill() {
-  
+
     init_common();
-  
+
     // create front matter
     var front_matter = $('<d-front-matter></d-front-matter>');
     $('#distill-front-matter').wrap(front_matter);
-  
+
     // create d-title
     $('.d-title').changeElementType('d-title');
-  
+
     // create d-byline
     var byline = $('<d-byline></d-byline>');
     $('.d-byline').replaceWith(byline);
-  
+
     // create d-article
     var article = $('<d-article></d-article>');
     $('.d-article').wrap(article).children().unwrap();
-  
+
     // move posts container into article
     $('.posts-container').appendTo($('d-article'));
-  
+
     // create d-appendix
     $('.d-appendix').changeElementType('d-appendix');
-  
+
     // flag indicating that we have appendix items
     var appendix = $('.appendix-bottom').children('h3').length > 0;
-  
+
     // replace footnotes with <d-footnote>
     $('.footnote-ref').each(function(i, val) {
       appendix = true;
@@ -1107,10 +1123,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     });
     // remove footnotes
     $('.footnotes').remove();
-  
+
     // move refs into #references-listing
     $('#references-listing').replaceWith($('#refs'));
-  
+
     $('h1.appendix, h2.appendix').each(function(i, val) {
       $(this).changeElementType('h3');
     });
@@ -1120,18 +1136,18 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
       appendix = true;
       $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
     });
-  
+
     // show d-appendix if we have appendix content
     $("d-appendix").css('display', appendix ? 'grid' : 'none');
-  
+
     // localize layout chunks to just output
     $('.layout-chunk').each(function(i, val) {
-  
+
       // capture layout
       var layout = $(this).attr('data-layout');
-  
+
       // apply layout to markdown level block elements
-      var elements = $(this).children().not('div.sourceCode, pre, script');
+      var elements = $(this).children().not('details, div.sourceCode, pre, script');
       elements.each(function(i, el) {
         var layout_div = $('<div class="' + layout + '"></div>');
         if (layout_div.hasClass('shaded')) {
@@ -1142,40 +1158,40 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
           $(this).wrap(layout_div);
         }
       });
-  
-  
+
+
       // unwrap the layout-chunk div
       $(this).children().unwrap();
     });
-  
+
     // remove code block used to force  highlighting css
     $('.distill-force-highlighting-css').parent().remove();
-  
+
     // remove empty line numbers inserted by pandoc when using a
     // custom syntax highlighting theme
     $('code.sourceCode a:empty').remove();
-  
+
     // load distill framework
     load_distill_framework();
-  
+
     // wait for window.distillRunlevel == 4 to do post processing
     function distill_post_process() {
-  
+
       if (!window.distillRunlevel || window.distillRunlevel < 4)
         return;
-  
+
       // hide author/affiliations entirely if we have no authors
       var front_matter = JSON.parse($("#distill-front-matter").html());
       var have_authors = front_matter.authors && front_matter.authors.length > 0;
       if (!have_authors)
         $('d-byline').addClass('hidden');
-  
+
       // article with toc class
       $('.d-contents').parent().addClass('d-article-with-toc');
-  
+
       // strip links that point to #
       $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
-  
+
       // add orcid ids
       $('.authors-affiliations').find('.author').each(function(i, el) {
         var orcid_id = front_matter.authors[i].orcidID;
@@ -1190,12 +1206,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
           $(this).append(a);
         }
       });
-  
+
       // hide elements of author/affiliations grid that have no value
       function hide_byline_column(caption) {
         $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
       }
-  
+
       // affiliations
       var have_affiliations = false;
       for (var i = 0; i<front_matter.authors.length; ++i) {
@@ -1207,11 +1223,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
       }
       if (!have_affiliations)
         $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
-  
+
       // published date
       if (!front_matter.publishedDate)
         hide_byline_column("Published");
-  
+
       // document object identifier
       var doi = $('d-byline').find('h3:contains("DOI")');
       var doi_p = doi.next().empty();
@@ -1231,54 +1247,68 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
            .html(front_matter.doi)
            .appendTo(doi_p);
       }
-  
+
        // change plural form of authors/affiliations
       if (front_matter.authors.length === 1) {
         var grid = $('.authors-affiliations');
         grid.children('h3:contains("Authors")').text('Author');
         grid.children('h3:contains("Affiliations")').text('Affiliation');
       }
-  
+
       // remove d-appendix and d-footnote-list local styles
       $('d-appendix > style:first-child').remove();
       $('d-footnote-list > style:first-child').remove();
-  
+
       // move appendix-bottom entries to the bottom
       $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
       $('.appendix-bottom').remove();
-  
+
+      // hoverable references
+      $('span.citation[data-cites]').each(function() {
+        var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+        window.tippy(this, {
+          allowHTML: true,
+          content: refHtml,
+          maxWidth: 500,
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        });
+      });
+
       // clear polling timer
       clearInterval(tid);
-  
+
       // show body now that everything is ready
       on_load_complete();
     }
-  
+
     var tid = setInterval(distill_post_process, 50);
     distill_post_process();
-  
+
   }
-  
+
   function init_downlevel() {
-  
+
     init_common();
-  
+
      // insert hr after d-title
     $('.d-title').after($('<hr class="section-separator"/>'));
-  
+
     // check if we have authors
     var front_matter = JSON.parse($("#distill-front-matter").html());
     var have_authors = front_matter.authors && front_matter.authors.length > 0;
-  
+
     // manage byline/border
     if (!have_authors)
       $('.d-byline').remove();
     $('.d-byline').after($('<hr class="section-separator"/>'));
     $('.d-byline a').remove();
-  
+
     // remove toc
     $('.d-contents').remove();
-  
+
     // move appendix elements
     $('h1.appendix, h2.appendix').each(function(i, val) {
       $(this).changeElementType('h3');
@@ -1286,62 +1316,62 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     $('h3.appendix').each(function(i, val) {
       $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
     });
-  
-  
+
+
     // inject headers into references and footnotes
     var refs_header = $('<h3></h3>');
     refs_header.text('References');
     $('#refs').prepend(refs_header);
-  
+
     var footnotes_header = $('<h3></h3');
     footnotes_header.text('Footnotes');
     $('.footnotes').children('hr').first().replaceWith(footnotes_header);
-  
+
     // move appendix-bottom entries to the bottom
     $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
     $('.appendix-bottom').remove();
-  
+
     // remove appendix if it's empty
     if ($('.d-appendix').children().length === 0)
       $('.d-appendix').remove();
-  
+
     // prepend separator above appendix
     $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
-  
+
     // trim code
     $('pre>code').each(function(i, val) {
       $(this).html($.trim($(this).html()));
     });
-  
+
     // move posts-container right before article
     $('.posts-container').insertBefore($('.d-article'));
-  
+
     $('body').addClass('downlevel');
-  
+
     on_load_complete();
   }
-  
-  
+
+
   function init_common() {
-  
+
     // jquery plugin to change element types
     (function($) {
       $.fn.changeElementType = function(newType) {
         var attrs = {};
-  
+
         $.each(this[0].attributes, function(idx, attr) {
           attrs[attr.nodeName] = attr.nodeValue;
         });
-  
+
         this.replaceWith(function() {
           return $("<" + newType + "/>", attrs).append($(this).contents());
         });
       };
     })(jQuery);
-  
+
     // prevent underline for linked images
     $('a > img').parent().css({'border-bottom' : 'none'});
-  
+
     // mark non-body figures created by knitr chunks as 100% width
     $('.layout-chunk').each(function(i, val) {
       var figures = $(this).find('img, .html-widget');
@@ -1353,35 +1383,35 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
           var fig = $(this);
           fig.css('width', fig.attr('width') + 'px');
         });
-  
+
       }
     });
-  
+
     // auto-append index.html to post-preview links in file: protocol
     // and in rstudio ide preview
     $('.post-preview').each(function(i, val) {
       if (window.location.protocol === "file:")
         $(this).attr('href', $(this).attr('href') + "index.html");
     });
-  
+
     // get rid of index.html references in header
     if (window.location.protocol !== "file:") {
       $('.distill-site-header a[href]').each(function(i,val) {
         $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
       });
     }
-  
+
     // add class to pandoc style tables
     $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
     $('.kable-table').children('table').addClass('pandoc-table');
-  
+
     // add figcaption style to table captions
     $('caption').parent('table').addClass("figcaption");
-  
+
     // initialize posts list
     if (window.init_posts_list)
       window.init_posts_list();
-  
+
     // implmement disqus comment link
     $('.disqus-comment-count').click(function() {
       window.headroom_prevent_pin = true;
@@ -1395,18 +1425,23 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
       }
     });
   }
-  
+
   document.addEventListener('DOMContentLoaded', function() {
     if (is_downlevel_browser())
       init_downlevel();
     else
       window.addEventListener('WebComponentsReady', init_distill);
   });
-  
+
   </script>
-  
+
   <!--/radix_placeholder_distill-->
-  <script src="using-tidyverse-with-dbs-partiii_files/jquery-1.11.3/jquery.min.js"></script>
+  <script src="using-tidyverse-with-dbs-partiii_files/header-attrs-2.11/header-attrs.js"></script>
+  <script src="using-tidyverse-with-dbs-partiii_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script src="using-tidyverse-with-dbs-partiii_files/popper-2.6.0/popper.min.js"></script>
+  <link href="using-tidyverse-with-dbs-partiii_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="using-tidyverse-with-dbs-partiii_files/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="using-tidyverse-with-dbs-partiii_files/tippy-6.2.7/tippy.umd.min.js"></script>
   <script src="using-tidyverse-with-dbs-partiii_files/anchor-4.2.2/anchor.min.js"></script>
   <script src="using-tidyverse-with-dbs-partiii_files/bowser-1.9.3/bowser.min.js"></script>
   <script src="using-tidyverse-with-dbs-partiii_files/webcomponents-2.0.0/webcomponents.js"></script>
@@ -1457,24 +1492,29 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#recap">Recap</a><ul>
+<li><a href="#recap">Recap</a>
+<ul>
 <li><a href="#part-i">Part I</a></li>
 <li><a href="#part-ii">Part II</a></li>
 </ul></li>
 <li><a href="#what-are-we-tackling-in-part-iii">What are we tackling in Part III?</a></li>
-<li><a href="#setup-a-mysql-db">Setup a MySQL DB</a><ul>
+<li><a href="#setup-a-mysql-db">Setup a MySQL DB</a>
+<ul>
 <li><a href="#create-a-local-mysql-instance">Create a local MySQL instance</a></li>
 <li><a href="#our-data">Our data</a></li>
 <li><a href="#create-some-tables">Create some tables</a></li>
 </ul></li>
-<li><a href="#connections-pane"><code>Connections</code> Pane</a><ul>
-<li><a href="#make-a-connection">Make a connection</a><ul>
+<li><a href="#connections-pane"><code>Connections</code> Pane</a>
+<ul>
+<li><a href="#make-a-connection">Make a connection</a>
+<ul>
 <li><a href="#odbc">ODBC</a></li>
 <li><a href="#appropriate-dbi-compliant-package">Appropriate DBI-compliant package</a></li>
 </ul></li>
 <li><a href="#writing-to-a-mysql-database-from-rstudio">Writing to a MySQL Database from RStudio</a></li>
 </ul></li>
-<li><a href="#communicate-with-our-mysql-database">Communicate with our MySQL Database</a><ul>
+<li><a href="#communicate-with-our-mysql-database">Communicate with our MySQL Database</a>
+<ul>
 <li><a href="#connect">Connect</a></li>
 <li><a href="#take-a-look-around">Take a look around</a></li>
 <li><a href="#explore-data">Explore data</a></li>
@@ -1489,6 +1529,32 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!-- Photo preview Credit-->
 <!-- <span>Photo by <a href="https://unsplash.com/@jens_johnsson?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Jens Johnsson</a> on <a href="https://unsplash.com/s/photos/star-wars?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span> -->
 <div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb1"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>blockquote {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background</span>: <span class="cn">#f9f9f9</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">border-left</span>: <span class="dv">10</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">#ccc</span><span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">margin</span>: <span class="dv">1.5</span><span class="dt">em</span> <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">padding</span>: <span class="dv">0.5</span><span class="dt">em</span> <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">quotes</span>: <span class="st">&quot;</span><span class="sc">\201C</span><span class="st">&quot;&quot;</span><span class="sc">\201D</span><span class="st">&quot;&quot;</span><span class="sc">\2018</span><span class="st">&quot;&quot;</span><span class="sc">\2019</span><span class="st">&quot;</span><span class="op">;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>blockquote<span class="in">:before</span> {</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span>: <span class="cn">#ccc</span><span class="op">;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">content</span>: <span class="dv">open-quote</span><span class="op">;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">font-size</span>: <span class="dv">4</span><span class="dt">em</span><span class="op">;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="kw">line-height</span>: <span class="dv">0.1</span><span class="dt">em</span><span class="op">;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="kw">margin-right</span>: <span class="dv">0.25</span><span class="dt">em</span><span class="op">;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="kw">vertical-align</span>: <span class="dv">-0.4</span><span class="dt">em</span><span class="op">;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a># blockquote<span class="in">:after</span> {</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>#   <span class="kw">color</span>: <span class="cn">#ccc</span><span class="op">;</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>#   <span class="kw">content</span>:<span class="st">&quot;</span><span class="sc">\201D</span><span class="st">&quot;</span><span class="op">;</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>#   <span class="kw">font-size</span>: <span class="dv">4</span><span class="dt">em</span><span class="op">;</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>#   <span class="kw">line-height</span>: <span class="dv">0.1</span><span class="dt">em</span><span class="op">;</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>#   <span class="kw">margin-right</span>: <span class="dv">0.25</span><span class="dt">em</span><span class="op">;</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>#   <span class="kw">vertical-align</span>: <span class="dv">-0.4</span><span class="dt">em</span><span class="op">;</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a># }</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>blockquote p {</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  <span class="kw">display</span>: <span class="dv">inline</span><span class="op">;</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <style type="text/css">
 blockquote {
   background: #f9f9f9;
@@ -1587,7 +1653,7 @@ width="600" height="480"></p></li>
 <p>In the {dplyr} 📦 we have a dataset <span style="color: #9d5a61;background-color:#efb087"><b>starwars</b></span> which has information for the characters.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='co'># need to figure out what data is included</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># need to figure out what data is included</span>
 <span class='co'># in a package? </span>
 <span class='co'># Call data(package = "pkg_name")</span>
 <span class='co'># which gives you a nice list of included datasets</span>
@@ -1600,7 +1666,7 @@ alt="Show data included in a package" width = "300"></p>
 <p>Let’s have a squizz at the <a href="https://dplyr.tidyverse.org/reference/starwars.html"><code>starwars</code></a> dataset.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>starwars</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>starwars</span>
 </code></pre>
 </div>
 <pre><code># A tibble: 87 x 14
@@ -1635,11 +1701,12 @@ alt="Show data included in a package" width = "300"></p>
 </ul>
 <p><br></p>
 <div class="layout-chunk" data-layout="l-body">
+<div id="qhvctsjjpf" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#qzobhueiin .gt_table {
+#qhvctsjjpf .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -1664,7 +1731,7 @@ alt="Show data included in a package" width = "300"></p>
   border-left-color: #D3D3D3;
 }
 
-#qzobhueiin .gt_heading {
+#qhvctsjjpf .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1676,7 +1743,7 @@ alt="Show data included in a package" width = "300"></p>
   border-right-color: #D3D3D3;
 }
 
-#qzobhueiin .gt_title {
+#qhvctsjjpf .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1686,23 +1753,23 @@ alt="Show data included in a package" width = "300"></p>
   border-bottom-width: 0;
 }
 
-#qzobhueiin .gt_subtitle {
+#qhvctsjjpf .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
   padding-top: 0;
-  padding-bottom: 4px;
+  padding-bottom: 6px;
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
 
-#qzobhueiin .gt_bottom_border {
+#qhvctsjjpf .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#qzobhueiin .gt_col_headings {
+#qhvctsjjpf .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1717,7 +1784,7 @@ alt="Show data included in a package" width = "300"></p>
   border-right-color: #D3D3D3;
 }
 
-#qzobhueiin .gt_col_heading {
+#qhvctsjjpf .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1737,7 +1804,7 @@ alt="Show data included in a package" width = "300"></p>
   overflow-x: hidden;
 }
 
-#qzobhueiin .gt_column_spanner_outer {
+#qhvctsjjpf .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1749,30 +1816,30 @@ alt="Show data included in a package" width = "300"></p>
   padding-right: 4px;
 }
 
-#qzobhueiin .gt_column_spanner_outer:first-child {
+#qhvctsjjpf .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#qzobhueiin .gt_column_spanner_outer:last-child {
+#qhvctsjjpf .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#qzobhueiin .gt_column_spanner {
+#qhvctsjjpf .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
   vertical-align: bottom;
   padding-top: 5px;
-  padding-bottom: 6px;
+  padding-bottom: 5px;
   overflow-x: hidden;
   display: inline-block;
   width: 100%;
 }
 
-#qzobhueiin .gt_group_heading {
+#qhvctsjjpf .gt_group_heading {
   padding: 8px;
   color: #333333;
-  background-color: #ADEFD1FF;
+  background-color: #ADEFD1;
   font-size: 100%;
   font-weight: initial;
   text-transform: inherit;
@@ -1791,10 +1858,10 @@ alt="Show data included in a package" width = "300"></p>
   vertical-align: middle;
 }
 
-#qzobhueiin .gt_empty_group_heading {
+#qhvctsjjpf .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
-  background-color: #ADEFD1FF;
+  background-color: #ADEFD1;
   font-size: 100%;
   font-weight: initial;
   border-top-style: solid;
@@ -1806,15 +1873,15 @@ alt="Show data included in a package" width = "300"></p>
   vertical-align: middle;
 }
 
-#qzobhueiin .gt_from_md > :first-child {
+#qhvctsjjpf .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#qzobhueiin .gt_from_md > :last-child {
+#qhvctsjjpf .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#qzobhueiin .gt_row {
+#qhvctsjjpf .gt_row {
   padding-top: 3px;
   padding-bottom: 3px;
   padding-left: 5px;
@@ -1833,7 +1900,7 @@ alt="Show data included in a package" width = "300"></p>
   overflow-x: hidden;
 }
 
-#qzobhueiin .gt_stub {
+#qhvctsjjpf .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1845,7 +1912,7 @@ alt="Show data included in a package" width = "300"></p>
   padding-left: 12px;
 }
 
-#qzobhueiin .gt_summary_row {
+#qhvctsjjpf .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1855,7 +1922,7 @@ alt="Show data included in a package" width = "300"></p>
   padding-right: 5px;
 }
 
-#qzobhueiin .gt_first_summary_row {
+#qhvctsjjpf .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1865,7 +1932,7 @@ alt="Show data included in a package" width = "300"></p>
   border-top-color: #D3D3D3;
 }
 
-#qzobhueiin .gt_grand_summary_row {
+#qhvctsjjpf .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1875,7 +1942,7 @@ alt="Show data included in a package" width = "300"></p>
   padding-right: 5px;
 }
 
-#qzobhueiin .gt_first_grand_summary_row {
+#qhvctsjjpf .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1885,11 +1952,11 @@ alt="Show data included in a package" width = "300"></p>
   border-top-color: #D3D3D3;
 }
 
-#qzobhueiin .gt_striped {
+#qhvctsjjpf .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#qzobhueiin .gt_table_body {
+#qhvctsjjpf .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1898,7 +1965,7 @@ alt="Show data included in a package" width = "300"></p>
   border-bottom-color: #D3D3D3;
 }
 
-#qzobhueiin .gt_footnotes {
+#qhvctsjjpf .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1912,13 +1979,13 @@ alt="Show data included in a package" width = "300"></p>
   border-right-color: #D3D3D3;
 }
 
-#qzobhueiin .gt_footnote {
+#qhvctsjjpf .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#qzobhueiin .gt_sourcenotes {
+#qhvctsjjpf .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1932,53 +1999,52 @@ alt="Show data included in a package" width = "300"></p>
   border-right-color: #D3D3D3;
 }
 
-#qzobhueiin .gt_sourcenote {
+#qhvctsjjpf .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#qzobhueiin .gt_left {
+#qhvctsjjpf .gt_left {
   text-align: left;
 }
 
-#qzobhueiin .gt_center {
+#qhvctsjjpf .gt_center {
   text-align: center;
 }
 
-#qzobhueiin .gt_right {
+#qhvctsjjpf .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#qzobhueiin .gt_font_normal {
+#qhvctsjjpf .gt_font_normal {
   font-weight: normal;
 }
 
-#qzobhueiin .gt_font_bold {
+#qhvctsjjpf .gt_font_bold {
   font-weight: bold;
 }
 
-#qzobhueiin .gt_font_italic {
+#qhvctsjjpf .gt_font_italic {
   font-style: italic;
 }
 
-#qzobhueiin .gt_super {
+#qhvctsjjpf .gt_super {
   font-size: 65%;
 }
 
-#qzobhueiin .gt_footnote_marks {
+#qhvctsjjpf .gt_footnote_marks {
   font-style: italic;
+  font-weight: normal;
   font-size: 65%;
 }
 </style>
-<div id="qzobhueiin" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<table class="gt_table">
   <thead class="gt_header">
     <tr>
-      <th colspan="3" class="gt_heading gt_title gt_font_normal" style>Data Dictionary for the Star Wars Database</th>
+      <th colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>Data Dictionary for the Star Wars Database</th>
     </tr>
-    <tr>
-      <th colspan="3" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style></th>
-    </tr>
+    
   </thead>
   <thead class="gt_col_headings">
     <tr>
@@ -1991,398 +2057,257 @@ alt="Show data included in a package" width = "300"></p>
     <tr class="gt_group_heading_row">
       <td colspan="3" class="gt_group_heading">films</td>
     </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">id</td>
-      <td class="gt_row gt_left">integer</td>
-      <td class="gt_row gt_left">Identification field for the film e.g. 5</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">films</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">Movie Name e.g. "The Empire Strikes Back"</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">year</td>
-      <td class="gt_row gt_left">double</td>
-      <td class="gt_row gt_left">Year movie was released e.g. 1980</td>
-    </tr>
+    <tr><td class="gt_row gt_left gt_stub">id</td>
+<td class="gt_row gt_left">integer</td>
+<td class="gt_row gt_left">Identification field for the film e.g. 5</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">films</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">Movie Name e.g. "The Empire Strikes Back"</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">year</td>
+<td class="gt_row gt_left">double</td>
+<td class="gt_row gt_left">Year movie was released e.g. 1980</td></tr>
     <tr class="gt_group_heading_row">
       <td colspan="3" class="gt_group_heading">vehicles</td>
     </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">id</td>
-      <td class="gt_row gt_left">integer</td>
-      <td class="gt_row gt_left">Identification field for the vehicle e.g. 3</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">vehicles</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">Name of vehicle e.g. "Tribubble bongo"</td>
-    </tr>
+    <tr><td class="gt_row gt_left gt_stub">id</td>
+<td class="gt_row gt_left">integer</td>
+<td class="gt_row gt_left">Identification field for the vehicle e.g. 3</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">vehicles</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">Name of vehicle e.g. "Tribubble bongo"</td></tr>
     <tr class="gt_group_heading_row">
       <td colspan="3" class="gt_group_heading">starships</td>
     </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">id</td>
-      <td class="gt_row gt_left">integer</td>
-      <td class="gt_row gt_left">Identification field for the starship e.g. 10</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">starships</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">Name of starship e.g. "Millennium Falcon"</td>
-    </tr>
+    <tr><td class="gt_row gt_left gt_stub">id</td>
+<td class="gt_row gt_left">integer</td>
+<td class="gt_row gt_left">Identification field for the starship e.g. 10</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">starships</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">Name of starship e.g. "Millennium Falcon"</td></tr>
     <tr class="gt_group_heading_row">
       <td colspan="3" class="gt_group_heading">characters</td>
     </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">name</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">Character Name e.g. Leia Organa</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">height</td>
-      <td class="gt_row gt_left">integer</td>
-      <td class="gt_row gt_left">Height of character</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">mass</td>
-      <td class="gt_row gt_left">double</td>
-      <td class="gt_row gt_left">Mass of character</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">hair_color</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">Hair Color of character</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">skin_color</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">Skin Color of character</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">eye_color</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">Eye Color of character</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">birth_year</td>
-      <td class="gt_row gt_left">double</td>
-      <td class="gt_row gt_left">Birth Year of character</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">sex</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">Sex of character</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">gender</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">Gender of character</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">homeworld</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">Homeworld of character</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">species</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">Species of character</td>
-    </tr>
+    <tr><td class="gt_row gt_left gt_stub">name</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">Character Name e.g. Leia Organa</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">height</td>
+<td class="gt_row gt_left">integer</td>
+<td class="gt_row gt_left">Height of character</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">mass</td>
+<td class="gt_row gt_left">double</td>
+<td class="gt_row gt_left">Mass of character</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">hair_color</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">Hair Color of character</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">skin_color</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">Skin Color of character</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">eye_color</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">Eye Color of character</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">birth_year</td>
+<td class="gt_row gt_left">double</td>
+<td class="gt_row gt_left">Birth Year of character</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">sex</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">Sex of character</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">gender</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">Gender of character</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">homeworld</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">Homeworld of character</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">species</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">Species of character</td></tr>
     <tr class="gt_group_heading_row">
       <td colspan="3" class="gt_group_heading">appearances</td>
     </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">film_id</td>
-      <td class="gt_row gt_left">integer</td>
-      <td class="gt_row gt_left">Link into the films table, e.g. 4 (denoting character appeared in "A New Hope")</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">name</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">Character Name e.g. Leia Organa</td>
-    </tr>
+    <tr><td class="gt_row gt_left gt_stub">film_id</td>
+<td class="gt_row gt_left">integer</td>
+<td class="gt_row gt_left">Link into the films table, e.g. 4 (denoting character appeared in "A New Hope")</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">name</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">Character Name e.g. Leia Organa</td></tr>
     <tr class="gt_group_heading_row">
       <td colspan="3" class="gt_group_heading">vehicles_piloted</td>
     </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">vehicle_id</td>
-      <td class="gt_row gt_left">integer</td>
-      <td class="gt_row gt_left">Link into the vehicles table, e.g. 3 (denoting character drove a "Tribubble bongo")</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">name</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">Character Name e.g. Obi-Wan Kenobi</td>
-    </tr>
+    <tr><td class="gt_row gt_left gt_stub">vehicle_id</td>
+<td class="gt_row gt_left">integer</td>
+<td class="gt_row gt_left">Link into the vehicles table, e.g. 3 (denoting character drove a "Tribubble bongo")</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">name</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">Character Name e.g. Obi-Wan Kenobi</td></tr>
     <tr class="gt_group_heading_row">
       <td colspan="3" class="gt_group_heading">starships_piloted</td>
     </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">starship_id</td>
-      <td class="gt_row gt_left">integer</td>
-      <td class="gt_row gt_left">Link into the starships table, e.g. 10 (denoting character piloted a "Millennium Falcon")</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">name</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">Character Name e.g. Chewbacca</td>
-    </tr>
+    <tr><td class="gt_row gt_left gt_stub">starship_id</td>
+<td class="gt_row gt_left">integer</td>
+<td class="gt_row gt_left">Link into the starships table, e.g. 10 (denoting character piloted a "Millennium Falcon")</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">name</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">Character Name e.g. Chewbacca</td></tr>
     <tr class="gt_group_heading_row">
       <td colspan="3" class="gt_group_heading">survey_levels</td>
     </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">id</td>
-      <td class="gt_row gt_left">integer</td>
-      <td class="gt_row gt_left">Identification for the survey response e.g. 1</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">level</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">The survey response e.g. "Very unfavorably"</td>
-    </tr>
+    <tr><td class="gt_row gt_left gt_stub">id</td>
+<td class="gt_row gt_left">integer</td>
+<td class="gt_row gt_left">Identification for the survey response e.g. 1</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">level</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">The survey response e.g. "Very unfavorably"</td></tr>
     <tr class="gt_group_heading_row">
       <td colspan="3" class="gt_group_heading">survey</td>
     </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">respondent_id</td>
-      <td class="gt_row gt_left">integer</td>
-      <td class="gt_row gt_left">Identification for the survey respondent e.g. 3292879998</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">any_of_6</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">Did respondent watch any of the 6 movies? (Original 6 before reboot) - e.g. Yes, No</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">star_wars_fan</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">Is the respondent a star wars fan? - e.g. Yes, No</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">watched_The Phantom Menace</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">Did the respondent watch said movie? - e.g. Yes, No</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">watched_A New Hope</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">Did the respondent watch said movie? - e.g. Yes, No</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">watched_Attack of the Clones</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">Did the respondent watch said movie? - e.g. Yes, No</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">watched_Return of the Jedi</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">Did the respondent watch said movie? - e.g. Yes, No</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">watched_Revenge of the Sith</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">Did the respondent watch said movie? - e.g. Yes, No</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">watched_The Empire Strikes Back</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">Did the respondent watch said movie? - e.g. Yes, No</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">rank_A New Hope</td>
-      <td class="gt_row gt_left">double</td>
-      <td class="gt_row gt_left">How does the respondent rank the movie? 1=Best, 6 =Worst</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">rank_Attack of the Clones</td>
-      <td class="gt_row gt_left">double</td>
-      <td class="gt_row gt_left">How does the respondent rank the movie? 1=Best, 6 =Worst</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">rank_Return of the Jedi</td>
-      <td class="gt_row gt_left">double</td>
-      <td class="gt_row gt_left">How does the respondent rank the movie? 1=Best, 6 =Worst</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">rank_Revenge of the Sith</td>
-      <td class="gt_row gt_left">double</td>
-      <td class="gt_row gt_left">How does the respondent rank the movie? 1=Best, 6 =Worst</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">rank_The Empire Strikes Back</td>
-      <td class="gt_row gt_left">double</td>
-      <td class="gt_row gt_left">How does the respondent rank the movie? 1=Best, 6 =Worst</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">rank_The Phantom Menace</td>
-      <td class="gt_row gt_left">double</td>
-      <td class="gt_row gt_left">How does the respondent rank the movie? 1=Best, 6 =Worst</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">`Han Solo`</td>
-      <td class="gt_row gt_left">integer</td>
-      <td class="gt_row gt_left">Link into survey_levels table where 5 = Very favorably</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">`Luke Skywalker`</td>
-      <td class="gt_row gt_left">integer</td>
-      <td class="gt_row gt_left">Link into survey_levels table where 5 = Very favorably</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">`Leia Organa`</td>
-      <td class="gt_row gt_left">integer</td>
-      <td class="gt_row gt_left">Link into survey_levels table where 5 = Very favorably</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">`Anakin Skywalker`</td>
-      <td class="gt_row gt_left">integer</td>
-      <td class="gt_row gt_left">Link into survey_levels table where 5 = Very favorably</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">`Obi-Wan Kenobi`</td>
-      <td class="gt_row gt_left">integer</td>
-      <td class="gt_row gt_left">Link into survey_levels table where 5 = Very favorably</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">`Palpatine`</td>
-      <td class="gt_row gt_left">integer</td>
-      <td class="gt_row gt_left">Link into survey_levels table where 5 = Very favorably</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">`Darth Vader`</td>
-      <td class="gt_row gt_left">integer</td>
-      <td class="gt_row gt_left">Link into survey_levels table where 5 = Very favorably</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">`Lando Calrissian`</td>
-      <td class="gt_row gt_left">integer</td>
-      <td class="gt_row gt_left">Link into survey_levels table where 5 = Very favorably</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">`Boba Fett`</td>
-      <td class="gt_row gt_left">integer</td>
-      <td class="gt_row gt_left">Link into survey_levels table where 5 = Very favorably</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">`C-3P0`</td>
-      <td class="gt_row gt_left">integer</td>
-      <td class="gt_row gt_left">Link into survey_levels table where 5 = Very favorably</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">`R2-D2`</td>
-      <td class="gt_row gt_left">integer</td>
-      <td class="gt_row gt_left">Link into survey_levels table where 5 = Very favorably</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">`Jar Jar Binks`</td>
-      <td class="gt_row gt_left">integer</td>
-      <td class="gt_row gt_left">Link into survey_levels table where 5 = Very favorably</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">`Padme Amidala`</td>
-      <td class="gt_row gt_left">integer</td>
-      <td class="gt_row gt_left">Link into survey_levels table where 5 = Very favorably</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">`Yoda`</td>
-      <td class="gt_row gt_left">integer</td>
-      <td class="gt_row gt_left">Link into survey_levels table where 5 = Very favorably</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">who_shot_first</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">Han, Greedo, or "I don't understand the question"</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">know_expanded_universe</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">Does respondent know the expanded universe? Yes / No</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">fan_expanded_universe</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">Does respondent like the expanded universe? Yes / No</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">trekkie</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">Is respondent a Star Trek fan? Yes / No</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">Gender</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">Gender e.g. Male</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">Age</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">Age range e.g. 30-44</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">Household Income</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">Income range e.g. $50,000 - $99,999</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">Education</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">Education level e.g. Some college or Associate degree</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">Location (Census Region)</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">Location of respondent e.g. East South Central</td>
-    </tr>
+    <tr><td class="gt_row gt_left gt_stub">respondent_id</td>
+<td class="gt_row gt_left">integer</td>
+<td class="gt_row gt_left">Identification for the survey respondent e.g. 3292879998</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">any_of_6</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">Did respondent watch any of the 6 movies? (Original 6 before reboot) - e.g. Yes, No</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">star_wars_fan</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">Is the respondent a star wars fan? - e.g. Yes, No</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">watched_The Phantom Menace</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">Did the respondent watch said movie? - e.g. Yes, No</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">watched_A New Hope</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">Did the respondent watch said movie? - e.g. Yes, No</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">watched_Attack of the Clones</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">Did the respondent watch said movie? - e.g. Yes, No</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">watched_Return of the Jedi</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">Did the respondent watch said movie? - e.g. Yes, No</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">watched_Revenge of the Sith</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">Did the respondent watch said movie? - e.g. Yes, No</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">watched_The Empire Strikes Back</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">Did the respondent watch said movie? - e.g. Yes, No</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">rank_A New Hope</td>
+<td class="gt_row gt_left">double</td>
+<td class="gt_row gt_left">How does the respondent rank the movie? 1=Best, 6 =Worst</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">rank_Attack of the Clones</td>
+<td class="gt_row gt_left">double</td>
+<td class="gt_row gt_left">How does the respondent rank the movie? 1=Best, 6 =Worst</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">rank_Return of the Jedi</td>
+<td class="gt_row gt_left">double</td>
+<td class="gt_row gt_left">How does the respondent rank the movie? 1=Best, 6 =Worst</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">rank_Revenge of the Sith</td>
+<td class="gt_row gt_left">double</td>
+<td class="gt_row gt_left">How does the respondent rank the movie? 1=Best, 6 =Worst</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">rank_The Empire Strikes Back</td>
+<td class="gt_row gt_left">double</td>
+<td class="gt_row gt_left">How does the respondent rank the movie? 1=Best, 6 =Worst</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">rank_The Phantom Menace</td>
+<td class="gt_row gt_left">double</td>
+<td class="gt_row gt_left">How does the respondent rank the movie? 1=Best, 6 =Worst</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">`Han Solo`</td>
+<td class="gt_row gt_left">integer</td>
+<td class="gt_row gt_left">Link into survey_levels table where 5 = Very favorably</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">`Luke Skywalker`</td>
+<td class="gt_row gt_left">integer</td>
+<td class="gt_row gt_left">Link into survey_levels table where 5 = Very favorably</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">`Leia Organa`</td>
+<td class="gt_row gt_left">integer</td>
+<td class="gt_row gt_left">Link into survey_levels table where 5 = Very favorably</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">`Anakin Skywalker`</td>
+<td class="gt_row gt_left">integer</td>
+<td class="gt_row gt_left">Link into survey_levels table where 5 = Very favorably</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">`Obi-Wan Kenobi`</td>
+<td class="gt_row gt_left">integer</td>
+<td class="gt_row gt_left">Link into survey_levels table where 5 = Very favorably</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">`Palpatine`</td>
+<td class="gt_row gt_left">integer</td>
+<td class="gt_row gt_left">Link into survey_levels table where 5 = Very favorably</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">`Darth Vader`</td>
+<td class="gt_row gt_left">integer</td>
+<td class="gt_row gt_left">Link into survey_levels table where 5 = Very favorably</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">`Lando Calrissian`</td>
+<td class="gt_row gt_left">integer</td>
+<td class="gt_row gt_left">Link into survey_levels table where 5 = Very favorably</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">`Boba Fett`</td>
+<td class="gt_row gt_left">integer</td>
+<td class="gt_row gt_left">Link into survey_levels table where 5 = Very favorably</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">`C-3P0`</td>
+<td class="gt_row gt_left">integer</td>
+<td class="gt_row gt_left">Link into survey_levels table where 5 = Very favorably</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">`R2-D2`</td>
+<td class="gt_row gt_left">integer</td>
+<td class="gt_row gt_left">Link into survey_levels table where 5 = Very favorably</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">`Jar Jar Binks`</td>
+<td class="gt_row gt_left">integer</td>
+<td class="gt_row gt_left">Link into survey_levels table where 5 = Very favorably</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">`Padme Amidala`</td>
+<td class="gt_row gt_left">integer</td>
+<td class="gt_row gt_left">Link into survey_levels table where 5 = Very favorably</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">`Yoda`</td>
+<td class="gt_row gt_left">integer</td>
+<td class="gt_row gt_left">Link into survey_levels table where 5 = Very favorably</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">who_shot_first</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">Han, Greedo, or "I don't understand the question"</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">know_expanded_universe</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">Does respondent know the expanded universe? Yes / No</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">fan_expanded_universe</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">Does respondent like the expanded universe? Yes / No</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">trekkie</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">Is respondent a Star Trek fan? Yes / No</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">Gender</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">Gender e.g. Male</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">Age</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">Age range e.g. 30-44</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">Household Income</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">Income range e.g. $50,000 - $99,999</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">Education</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">Education level e.g. Some college or Associate degree</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">Location (Census Region)</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">Location of respondent e.g. East South Central</td></tr>
     <tr class="gt_group_heading_row">
       <td colspan="3" class="gt_group_heading">franchise</td>
     </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">franchise</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">Star Wars</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">revenue_category</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">Category of revenue generation e.g. Book sales</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">revenue_billion_dollars</td>
-      <td class="gt_row gt_left">double</td>
-      <td class="gt_row gt_left">Revenue earned from category, in billions of dollars</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">year_created</td>
-      <td class="gt_row gt_left">double</td>
-      <td class="gt_row gt_left">Year the franchise was created</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">original_media</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">Original media the franchise was released on e.g. Book, Film</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">creators</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">Who created the franchise</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left gt_stub">owners</td>
-      <td class="gt_row gt_left">string</td>
-      <td class="gt_row gt_left">The owners of the franchise</td>
-    </tr>
+    <tr><td class="gt_row gt_left gt_stub">franchise</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">Star Wars</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">revenue_category</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">Category of revenue generation e.g. Book sales</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">revenue_billion_dollars</td>
+<td class="gt_row gt_left">double</td>
+<td class="gt_row gt_left">Revenue earned from category, in billions of dollars</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">year_created</td>
+<td class="gt_row gt_left">double</td>
+<td class="gt_row gt_left">Year the franchise was created</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">original_media</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">Original media the franchise was released on e.g. Book, Film</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">creators</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">Who created the franchise</td></tr>
+    <tr><td class="gt_row gt_left gt_stub">owners</td>
+<td class="gt_row gt_left">string</td>
+<td class="gt_row gt_left">The owners of the franchise</td></tr>
   </tbody>
   
   
-</table></div>
+</table>
+</div>
 </div>
 <h2 id="create-some-tables">Create some tables</h2>
 <p>Here’s an example of how I created the <em>films</em>, and the associated <em>appearances</em> tables.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='op'>(</span><span class='va'>films</span> <span class='op'>&lt;-</span> <span class='va'>starwars</span> <span class='op'>%&gt;%</span>  
+<pre class="sourceCode r"><code class="sourceCode r"><span class='op'>(</span><span class='va'>films</span> <span class='op'>&lt;-</span> <span class='va'>starwars</span> <span class='op'>%&gt;%</span>  
   <span class='co'># get the films column which contains lists of values</span>
   <span class='fu'>select</span><span class='op'>(</span><span class='va'>films</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='co'># flatten the films list - this will create multiple rows for</span>
@@ -2403,7 +2328,7 @@ alt="Show data included in a package" width = "300"></p>
 6 Attack of the Clones   
 7 The Phantom Menace     </code></pre>
 <div class="sourceCode">
-<pre><code><span class='va'>film_years</span> <span class='op'>&lt;-</span> <span class='fu'>tribble</span><span class='op'>(</span><span class='op'>~</span><span class='va'>name</span>,      <span class='op'>~</span><span class='va'>year</span>,
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>film_years</span> <span class='op'>&lt;-</span> <span class='fu'>tribble</span><span class='op'>(</span><span class='op'>~</span><span class='va'>name</span>,      <span class='op'>~</span><span class='va'>year</span>,
         <span class='co'>#------------------------#------</span>
         <span class='st'>"The Empire Strikes Back"</span>, <span class='fl'>1980</span>,
         <span class='st'>"Revenge of the Sith"</span>    , <span class='fl'>2005</span>,
@@ -2445,7 +2370,7 @@ alt="Show data included in a package" width = "300"></p>
 6     6 Return of the Jedi       1983
 7     7 The Force Awakens        2015</code></pre>
 <div class="sourceCode">
-<pre><code><span class='op'>(</span><span class='va'>appearances</span> <span class='op'>&lt;-</span> <span class='va'>starwars</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='op'>(</span><span class='va'>appearances</span> <span class='op'>&lt;-</span> <span class='va'>starwars</span> <span class='op'>%&gt;%</span> 
   <span class='co'># let's save the characters appearances in the movies</span>
   <span class='fu'>select</span><span class='op'>(</span><span class='va'>name</span>, <span class='va'>films</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='co'># we end up with {character_name, film} for every film the character appears in</span>
@@ -2494,8 +2419,8 @@ alt="Show data included in a package" width = "300"></p>
 <p>We use the connection string generated via the <code>Connections</code> Pane to connect to our MySQL DB, and write our data frames into database tables.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='co'># Load libraries</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://r-dbi.github.io/DBI'>DBI</a></span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Load libraries</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dbi.r-dbi.org'>DBI</a></span><span class='op'>)</span>
 <span class='co'># Make a connection</span>
 <span class='va'>con</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dbi.r-dbi.org/reference/dbConnect.html'>dbConnect</a></span><span class='op'>(</span><span class='fu'>odbc</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/odbc/man/odbc.html'>odbc</a></span><span class='op'>(</span><span class='op'>)</span>, 
   .connection_string <span class='op'>=</span> <span class='st'>"Driver={MySQL ODBC 8.0 Unicode Driver};
@@ -2515,7 +2440,7 @@ DBI is the <b>D</b>ata<b>B</b>ase <b>I</b>nterface 📦 for R. Instead of using 
 </aside>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='co'># Make a connection</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Make a connection</span>
 <span class='va'>con</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dbi.r-dbi.org/reference/dbConnect.html'>dbConnect</a></span><span class='op'>(</span>drv <span class='op'>=</span> <span class='fu'>RMariaDB</span><span class='fu'>::</span><span class='fu'><a href='https://rmariadb.r-dbi.org/reference/dbConnect-MariaDBDriver-method.html'>MariaDB</a></span><span class='op'>(</span><span class='op'>)</span>, 
                  host <span class='op'>=</span> <span class='st'>"localhost"</span>, 
                  port <span class='op'>=</span> <span class='st'>"3306"</span>,
@@ -2531,7 +2456,7 @@ DBI is the <b>D</b>ata<b>B</b>ase <b>I</b>nterface 📦 for R. Instead of using 
 <p>Once we have connected to the database, we’re ready to write our data frames into tables in the DBMS.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='co'># Write data frames we created to actual tables in the database</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Write data frames we created to actual tables in the database</span>
 <span class='fu'>DBI</span><span class='fu'>::</span><span class='fu'><a href='https://dbi.r-dbi.org/reference/dbWriteTable.html'>dbWriteTable</a></span><span class='op'>(</span>conn <span class='op'>=</span> <span class='va'>con</span>, 
                   <span class='st'>"films"</span>, <span class='co'># name of table in database</span>
                   <span class='va'>films</span>,   <span class='co'># the data frame</span>
@@ -2549,8 +2474,8 @@ DBI is the <b>D</b>ata<b>B</b>ase <b>I</b>nterface 📦 for R. Instead of using 
 <p>As before the first step is connecting.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='co'># Load libraries</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://r-dbi.github.io/DBI'>DBI</a></span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Load libraries</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dbi.r-dbi.org'>DBI</a></span><span class='op'>)</span>
 <span class='co'># Make a connection</span>
 <span class='va'>con</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dbi.r-dbi.org/reference/dbConnect.html'>dbConnect</a></span><span class='op'>(</span><span class='fu'>odbc</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/odbc/man/odbc.html'>odbc</a></span><span class='op'>(</span><span class='op'>)</span>, 
   .connection_string <span class='op'>=</span> <span class='st'>"Driver={MySQL ODBC 8.0 Unicode Driver};
@@ -2568,7 +2493,7 @@ DBI is the <b>D</b>ata<b>B</b>ase <b>I</b>nterface 📦 for R. Instead of using 
  [7] &quot;survey&quot;            &quot;survey_levels&quot;     &quot;vehicles&quot;         
 [10] &quot;vehicles_piloted&quot; </code></pre>
 <div class="sourceCode">
-<pre><code><span class='fu'><a href='https://dbi.r-dbi.org/reference/dbListFields.html'>dbListFields</a></span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"characters"</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://dbi.r-dbi.org/reference/dbListFields.html'>dbListFields</a></span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"characters"</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code> [1] &quot;name&quot;       &quot;height&quot;     &quot;mass&quot;       &quot;hair_color&quot; &quot;skin_color&quot;
@@ -2579,7 +2504,7 @@ DBI is the <b>D</b>ata<b>B</b>ase <b>I</b>nterface 📦 for R. Instead of using 
 <p>Let’s get familiar with our data.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='fu'>tbl</span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"characters"</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>tbl</span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"characters"</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code># Source:   table&lt;characters&gt; [?? x 11]
@@ -2599,7 +2524,7 @@ DBI is the <b>D</b>ata<b>B</b>ase <b>I</b>nterface 📦 for R. Instead of using 
 # ... with more rows, and 3 more variables: gender &lt;chr&gt;,
 #   homeworld &lt;chr&gt;, species &lt;chr&gt;</code></pre>
 <div class="sourceCode">
-<pre><code><span class='fu'>tbl</span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"films"</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>tbl</span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"films"</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code># Source:   table&lt;films&gt; [?? x 3]
@@ -2614,7 +2539,7 @@ DBI is the <b>D</b>ata<b>B</b>ase <b>I</b>nterface 📦 for R. Instead of using 
 6     6 Return of the Jedi       1983
 7     7 The Force Awakens        2015</code></pre>
 <div class="sourceCode">
-<pre><code><span class='fu'>tbl</span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"appearances"</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>tbl</span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"appearances"</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code># Source:   table&lt;appearances&gt; [?? x 2]
@@ -2642,7 +2567,7 @@ DBI is the <b>D</b>ata<b>B</b>ase <b>I</b>nterface 📦 for R. Instead of using 
 <p>The <a href="https://github.com/rfordatascience/tidytuesday/tree/master/data/2018/2018-05-14">TidyTuesday Star Wars survey dataset</a> we used, was based on this <a href="https://fivethirtyeight.com/features/americas-favorite-star-wars-movies-and-least-favorite-characters/">FiveThirtyEight article</a>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='op'>(</span><span class='va'>svy_levels</span> <span class='op'>&lt;-</span> <span class='fu'>tbl</span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"survey_levels"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='op'>(</span><span class='va'>svy_levels</span> <span class='op'>&lt;-</span> <span class='fu'>tbl</span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"survey_levels"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>collect</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
@@ -2656,7 +2581,7 @@ DBI is the <b>D</b>ata<b>B</b>ase <b>I</b>nterface 📦 for R. Instead of using 
 5     6 Unfamiliar (N/A)                           
 6     1 Very unfavorably                           </code></pre>
 <div class="sourceCode">
-<pre><code><span class='op'>(</span><span class='va'>character_survey</span> <span class='op'>&lt;-</span> <span class='fu'>tbl</span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"survey"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='op'>(</span><span class='va'>character_survey</span> <span class='op'>&lt;-</span> <span class='fu'>tbl</span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"survey"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='co'># Let's subset the rows to only those who claim they are fans of</span>
   <span class='co'># the franchise</span>
   <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>any_of_6</span> <span class='op'>==</span> <span class='st'>"Yes"</span>, <span class='va'>star_wars_fan</span> <span class='op'>==</span> <span class='st'>"Yes"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
@@ -2690,7 +2615,7 @@ DBI is the <b>D</b>ata<b>B</b>ase <b>I</b>nterface 📦 for R. Instead of using 
 10    3292879998 18-29 Male              C-3P0             5 Very fav~
 # ... with 7,647 more rows</code></pre>
 <div class="sourceCode">
-<pre><code><span class='co'># We want to only get the character info for the characters in the survey</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># We want to only get the character info for the characters in the survey</span>
 <span class='co'># So we want to basically say `WHERE name IN (...)`</span>
 <span class='co'># This code is setting that up</span>
 <span class='va'>characters</span> <span class='op'>&lt;-</span> <span class='va'>character_survey</span> <span class='op'>%&gt;%</span> 
@@ -2707,7 +2632,7 @@ DBI is the <b>D</b>ata<b>B</b>ase <b>I</b>nterface 📦 for R. Instead of using 
 </div>
 <pre><code>(&#39;Han Solo&#39;, &#39;Luke Skywalker&#39;, &#39;Leia Organa&#39;, &#39;Anakin Skywalker&#39;, &#39;Obi-Wan Kenobi&#39;, &#39;Palpatine&#39;, &#39;Darth Vader&#39;, &#39;Lando Calrissian&#39;, &#39;Boba Fett&#39;, &#39;C-3P0&#39;, &#39;R2-D2&#39;, &#39;Jar Jar Binks&#39;, &#39;Padme Amidala&#39;, &#39;Yoda&#39;)</code></pre>
 <div class="sourceCode">
-<pre><code><span class='va'>char_query</span> <span class='op'>&lt;-</span> <span class='fu'>tbl</span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"characters"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>char_query</span> <span class='op'>&lt;-</span> <span class='fu'>tbl</span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"characters"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>inner_join</span><span class='op'>(</span><span class='fu'>tbl</span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"appearances"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>inner_join</span><span class='op'>(</span><span class='fu'>tbl</span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"films"</span><span class='op'>)</span>,
              by <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"film_id"</span> <span class='op'>=</span> <span class='st'>"id"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
@@ -2734,29 +2659,29 @@ ON (`LHS`.`film_id` = `RHS`.`id`)
 ) `q01`) `q02`
 WHERE (`name` IN (&#39;Han Solo&#39;, &#39;Luke Skywalker&#39;, &#39;Leia Organa&#39;, &#39;Anakin Skywalker&#39;, &#39;Obi-Wan Kenobi&#39;, &#39;Palpatine&#39;, &#39;Darth Vader&#39;, &#39;Lando Calrissian&#39;, &#39;Boba Fett&#39;, &#39;C-3P0&#39;, &#39;R2-D2&#39;, &#39;Jar Jar Binks&#39;, &#39;Padme Amidala&#39;, &#39;Yoda&#39;))</code></pre>
 <div class="sourceCode">
-<pre><code><span class='op'>(</span><span class='va'>character_info</span> <span class='op'>&lt;-</span> <span class='va'>character_survey</span> <span class='op'>%&gt;%</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='op'>(</span><span class='va'>character_info</span> <span class='op'>&lt;-</span> <span class='va'>character_survey</span> <span class='op'>%&gt;%</span>
   <span class='co'># we only want info for the characters that formed part of the survey</span>
   <span class='fu'>left_join</span><span class='op'>(</span><span class='va'>char_query</span> <span class='op'>%&gt;%</span> 
               <span class='fu'>collect</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> 
 </code></pre>
 </div>
 <pre><code># A tibble: 29,012 x 11
-   respondent_id age   respondent_gend~ name  survey_id level gender
-           &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;     &lt;int&gt; &lt;chr&gt; &lt;chr&gt; 
- 1    3292879998 18-29 Male             Han ~         5 Very~ mascu~
- 2    3292879998 18-29 Male             Han ~         5 Very~ mascu~
- 3    3292879998 18-29 Male             Han ~         5 Very~ mascu~
- 4    3292879998 18-29 Male             Han ~         5 Very~ mascu~
- 5    3292879998 18-29 Male             Luke~         5 Very~ mascu~
- 6    3292879998 18-29 Male             Luke~         5 Very~ mascu~
- 7    3292879998 18-29 Male             Luke~         5 Very~ mascu~
- 8    3292879998 18-29 Male             Luke~         5 Very~ mascu~
- 9    3292879998 18-29 Male             Luke~         5 Very~ mascu~
-10    3292879998 18-29 Male             Leia~         5 Very~ femin~
+   respondent_id age   respondent_gender name   survey_id level gender
+           &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;             &lt;chr&gt;      &lt;int&gt; &lt;chr&gt; &lt;chr&gt; 
+ 1    3292879998 18-29 Male              Han S~         5 Very~ mascu~
+ 2    3292879998 18-29 Male              Han S~         5 Very~ mascu~
+ 3    3292879998 18-29 Male              Han S~         5 Very~ mascu~
+ 4    3292879998 18-29 Male              Han S~         5 Very~ mascu~
+ 5    3292879998 18-29 Male              Luke ~         5 Very~ mascu~
+ 6    3292879998 18-29 Male              Luke ~         5 Very~ mascu~
+ 7    3292879998 18-29 Male              Luke ~         5 Very~ mascu~
+ 8    3292879998 18-29 Male              Luke ~         5 Very~ mascu~
+ 9    3292879998 18-29 Male              Luke ~         5 Very~ mascu~
+10    3292879998 18-29 Male              Leia ~         5 Very~ femin~
 # ... with 29,002 more rows, and 4 more variables: homeworld &lt;chr&gt;,
 #   species &lt;chr&gt;, films &lt;chr&gt;, year &lt;dbl&gt;</code></pre>
 <div class="sourceCode">
-<pre><code><span class='va'>character_info</span> <span class='op'>&lt;-</span> <span class='va'>character_info</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>character_info</span> <span class='op'>&lt;-</span> <span class='va'>character_info</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>mutate</span><span class='op'>(</span>name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='va'>name</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='co'># Let's create aggregated survey levels by combining</span>
   <span class='co'># Somewhat favorable and Very favourable into the Favourable category</span>
@@ -2799,7 +2724,7 @@ WHERE (`name` IN (&#39;Han Solo&#39;, &#39;Luke Skywalker&#39;, &#39;Leia Organa
 <p>We’ll create a waffle plot to have a look at how popular the characters are. In a few cases the overall percentage is slightly less than 100%. This is due to rounding quirks.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='co'># remotes::install_github("hrbrmstr/waffle")</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># remotes::install_github("hrbrmstr/waffle")</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://gitlab.com/hrbrmstr/waffle'>waffle</a></span><span class='op'>)</span>
 
 <span class='va'>character_info</span> <span class='op'>%&gt;%</span> 
@@ -2824,7 +2749,7 @@ WHERE (`name` IN (&#39;Han Solo&#39;, &#39;Luke Skywalker&#39;, &#39;Leia Organa
 </div>
 <img src="using-tidyverse-with-dbs-partiii_files/figure-html5/unnamed-chunk-12-1.png" width="110%" height="110%" />
 <div class="sourceCode">
-<pre><code><span class='co'># Check: </span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Check: </span>
 <span class='co'># rounding causing waffle to not be fully filled</span>
 <span class='va'>character_info</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>select</span><span class='op'>(</span><span class='va'>name</span>, <span class='va'>sub_level</span>, <span class='va'>perc</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
@@ -2843,7 +2768,7 @@ WHERE (`name` IN (&#39;Han Solo&#39;, &#39;Luke Skywalker&#39;, &#39;Leia Organa
 <h2 id="done-remember-to-disconnect">Done? Remember to disconnect!</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='co'># Good housekeeping means disconnect</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Good housekeeping means disconnect</span>
 <span class='fu'><a href='https://dbi.r-dbi.org/reference/dbDisconnect.html'>dbDisconnect</a></span><span class='op'>(</span><span class='va'>con</span><span class='op'>)</span>
 </code></pre>
 </div>
@@ -2860,7 +2785,7 @@ WHERE (`name` IN (&#39;Han Solo&#39;, &#39;Luke Skywalker&#39;, &#39;Leia Organa
 <li><a href="https://db.rstudio.com/">RStudio DB Resources</a></li>
 <li>A <a href="https://github.com/sciencificity/reclues">murder mystery SQLite DB</a></li>
 </ul>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

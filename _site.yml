@@ -2,15 +2,17 @@ name: "Blog_Vebash"
 title: "Sciencificity's Blog"
 description: |
   Sciencificity's Blog
+base_url: https://sciencificity-blog.netlify.app
 output_dir: "_site"
 theme: vebash_theme.css
-base_url: https://sciencificity-blog.netlify.app
 navbar:
   right:
     - text: "Home"
       href: index.html
     - text: "About"
       href: about.html
+    - text: "Code Snippets"
+      href: code-snippets.html
     - icon: fa fa-twitter
       href: https://twitter.com/Sciencificity
     - icon: fa fa-github
@@ -22,5 +24,8 @@ output:
   distill::distill_article:
     includes:
       in_header: utterances.html
+twitter:
+  site: "@sciencificity"
+  creator: "@sciencificity"
 rss:
   full_content: true

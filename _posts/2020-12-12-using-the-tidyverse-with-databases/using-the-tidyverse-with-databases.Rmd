@@ -40,21 +40,21 @@ You often have data in a corporate or institutional database (often termed relat
 
 If you use different RDBMS's from different vendors you need to understand how to query that DB using the particular SQL dialect used by that vendor. For example, we use PostgreSQL, and we also use PrestoDB (for Athena on AWS). `JSON` fields in the PostgreSQL DB are ingested as structured nested arrays in AWS and hence when querying the same field we use different query syntax.
 
-You know R, especially the `dplyr` `r emo::ji("package")`. Even though the `dplyr` `r emo::ji("package")` is so well written to mimic the SQL syntax - __select()__, __group_by()__, __left_join()__ etc. there is still a cognitive load when you switch between using R syntax, and SQL syntax (ask me, who has often written `==` in SQL syntax on Athena only to wonder why I am getting an error `r emo::ji("silence")`).
+You know R, especially the `dplyr` `r emoji::emoji("package")`. Even though the `dplyr` `r emoji::emoji("package")` is so well written to mimic the SQL syntax - __select()__, __group_by()__, __left_join()__ etc. there is still a cognitive load when you switch between using R syntax, and SQL syntax (ask me, who has often written `==` in SQL syntax on Athena only to wonder why I am getting an error `r emoji::emoji("zipper_mouth_face")`).
 
 You only have so much memory in your local environment, and may want your RDBMS to do the heavy lifting (most of the computation), and only pull data into R when you need to (e.g. pull in aggregated data to create plots for a report).
 
-In this tutorial you will learn how to use `dbplyr`, which is a database back-end of `dplyr`, to execute queries directly in your RDBMS all the while writing R tidyverse syntax `r emo::ji("wow")` `r emo::ji("star")`.
+In this tutorial you will learn how to use `dbplyr`, which is a database back-end of `dplyr`, to execute queries directly in your RDBMS all the while writing R tidyverse syntax `r emoji::emoji("open_mouth")` `r emoji::emoji("star2")`.
 
 ## Connecting to a Database
 
 ### Packages needed
 
 - DBI: This is the main package which is a Database Interface for R.<br> `install.packages("DBI")`
-- dbplyr: The `r emo::ji("package")` we may use to talk to our database, all the while using `dplyr` syntax in our code.<br>`install.packages("dbplyr")`
+- dbplyr: The `r emoji::emoji("package")` we may use to talk to our database, all the while using `dplyr` syntax in our code.<br>`install.packages("dbplyr")`
 - dplyr: To `select()`, `group_by()` as well as "talk", via the connection we will establish, to a database table.
 - RSQLite: DBI compliant package that allows a connection to a lightweight single user SQLite DB.<br>`install.packages("RSQLite")`
-- Other DBI compliant R packages you may need for your use case - e.g. `RPostgres` is for connecting to a PostgreSQL RDBMS. *Note: Not used in this tutorial (brief overview in slides), and [RStudio's DB Website](https://db.rstudio.com/) is a treasure trove of information* `r emo::ji("technologist")`.
+- Other DBI compliant R packages you may need for your use case - e.g. `RPostgres` is for connecting to a PostgreSQL RDBMS. *Note: Not used in this tutorial (brief overview in slides), and [RStudio's DB Website](https://db.rstudio.com/) is a treasure trove of information* `r emoji::emoji("woman_technologist")`.
 - odbc: This is a DBI compliant interface to allow you to interface to your RDBMS using an odbc driver.*Note: Not used in this tutorial (brief overview in slides), and again [RStudio's DB Website](https://db.rstudio.com/) has useful information in this regard too*!<br>`install.packages("odbc")`
 
 ### The database we'll use
@@ -103,7 +103,7 @@ dbClearResult(res) # clear the result
 
 ### `dplyr` Functions
 
-Ok, let's flex our `dplyr` skills `r emo::ji("smile")`.
+Ok, let's flex our `dplyr` skills `r emoji::emoji("smile")`.
 
 - `tbl(con, "name_of_table")` says using my connection "con" go execute a `SELECT * FROM name_of_table`.
 

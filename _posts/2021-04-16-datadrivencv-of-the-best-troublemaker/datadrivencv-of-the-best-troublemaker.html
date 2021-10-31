@@ -23,6 +23,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -55,7 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -76,13 +77,14 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
+
 
   <!--radix_placeholder_meta_tags-->
   <title>{datadrivencv} of the ultimate (read as 'best') troublemaker</title>
@@ -117,7 +119,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["1.png","amend-rmd.JPG","aside-comm.JPG","community.JPG","copy.JPG","create_cv.JPG","csvs.JPG","datadrivencv-of-the-best-troublemaker_files/anchor-4.2.2/anchor.min.js","datadrivencv-of-the-best-troublemaker_files/bowser-1.9.3/bowser.min.js","datadrivencv-of-the-best-troublemaker_files/distill-2.2.21/template.v2.js","datadrivencv-of-the-best-troublemaker_files/header-attrs-2.7/header-attrs.js","datadrivencv-of-the-best-troublemaker_files/jquery-1.11.3/jquery.min.js","datadrivencv-of-the-best-troublemaker_files/popper-2.6.0/popper.min.js","datadrivencv-of-the-best-troublemaker_files/tippy-6.2.7/tippy-bundle.umd.min.js","datadrivencv-of-the-best-troublemaker_files/tippy-6.2.7/tippy-light-border.css","datadrivencv-of-the-best-troublemaker_files/tippy-6.2.7/tippy.css","datadrivencv-of-the-best-troublemaker_files/tippy-6.2.7/tippy.umd.min.js","datadrivencv-of-the-best-troublemaker_files/webcomponents-2.0.0/webcomponents.js","entries-comm.JPG","entries.JPG","font-awesome.JPG","font-awesome2.JPG","madiba-cv.JPG","nick-cv.JPG","preview.jpg","print-section.JPG","public-access.JPG","pvt-auth.JPG","render-html.JPG","settings.JPG","sheet-public.JPG","text-blocks.JPG"]}
+  {"type":"character","attributes":{},"value":["1.png","amend-rmd.JPG","aside-comm.JPG","community.JPG","copy.JPG","create_cv.JPG","csvs.JPG","datadrivencv-of-the-best-troublemaker_files/anchor-4.2.2/anchor.min.js","datadrivencv-of-the-best-troublemaker_files/bowser-1.9.3/bowser.min.js","datadrivencv-of-the-best-troublemaker_files/distill-2.2.21/template.v2.js","datadrivencv-of-the-best-troublemaker_files/header-attrs-2.11/header-attrs.js","datadrivencv-of-the-best-troublemaker_files/header-attrs-2.7/header-attrs.js","datadrivencv-of-the-best-troublemaker_files/jquery-1.11.3/jquery.min.js","datadrivencv-of-the-best-troublemaker_files/jquery-3.6.0/jquery-3.6.0.js","datadrivencv-of-the-best-troublemaker_files/jquery-3.6.0/jquery-3.6.0.min.js","datadrivencv-of-the-best-troublemaker_files/jquery-3.6.0/jquery-3.6.0.min.map","datadrivencv-of-the-best-troublemaker_files/popper-2.6.0/popper.min.js","datadrivencv-of-the-best-troublemaker_files/tippy-6.2.7/tippy-bundle.umd.min.js","datadrivencv-of-the-best-troublemaker_files/tippy-6.2.7/tippy-light-border.css","datadrivencv-of-the-best-troublemaker_files/tippy-6.2.7/tippy.css","datadrivencv-of-the-best-troublemaker_files/tippy-6.2.7/tippy.umd.min.js","datadrivencv-of-the-best-troublemaker_files/webcomponents-2.0.0/webcomponents.js","entries-comm.JPG","entries.JPG","font-awesome.JPG","font-awesome2.JPG","madiba-cv.JPG","nick-cv.JPG","preview.jpg","print-section.JPG","public-access.JPG","pvt-auth.JPG","render-html.JPG","settings.JPG","sheet-public.JPG","text-blocks.JPG"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1264,7 +1266,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          return "<p>" + $('#ref-' + ref).html() + "</p>";
+        }).join("\n");
         window.tippy(this, {
           allowHTML: true,
           content: refHtml,
@@ -1435,8 +1440,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="datadrivencv-of-the-best-troublemaker_files/header-attrs-2.7/header-attrs.js"></script>
-  <script src="datadrivencv-of-the-best-troublemaker_files/jquery-1.11.3/jquery.min.js"></script>
+  <script src="datadrivencv-of-the-best-troublemaker_files/header-attrs-2.11/header-attrs.js"></script>
+  <script src="datadrivencv-of-the-best-troublemaker_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <script src="datadrivencv-of-the-best-troublemaker_files/popper-2.6.0/popper.min.js"></script>
   <link href="datadrivencv-of-the-best-troublemaker_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="datadrivencv-of-the-best-troublemaker_files/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -1607,12 +1612,12 @@ This is an aside, which renders in the gutter of an article. Your asides will re
 <li><p>Run something similar to the below in your <span style="color: #5196b4;background-color:#f4e4e7">console window</span>, after replacing the names with yours, and also replacing the <code>data_location</code> with the location of where your data is housed (i.e. the URL of your copy of the google sheet data).</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>datadrivencv</span><span class='fu'>::</span><span class='fu'><a href='http://nickstrayer.me/datadrivencv/reference/use_datadriven_cv.html'>use_datadriven_cv</a></span><span class='op'>(</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>datadrivencv</span><span class='fu'>::</span><span class='fu'>use_datadriven_cv</span><span class='op'>(</span>
      full_name <span class='op'>=</span> <span class='st'>"Nelson Mandela"</span>,
      data_location <span class='op'>=</span> <span class='st'>"https://docs.google.com/spreadsheets/d/1_6fzNA6MwDSjUBXjjV7ThJfKEYj8xxJO9i09IV1cVVY/edit#gid=917338460"</span>,
-     pdf_location <span class='op'>=</span> <span class='fu'>here</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/here/man/here.html'>here</a></span><span class='op'>(</span><span class='st'>"nelson-mandela.pdf"</span><span class='op'>)</span>,
-     html_location <span class='op'>=</span> <span class='fu'>here</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/here/man/here.html'>here</a></span><span class='op'>(</span><span class='op'>)</span>,
-     source_location <span class='op'>=</span> <span class='fu'>here</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/here/man/here.html'>here</a></span><span class='op'>(</span><span class='op'>)</span>
+     pdf_location <span class='op'>=</span> <span class='fu'>here</span><span class='fu'>::</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"nelson-mandela.pdf"</span><span class='op'>)</span>,
+     html_location <span class='op'>=</span> <span class='fu'>here</span><span class='fu'>::</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='op'>)</span>,
+     source_location <span class='op'>=</span> <span class='fu'>here</span><span class='fu'>::</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='op'>)</span>
  <span class='op'>)</span>
  </code></pre>
 </div>
@@ -1706,7 +1711,7 @@ Figure 11 - The amended print_section() function in cv_printing_functions.r
 <li><p>In this case we need to <a href="https://googlesheets4.tidyverse.org/articles/articles/auth.html">authenticate</a> for the R session.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>googlesheets4</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/googlesheets4/man/gs4_auth.html'>gs4_auth</a></span><span class='op'>(</span>email <span class='op'>=</span> <span class='st'>"test@gmail.com"</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>googlesheets4</span><span class='fu'>::</span><span class='fu'><a href='https://googlesheets4.tidyverse.org/reference/gs4_auth.html'>gs4_auth</a></span><span class='op'>(</span>email <span class='op'>=</span> <span class='st'>"test@gmail.com"</span><span class='op'>)</span>
  </code></pre>
 </div>
 </div></li>
@@ -1830,16 +1835,16 @@ Figure 19 - Setup the GitHub Pages to host your CV online
 <p>In this post the main packages we used are the following:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://nickstrayer.me/datadrivencv'>datadrivencv</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/tidyverse/googlesheets4'>googlesheets4</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/rstudio/pagedown'>pagedown</a></span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>datadrivencv</span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://googlesheets4.tidyverse.org'>googlesheets4</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>pagedown</span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://magrittr.tidyverse.org'>magrittr</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://readxl.tidyverse.org'>readxl</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://readr.tidyverse.org'>readr</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://yihui.org/knitr/'>knitr</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/tidyverse/glue'>glue</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://gargle.r-lib.org'>gargle</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/krlmlr/here'>here</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://here.r-lib.org/'>here</a></span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>

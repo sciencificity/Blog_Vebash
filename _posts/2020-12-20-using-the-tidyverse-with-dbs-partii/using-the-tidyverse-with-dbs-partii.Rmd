@@ -76,7 +76,7 @@ In [Part I](https://sciencificity-blog.netlify.app/posts/2020-12-12-using-the-ti
 
 # What are we tackling in Part II?
 
-- We'll do more advanced `dplyr` `r emo::ji("package")` workflows.
+- We'll do more advanced `dplyr` `r emoji::emoji("package")` workflows.
 - We'll **collect** the data from the query.
 
 <aside>
@@ -149,7 +149,7 @@ When doing joins we want to find the common columns across the two tables that w
 
 - In <span style="color: #5196b4;background-color:#f4e4e7">results<a href="https://bakeoff.netlify.app/reference/results.html"></a></span> we have `series` and `baker`.
 - In <span style="color: #5196b4;background-color:#f4e4e7">baker_results<a href="https://bakeoff.netlify.app/reference/baker_results.html"></a></span> we have `series` and `baker`.
-- `r emo::ji("question")` `r emo::ji("thinking")` Why didn't I also choose the `episode` column of <span style="color: #5196b4;background-color:#f4e4e7">results</span> as a join column? <br> `r emo::ji("check")` Yes, that column is not in `baker_results`, since `baker_results` contains data about how the baker did overall in the series they appeared, that is, one row per baker. <br>The `results` data however, contains info per baker, per episode, for the series they appeared in - i.e. if they flopped (were `OUT` `r emo::ji("wink")`), in the second episode of a series that contained 10 episodes, their name would appear 10 times in the `results` table, but their "result" value will be `NA` from episode 3 onwards.
+- `r emoji::emoji("question")` `r emoji::emoji("thinking")` Why didn't I also choose the `episode` column of <span style="color: #5196b4;background-color:#f4e4e7">results</span> as a join column? <br> `r emoji::emoji("white_check_mark")` Yes, that column is not in `baker_results`, since `baker_results` contains data about how the baker did overall in the series they appeared, that is, one row per baker. <br>The `results` data however, contains info per baker, per episode, for the series they appeared in - i.e. if they flopped (were `OUT` `r emoji::emoji("wink")`), in the second episode of a series that contained 10 episodes, their name would appear 10 times in the `results` table, but their "result" value will be `NA` from episode 3 onwards.
 
 ### Remember the `tbl(con, "tbl_name")` always
 
@@ -172,7 +172,7 @@ Notice that all columns of <span style="color: #5196b4;background-color:#f4e4e7"
 
 #### Common mistake
 
-I included the above to show that each time we "talk" to a table we must do so through our connection, because I often make the mistake of not including the `tbl(con, "name_of_tbl_i_am_joining")` in the __join__ function. I, more times than I care to admit `r emo::ji("exasperation")`, __incorrectly__ write:
+I included the above to show that each time we "talk" to a table we must do so through our connection, because I often make the mistake of not including the `tbl(con, "name_of_tbl_i_am_joining")` in the __join__ function. I, more times than I care to admit `r emoji::emoji("woman_facepalming")`, __incorrectly__ write:
 
 <pre>
   tbl(con, "table1") %>% # correct -> "talk" through connection
@@ -180,7 +180,7 @@ I included the above to show that each time we "talk" to a table we must do so t
           by = c("tbl1_name1" = "tbl2_name1"))
 </pre>
 
-I would like to help you, not repeat my mistake `r emo::ji("confused")`, so heads up <span style="color: #FFE4E1;background-color:#FD5800">AVOID THE FOLLOWING</span> `r emo::ji("stop")`:
+I would like to help you, not repeat my mistake `r emoji::emoji("confused")`, so heads up <span style="color: #FFE4E1;background-color:#FD5800">AVOID THE FOLLOWING</span> `r emoji::emoji("stop_sign")`:
 
 ```{r, error = TRUE}
 tbl(con, "baker_results") %>% # use connection to "talk" to baker_results
@@ -244,7 +244,7 @@ Now finally, we are ready to bring our filtered and joined data into R by using 
   collect())
 ```
 
-How about that? Notice the __A tibble: 24 x 24__! R now, has the data in it's local environment, and can definitively tell us it knows there are 24 observations (no more _lazy query_) `r emo::ji("smile")`.
+How about that? Notice the __A tibble: 24 x 24__! R now, has the data in it's local environment, and can definitively tell us it knows there are 24 observations (no more _lazy query_) `r emoji::emoji("smile")`.
 
 ### Visualise Data
 
