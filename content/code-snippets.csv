@@ -1,3 +1,4 @@
 title,src,url,description,tags,All,R
 ggplot2: put data on log scale,images/log.JPG,https://sciencificity.github.io/scale-ggplot-code-snippet/index.html,ggplot2: Put data on a log scale,R,1,1
 Read Password Protected Files in R,images/imattsmart-Vp3oWLsPOss-unsplash.jpg,https://github.com/sciencificity/read-password-protected-xl,Read Password Protected Excel files in R,R; Read Password Protected Excel,1,1
+Raw Strings in R,images/mae-mu--dyxcGiP-rE-unsplash1.jpg,https://sciencificity.github.io/raw-strings-r/,"In Version 4.0.0 of R raw strings were added r""(...)""",R; Raw Strings in R,1,1
