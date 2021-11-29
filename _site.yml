@@ -3,6 +3,7 @@ title: "Sciencificity's Blog"
 description: |
   Sciencificity's Blog
 base_url: https://sciencificity-blog.netlify.app
+#google_analytics: "G-M7LK6SGRXM"
 output_dir: "_site"
 theme: vebash_theme.css
 navbar:
