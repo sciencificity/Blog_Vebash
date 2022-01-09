@@ -56,7 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -77,13 +77,14 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
+
 
   <!--radix_placeholder_meta_tags-->
 <title>Sciencificity's Blog: Using the tidyverse with Databases - Part III</title>
@@ -131,7 +132,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["connection_odbc.gif","connection_pane_perks.gif","data_dictionary.xlsx","data_pkg.JPG","data_pkg1.JPG","freestocks-CH6-cfiY2Yo-unsplash.jpg","hello-i-m-nik-F3E5Bkq0JUY-unsplash.jpg","hermes-rivera-7kuBDaMoRL4-unsplash.jpg","install1.JPG","install2.JPG","install3.JPG","jens-johnsson-OFpzBycm3u0-unsplash.jpg","jonas-allert-1bI5qgPV1eU-unsplash.jpg","marija-zaric-RO9swiZgqeg-unsplash.jpg","mysql1.JPG","using-tidyverse-with-dbs-partiii_files/anchor-4.2.2/anchor.min.js","using-tidyverse-with-dbs-partiii_files/bowser-1.9.3/bowser.min.js","using-tidyverse-with-dbs-partiii_files/distill-2.2.21/template.v2.js","using-tidyverse-with-dbs-partiii_files/figure-html5/unnamed-chunk-12-1.png","using-tidyverse-with-dbs-partiii_files/jquery-1.11.3/jquery.min.js","using-tidyverse-with-dbs-partiii_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["connection_odbc.gif","connection_pane_perks.gif","data_dictionary.xlsx","data_pkg.JPG","data_pkg1.JPG","freestocks-CH6-cfiY2Yo-unsplash.jpg","hello-i-m-nik-F3E5Bkq0JUY-unsplash.jpg","hermes-rivera-7kuBDaMoRL4-unsplash.jpg","install1.JPG","install2.JPG","install3.JPG","jens-johnsson-OFpzBycm3u0-unsplash.jpg","jonas-allert-1bI5qgPV1eU-unsplash.jpg","marija-zaric-RO9swiZgqeg-unsplash.jpg","mysql1.JPG","using-tidyverse-with-dbs-partiii_files/anchor-4.2.2/anchor.min.js","using-tidyverse-with-dbs-partiii_files/bowser-1.9.3/bowser.min.js","using-tidyverse-with-dbs-partiii_files/distill-2.2.21/template.v2.js","using-tidyverse-with-dbs-partiii_files/figure-html5/unnamed-chunk-12-1.png","using-tidyverse-with-dbs-partiii_files/header-attrs-2.11/header-attrs.js","using-tidyverse-with-dbs-partiii_files/jquery-1.11.3/jquery.min.js","using-tidyverse-with-dbs-partiii_files/jquery-3.6.0/jquery-3.6.0.js","using-tidyverse-with-dbs-partiii_files/jquery-3.6.0/jquery-3.6.0.min.js","using-tidyverse-with-dbs-partiii_files/jquery-3.6.0/jquery-3.6.0.min.map","using-tidyverse-with-dbs-partiii_files/popper-2.6.0/popper.min.js","using-tidyverse-with-dbs-partiii_files/tippy-6.2.7/tippy-bundle.umd.min.js","using-tidyverse-with-dbs-partiii_files/tippy-6.2.7/tippy-light-border.css","using-tidyverse-with-dbs-partiii_files/tippy-6.2.7/tippy.css","using-tidyverse-with-dbs-partiii_files/tippy-6.2.7/tippy.umd.min.js","using-tidyverse-with-dbs-partiii_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -2630,32 +2631,6 @@ d-appendix d-footnote-list a.footnote-backlink {
 <!-- Photo preview Credit-->
 <!-- <span>Photo by <a href="https://unsplash.com/@jens_johnsson?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Jens Johnsson</a> on <a href="https://unsplash.com/s/photos/star-wars?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span> -->
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb1"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>blockquote {</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background</span>: <span class="cn">#f9f9f9</span><span class="op">;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">border-left</span>: <span class="dv">10</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">#ccc</span><span class="op">;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">margin</span>: <span class="dv">1.5</span><span class="dt">em</span> <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">padding</span>: <span class="dv">0.5</span><span class="dt">em</span> <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">quotes</span>: <span class="st">&quot;</span><span class="sc">\201C</span><span class="st">&quot;&quot;</span><span class="sc">\201D</span><span class="st">&quot;&quot;</span><span class="sc">\2018</span><span class="st">&quot;&quot;</span><span class="sc">\2019</span><span class="st">&quot;</span><span class="op">;</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>blockquote<span class="in">:before</span> {</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span>: <span class="cn">#ccc</span><span class="op">;</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">content</span>: <span class="dv">open-quote</span><span class="op">;</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">font-size</span>: <span class="dv">4</span><span class="dt">em</span><span class="op">;</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="kw">line-height</span>: <span class="dv">0.1</span><span class="dt">em</span><span class="op">;</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="kw">margin-right</span>: <span class="dv">0.25</span><span class="dt">em</span><span class="op">;</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="kw">vertical-align</span>: <span class="dv">-0.4</span><span class="dt">em</span><span class="op">;</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a># blockquote<span class="in">:after</span> {</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>#   <span class="kw">color</span>: <span class="cn">#ccc</span><span class="op">;</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>#   <span class="kw">content</span>:<span class="st">&quot;</span><span class="sc">\201D</span><span class="st">&quot;</span><span class="op">;</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>#   <span class="kw">font-size</span>: <span class="dv">4</span><span class="dt">em</span><span class="op">;</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>#   <span class="kw">line-height</span>: <span class="dv">0.1</span><span class="dt">em</span><span class="op">;</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>#   <span class="kw">margin-right</span>: <span class="dv">0.25</span><span class="dt">em</span><span class="op">;</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>#   <span class="kw">vertical-align</span>: <span class="dv">-0.4</span><span class="dt">em</span><span class="op">;</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a># }</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>blockquote p {</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  <span class="kw">display</span>: <span class="dv">inline</span><span class="op">;</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <style type="text/css">
 blockquote {
   background: #f9f9f9;
@@ -2802,12 +2777,12 @@ alt="Show data included in a package" width = "300"></p>
 </ul>
 <p><br></p>
 <div class="layout-chunk" data-layout="l-body">
-<div id="qhvctsjjpf" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="wlwwanwdku" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#qhvctsjjpf .gt_table {
+#wlwwanwdku .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -2832,7 +2807,7 @@ alt="Show data included in a package" width = "300"></p>
   border-left-color: #D3D3D3;
 }
 
-#qhvctsjjpf .gt_heading {
+#wlwwanwdku .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2844,7 +2819,7 @@ alt="Show data included in a package" width = "300"></p>
   border-right-color: #D3D3D3;
 }
 
-#qhvctsjjpf .gt_title {
+#wlwwanwdku .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2854,7 +2829,7 @@ alt="Show data included in a package" width = "300"></p>
   border-bottom-width: 0;
 }
 
-#qhvctsjjpf .gt_subtitle {
+#wlwwanwdku .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2864,13 +2839,13 @@ alt="Show data included in a package" width = "300"></p>
   border-top-width: 0;
 }
 
-#qhvctsjjpf .gt_bottom_border {
+#wlwwanwdku .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#qhvctsjjpf .gt_col_headings {
+#wlwwanwdku .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2885,7 +2860,7 @@ alt="Show data included in a package" width = "300"></p>
   border-right-color: #D3D3D3;
 }
 
-#qhvctsjjpf .gt_col_heading {
+#wlwwanwdku .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2905,7 +2880,7 @@ alt="Show data included in a package" width = "300"></p>
   overflow-x: hidden;
 }
 
-#qhvctsjjpf .gt_column_spanner_outer {
+#wlwwanwdku .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2917,15 +2892,15 @@ alt="Show data included in a package" width = "300"></p>
   padding-right: 4px;
 }
 
-#qhvctsjjpf .gt_column_spanner_outer:first-child {
+#wlwwanwdku .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#qhvctsjjpf .gt_column_spanner_outer:last-child {
+#wlwwanwdku .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#qhvctsjjpf .gt_column_spanner {
+#wlwwanwdku .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2937,7 +2912,7 @@ alt="Show data included in a package" width = "300"></p>
   width: 100%;
 }
 
-#qhvctsjjpf .gt_group_heading {
+#wlwwanwdku .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #ADEFD1;
@@ -2959,7 +2934,7 @@ alt="Show data included in a package" width = "300"></p>
   vertical-align: middle;
 }
 
-#qhvctsjjpf .gt_empty_group_heading {
+#wlwwanwdku .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #ADEFD1;
@@ -2974,15 +2949,15 @@ alt="Show data included in a package" width = "300"></p>
   vertical-align: middle;
 }
 
-#qhvctsjjpf .gt_from_md > :first-child {
+#wlwwanwdku .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#qhvctsjjpf .gt_from_md > :last-child {
+#wlwwanwdku .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#qhvctsjjpf .gt_row {
+#wlwwanwdku .gt_row {
   padding-top: 3px;
   padding-bottom: 3px;
   padding-left: 5px;
@@ -3001,7 +2976,7 @@ alt="Show data included in a package" width = "300"></p>
   overflow-x: hidden;
 }
 
-#qhvctsjjpf .gt_stub {
+#wlwwanwdku .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3013,7 +2988,7 @@ alt="Show data included in a package" width = "300"></p>
   padding-left: 12px;
 }
 
-#qhvctsjjpf .gt_summary_row {
+#wlwwanwdku .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3023,7 +2998,7 @@ alt="Show data included in a package" width = "300"></p>
   padding-right: 5px;
 }
 
-#qhvctsjjpf .gt_first_summary_row {
+#wlwwanwdku .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3033,7 +3008,7 @@ alt="Show data included in a package" width = "300"></p>
   border-top-color: #D3D3D3;
 }
 
-#qhvctsjjpf .gt_grand_summary_row {
+#wlwwanwdku .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3043,7 +3018,7 @@ alt="Show data included in a package" width = "300"></p>
   padding-right: 5px;
 }
 
-#qhvctsjjpf .gt_first_grand_summary_row {
+#wlwwanwdku .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3053,11 +3028,11 @@ alt="Show data included in a package" width = "300"></p>
   border-top-color: #D3D3D3;
 }
 
-#qhvctsjjpf .gt_striped {
+#wlwwanwdku .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#qhvctsjjpf .gt_table_body {
+#wlwwanwdku .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3066,7 +3041,7 @@ alt="Show data included in a package" width = "300"></p>
   border-bottom-color: #D3D3D3;
 }
 
-#qhvctsjjpf .gt_footnotes {
+#wlwwanwdku .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3080,13 +3055,13 @@ alt="Show data included in a package" width = "300"></p>
   border-right-color: #D3D3D3;
 }
 
-#qhvctsjjpf .gt_footnote {
+#wlwwanwdku .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#qhvctsjjpf .gt_sourcenotes {
+#wlwwanwdku .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3100,41 +3075,41 @@ alt="Show data included in a package" width = "300"></p>
   border-right-color: #D3D3D3;
 }
 
-#qhvctsjjpf .gt_sourcenote {
+#wlwwanwdku .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#qhvctsjjpf .gt_left {
+#wlwwanwdku .gt_left {
   text-align: left;
 }
 
-#qhvctsjjpf .gt_center {
+#wlwwanwdku .gt_center {
   text-align: center;
 }
 
-#qhvctsjjpf .gt_right {
+#wlwwanwdku .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#qhvctsjjpf .gt_font_normal {
+#wlwwanwdku .gt_font_normal {
   font-weight: normal;
 }
 
-#qhvctsjjpf .gt_font_bold {
+#wlwwanwdku .gt_font_bold {
   font-weight: bold;
 }
 
-#qhvctsjjpf .gt_font_italic {
+#wlwwanwdku .gt_font_italic {
   font-style: italic;
 }
 
-#qhvctsjjpf .gt_super {
+#wlwwanwdku .gt_super {
   font-size: 65%;
 }
 
-#qhvctsjjpf .gt_footnote_marks {
+#wlwwanwdku .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;
@@ -3886,7 +3861,7 @@ WHERE (`name` IN (&#39;Han Solo&#39;, &#39;Luke Skywalker&#39;, &#39;Leia Organa
 <li><a href="https://db.rstudio.com/">RStudio DB Resources</a></li>
 <li>A <a href="https://github.com/sciencificity/reclues">murder mystery SQLite DB</a></li>
 </ul>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <div class="article-footer">
   <p class="social_footer">

@@ -28,7 +28,7 @@ draft: false
 <!-- Photo preview Credit-->
 <!-- <span>Photo by <a href="https://unsplash.com/@jens_johnsson?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Jens Johnsson</a> on <a href="https://unsplash.com/s/photos/star-wars?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span> -->
 
-```{css}
+```{css, echo = FALSE}
 blockquote {
   background: #f9f9f9;
   border-left: 10px solid #ccc;
@@ -154,7 +154,7 @@ That's it for the MySQL DBMS itself, the rest of the work for setting up our DB 
 
 In the {dplyr} `r emoji::emoji("package")` we have a dataset <span style="color: #9d5a61;background-color:#efb087"><b>starwars</b></span> which has information for the characters.
 
-```{r, eval = TRUE, echo = TRUE}
+```{r, eval = FALSE, echo = TRUE}
 # need to figure out what data is included
 # in a package? 
 # Call data(package = "pkg_name")
