@@ -11,22 +11,22 @@
         }
       ],
       "contents": "\r\n\r\n\r\nblockquote {\r\n  background: #f9f9f9;\r\n  border-left: 10px solid #ccc;\r\n  margin: 1.5em 10px;\r\n  padding: 0.5em 10px;\r\n  quotes: \"\\201C\"\"\\201D\"\"\\2018\"\"\\2019\";\r\n}\r\nblockquote:before {\r\n  color: #ccc;\r\n  content: open-quote;\r\n  font-size: 4em;\r\n  line-height: 0.1em;\r\n  margin-right: 0.25em;\r\n  vertical-align: -0.4em;\r\n}\r\n# blockquote:after {\r\n#   color: #ccc;\r\n#   content:\"\\201D\";\r\n#   font-size: 4em;\r\n#   line-height: 0.1em;\r\n#   margin-right: 0.25em;\r\n#   vertical-align: -0.4em;\r\n# }\r\nblockquote p {\r\n  display: inline;\r\n}\r\n\r\n\r\nDo NOT mock the sciencificity of the process.\r\n\r\n\r\n— Lorelai Gilmore in A Tale of Poes and Fire\r\nWho am I?\r\n\r\nLike most people who will read this blog, I am a nerd, and a proud R nerd at that 😂.\r\nI am an R-Lady and proud member of AfricaR. 🌍\r\nI am a certified RStudio Tidyverse instructor.\r\nI’m a mum, and hence that last picture of me visiting some far out galaxy (’cos that’s what you do when you have young kids, go on many adventures in far out places).\r\nResources\r\nPlease subscribe to RWeekly, they put out a weekly newsletter, and showcase much learning material, including mine.\r\nPlease consider giving me a follow. I announce there once a new blog post is up.\r\nPlease give R posts you might have missed a follow. The account puts out much learning material regarding R, you are bound to find something you’re interested in 📚 📈.\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-11-29T05:18:25+02:00"
+      "last_modified": "2022-01-08T17:02:21+02:00"
     },
     {
       "path": "code-snippets.html",
       "title": "Code Snippets",
       "description": "Some code snippets as reminders",
       "author": [],
-      "contents": "\r\n\r\n\r\nd-article img {\r\n  margin-bottom: 0px;\r\n}\r\n\r\n.btn-primary {\r\n    background-color: #74a08a;\r\n    color: #FFFFFF;\r\n    padding: 3px 5px 3px 5px;\r\n    margin: 0 2px 0 2px;\r\n    border-radius: 5px; /* Rounded edges */\r\n    border: 0px;\r\n}\r\n\r\n.btn-primary:hover {\r\n    background-color: #8a74a0;\r\n    color: #FFFFFF;\r\n}\r\n\r\n\r\n\r\n\r\n\r\n\r\nAll\r\nR\r\nRead Password Protected Excel\r\nRaw Strings in R\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nggplot2: put data on log scale\r\n\r\nggplot2: Put data on a log scale\r\n\r\nR\r\n\r\n\r\n\r\n\r\n\r\n\r\nRead Password Protected Files in R\r\n\r\nRead Password Protected Excel files in R\r\n\r\nR; Read Password Protected Excel\r\n\r\n\r\n\r\n\r\n\r\n\r\nRaw Strings in R\r\n\r\nIn Version 4.0.0 of R raw strings were added r\"(...)\"\r\n\r\nR; Raw Strings in R\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-11-29T05:18:29+02:00"
+      "contents": "\r\n\r\n\r\nd-article img {\r\n  margin-bottom: 0px;\r\n}\r\n\r\n.btn-primary {\r\n    background-color: #74a08a;\r\n    color: #FFFFFF;\r\n    padding: 3px 5px 3px 5px;\r\n    margin: 0 2px 0 2px;\r\n    border-radius: 5px; /* Rounded edges */\r\n    border: 0px;\r\n}\r\n\r\n.btn-primary:hover {\r\n    background-color: #8a74a0;\r\n    color: #FFFFFF;\r\n}\r\n\r\n\r\n\r\n\r\n\r\n\r\nAll\r\nR\r\nRead Password Protected Excel\r\nRaw Strings in R\r\nConvert to Rmd\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nggplot2: put data on log scale\r\n\r\nggplot2: Put data on a log scale\r\n\r\nR\r\n\r\n\r\n\r\n\r\n\r\n\r\nRead Password Protected Files in R\r\n\r\nRead Password Protected Excel files in R\r\n\r\nR; Read Password Protected Excel\r\n\r\n\r\n\r\n\r\n\r\n\r\nRaw Strings in R\r\n\r\nIn Version 4.0.0 of R raw strings were added r\"(...)\"\r\n\r\nR; Raw Strings in R\r\n\r\n\r\n\r\n\r\n\r\n\r\nConvert an `R` file into an Rmd\r\n\r\nUse knitr::spin() to convert R file into Rmd\r\n\r\nR; Convert to Rmd\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
+      "last_modified": "2022-01-08T17:02:24+02:00"
     },
     {
       "path": "index.html",
       "title": "'Curiouser and curiouser!' `r emoji::emoji('female_detective')`",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-11-29T05:18:30+02:00"
+      "last_modified": "2022-01-08T17:02:25+02:00"
     }
   ],
   "collections": ["posts/posts.json"]
