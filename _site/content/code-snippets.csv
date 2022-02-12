@@ -3,3 +3,4 @@ ggplot2: put data on log scale,images/log.JPG,https://sciencificity.github.io/sc
 Read Password Protected Files in R,images/imattsmart-Vp3oWLsPOss-unsplash.jpg,https://github.com/sciencificity/read-password-protected-xl,Read Password Protected Excel files in R,R; Read Password Protected Excel,1,1
 Raw Strings in R,images/mae-mu--dyxcGiP-rE-unsplash1.jpg,https://sciencificity.github.io/raw-strings-r/,"In Version 4.0.0 of R raw strings were added r""(...)""",R; Raw Strings in R,1,1
 Convert an `R` file into an Rmd,images/markus-spiske-hGb5WqRrWIg-unsplash.jpg,https://github.com/sciencificity/convert-r-to-rmd,Use knitr::spin() to convert R file into Rmd,R; Convert to Rmd,1,1
+Hide certain plots and results in rendered Rmd,images/arseny-togulev-upnf6XRkWho-unsplash.jpg,https://sciencificity.github.io/rmd-hide-info/,Use code chunk options to hide results and plots,R; Suppress Plots and Results in report,1,1
